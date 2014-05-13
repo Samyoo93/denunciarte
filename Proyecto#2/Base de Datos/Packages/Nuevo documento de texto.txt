@@ -1,0 +1,4 @@
+personaFisica
+pais
+barrio
+direccion_entidad

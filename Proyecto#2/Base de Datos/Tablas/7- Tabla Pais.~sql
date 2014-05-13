@@ -1,0 +1,8 @@
+CREATE TABLE Pais
+(
+     pais_id NUMBER(6)
+          CONSTRAINT pais_id_nn NOT NULL   
+          CONSTRAINT pais_id_pk PRIMARY KEY,
+     nombre VARCHAR2(25)
+          CONSTRAINT nombre_pais_nn NOT NULL  
+);

@@ -1,0 +1,24 @@
+CREATE OR REPLACE TRIGGER BefUpdate_categId_CategEntidad
+     BEFORE UPDATE OF categoria_id_fk
+     ON Categoria_Entidad
+     FOR EACH ROW
+     BEGIN
+     INSERT INTO
+          denunciarte_bitacora
+               (
+               bitacora_id,
+               nom_tabla,
+               nom_campo,
+               fec_cambio,
+               valor_anterior,
+               valor_actual
+               )
+         VALUES
+               (
+               s_denunciarte_bitacora.nextval,
+               'Categoria_Entidad',
+               'categoria_id_fk',
+               sysdate,
+               :old.categoria_id_fk,
+               :new.categoria_id_fk);
+END BefUpdate_categId_CategEntidad;
