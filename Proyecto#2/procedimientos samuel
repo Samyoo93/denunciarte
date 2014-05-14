@@ -1,0 +1,6 @@
+-funcion en usuario que retorne si existe o no el nombre de usuario (0 o 1)
+-funcion en usuario que retorne si existe o no el numero de cedula (0 o 1)
+-procedimiento en usuario que registe al nuevo usuario (usuario, password, nombre, primer apellido,
+segundo apellido, genero (M o F), fecha nacimiento, privacidad y ponga estado = 1)
+-funcion que se fije si el password ingresado por el usuario es igual al que 
+esta almacenado (retorna 0 si no coinciden y 1 si coinciden, si coinciden cambia el estado en usuario a 2)
