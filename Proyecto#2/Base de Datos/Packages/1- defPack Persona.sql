@@ -1,4 +1,4 @@
---Definición del paquete persona
+--Definiciï¿½n del paquete persona
 --Para encontrar las funciones que corresponden a esta tabla.
 
 CREATE OR REPLACE PACKAGE pack_persona IS
@@ -10,7 +10,8 @@ CREATE OR REPLACE PACKAGE pack_persona IS
      FUNCTION get_id(nombre VARCHAR2) RETURN NUMBER;
 
      --Procedimiento para llenar la tabla de persona
-     PROCEDURE set_persona(nombre VARCHAR2, primerApellido VARCHAR2, segundoApellido VARCHAR2, genero VARCHAR2, fechaNacimiento DATE);
+     PROCEDURE set_persona(nombre VARCHAR2, primerApellido VARCHAR2, segundoApellido VARCHAR2, genero VARCHAR2, fechaNacimiento date,
+       usuario VARCHAR2, password VARCHAR2, cedula VARCHAR2, PRIVACIDAD number);
 
      --Procedimiento para eliminar el contenido de la tabla persona
      PROCEDURE del_persona (persona_id NUMBER);
