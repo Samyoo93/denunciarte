@@ -39,7 +39,7 @@ CREATE OR REPLACE PACKAGE BODY pack_persona AS
      END;
 
      --Procedimiento para insertar personas
-     PROCEDURE set_persona(nombre VARCHAR2, primerApellido VARCHAR2, segundoApellido VARCHAR2, genero VARCHAR2, fechaNacimiento DATE,
+PROCEDURE set_persona(nombre VARCHAR2, primerApellido VARCHAR2, segundoApellido VARCHAR2, genero VARCHAR2, fechaNacimiento DATE,
        usuario VARCHAR2, password VARCHAR2, cedula VARCHAR2, privacidad number)
           IS
           BEGIN
@@ -73,38 +73,4 @@ CREATE OR REPLACE PACKAGE BODY pack_persona AS
 	       COMMIT;
      END;
 
-END pack_persona;
-
-     END;
-
-     --Procedimiento para insertar personas    
-     PROCEDURE set_persona(nombre VARCHAR2, primerApellido VARCHAR2, segundoApellido VARCHAR2, genero VARCHAR2, fechaNacimiento DATE)
-          IS
-          BEGIN
-               INSERT INTO persona
-                    (persona_id, nombre, primerApellido, segundoApellido, genero, fechaNacimiento)
-               VALUES          
-                    (s_persona.nextval, nombre, primerApellido, segundoApellido, genero, fechaNacimiento);
-     	       COMMIT;
-     END;
-
-     --Procedimiento para eliminar personas 
-     PROCEDURE del_persona (persona_id NUMBER) 
-          IS
-          BEGIN
-               DELETE FROM persona
-               WHERE persona.persona_id = persona_id;
-	       COMMIT;
-     END;
-     
-     --Procedimiento para modificar personas
-     PROCEDURE mod_persona(persona_id NUMBER, nombre VARCHAR2, primerApellido VARCHAR2, segundoApellido VARCHAR2, genero VARCHAR2, fechaNacimiento DATE)
-          IS
-          BEGIN
-               UPDATE persona
-               SET (nombre,primerApellido, segundoApellido, genero, fechaNacimiento) = (SELECT nombre,primerApellido, segundoApellido, genero, fechaNacimiento FROM DUAL)
-               WHERE persona.persona_id = persona_id;
-	       COMMIT;
-     END;
-     
 END pack_persona;
