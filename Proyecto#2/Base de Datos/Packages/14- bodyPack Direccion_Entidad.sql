@@ -1,13 +1,17 @@
 CREATE OR REPLACE PACKAGE BODY pack_direccion_entidad AS
 
      --Procedimiento para insertar categoria_personaFisica
-     PROCEDURE set_direccion_entidad(direccion VARCHAR2, barrioId NUMBER, entidadId NUMBER)
-          IS
-          BEGIN
-               INSERT INTO direccion_entidad
-                    (direccion_entidad_id, entidad_id_fk, barrio_id_fk)
-               VALUES
-                    (s_direccion_entidad.nextval, entidadId, barrioId);
+    procedure set_direccion_entidad (exacta varchar2, nombre_barrio varchar2)
+         is
+              id_barrio number;
+      begin
+        select barrio_id into id_barrio from barrio
+        where nombre = nombre_barrio;
+
+        insert into direccion_entidad
+               (direccionexacta, barrio_id_fk, entidad_id_fk, direccion_entidad_id)
+        values
+               (exacta, id_barrio, s_entidad.currval, s_direccion_entidad.nextval);
 	       COMMIT;
      END;
 
