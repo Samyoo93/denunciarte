@@ -1,5 +1,5 @@
 CREATE OR REPLACE TRIGGER beforeInsert_emprId_empresaPer
-       BEFORE UPDATE --DELETE OR INSERT OR UPDATE
+       BEFORE INSERT --DELETE OR INSERT OR UPDATE
           ON denunciarte.empresa_personaFisica FOR EACH ROW
           --REFERENCING NEW AS newRow
        BEGIN
