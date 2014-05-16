@@ -1,4 +1,4 @@
-CREATE OR REPLACE TRIGGER beforeInsert_direccion_entida
+CREATE OR REPLACE TRIGGER beforeInsert_direccion_entidad
        BEFORE UPDATE --DELETE OR INSERT OR UPDATE
           ON denunciarte.direccion_entidad FOR EACH ROW
           --REFERENCING NEW AS newRow
