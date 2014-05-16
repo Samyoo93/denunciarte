@@ -1,5 +1,5 @@
 CREATE OR REPLACE TRIGGER beforeInsert_reporte_usuario
-       BEFORE UPDATE --DELETE OR INSERT OR UPDATE
+       BEFORE INSERT --DELETE OR INSERT OR UPDATE
           ON denunciarte.reporte_usuario FOR EACH ROW
           --REFERENCING NEW AS newRow
        BEGIN
