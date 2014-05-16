@@ -1,0 +1,33 @@
+CREATE OR REPLACE PACKAGE BODY pack_reporte AS
+     
+     FUNCTION get_id(descripcion VARCHAR2) 
+          RETURN NUMBER
+          IS
+               reporteId NUMBER(6);
+            
+          BEGIN
+               SELECT reporte_id
+               INTO reporteId
+               FROM reporte
+               WHERE reporte.descripcion = descripcion;
+           
+               EXCEPTION
+                    WHEN NO_DATA_FOUND THEN
+                         DBMS_OUTPUT.put_line('El nombre es inválido');
+               
+               RETURN(reporteId);
+
+     END;
+     
+     --Procedimiento para insertar categorias
+     PROCEDURE set_reporte(descripcion VARCHAR2, cedulaUsuario NUMBER)
+          IS
+          BEGIN
+               INSERT INTO reporte
+                    (reporte_id, descripcion, cedulaUsuario_id_fk)
+               VALUES
+                    (s_reporte.nextval, descripcion, cedulaUsuario);
+               COMMIT;
+     END;
+
+END pack_reporte;
