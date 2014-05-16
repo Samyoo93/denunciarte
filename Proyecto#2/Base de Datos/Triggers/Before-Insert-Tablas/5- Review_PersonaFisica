@@ -1,5 +1,5 @@
 CREATE OR REPLACE TRIGGER beforeInsert_review_perFisica
-       BEFORE UPDATE --DELETE OR INSERT OR UPDATE
+       BEFORE INSERT --DELETE OR INSERT OR UPDATE
           ON denunciarte.review_personaFisica FOR EACH ROW
           --REFERENCING NEW AS newRow
        BEGIN
