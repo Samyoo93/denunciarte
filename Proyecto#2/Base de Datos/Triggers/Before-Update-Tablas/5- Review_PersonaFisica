@@ -1,0 +1,8 @@
+CREATE OR REPLACE TRIGGER beforeUpTable_review_perFisica
+       BEFORE UPDATE --DELETE OR INSERT OR UPDATE
+          ON denunciarte.review_personaFisica FOR EACH ROW
+          --REFERENCING NEW AS newRow
+       BEGIN
+          :new.fec_ultima_modificacion := SYSDATE;
+          :new.usuario_ultima_modificacion := USER;
+END;
