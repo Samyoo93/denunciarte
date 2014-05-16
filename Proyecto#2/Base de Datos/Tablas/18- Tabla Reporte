@@ -5,7 +5,7 @@ CREATE TABLE Reporte
           CONSTRAINT reporte_id_pk PRIMARY KEY,
      descripcion VARCHAR2(50)
           CONSTRAINT descripcion_reporte_nn NOT NULL,
-     cedulaUsuario_id_fk NUMBER(6)
+     cedulaUsuario_id_fk NUMBER(9)
           CONSTRAINT cedulaUsuario_id_fk_reporte_nn NOT NULL,
           CONSTRAINT cedulaUsuario_id_fk_reporte FOREIGN KEY(cedulaUsuario_id_fk)
                REFERENCES usuario(cedulausuario_id),
