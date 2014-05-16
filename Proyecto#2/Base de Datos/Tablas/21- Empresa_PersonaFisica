@@ -1,0 +1,18 @@
+CREATE TABLE empresa_personaFisica
+(
+     empresa_personaFisica_id  NUMBER(6)
+          CONSTRAINT empresa_personaFisica_id_pk PRIMARY KEY
+          CONSTRAINT empresa_personaFisica_id_nn NOT NULL,
+     empresa_id_fk NUMBER(6)
+          CONSTRAINT empresa_id_fk_nn NOT NULL,
+          CONSTRAINT empresa_id_fk FOREIGN KEY(empresa_id_fk)
+               REFERENCES empresa(empresa_id),
+     cedulaFisica_id_fk NUMBER(6)
+          CONSTRAINT cedulaFisica_id_fk_EmpPerFi_nn NOT NULL,
+          CONSTRAINT cedulaFisica_id_fk_EmpPerFi FOREIGN KEY(cedulaFisica_id_fk)
+               REFERENCES personaFisica(cedulaFisica_id),
+     fecha_creacion DATE,
+     usuario_creacion VARCHAR2(25),
+     fec_ultima_modificacion DATE,
+     usuario_ultima_modificacion VARCHAR2(25)   
+);
