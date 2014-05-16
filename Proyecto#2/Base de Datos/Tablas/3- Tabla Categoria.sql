@@ -7,8 +7,9 @@ CREATE TABLE Categoria
           CONSTRAINT nombre_categoria_nn NOT NULL,
      descripcion VARCHAR2(50)
           CONSTRAINT descripcion_categoria_nn NOT NULL,
-     tipo NUMBER(1)
-          CONSTRAINT tipo_nn NOT NULL,
+     tipo VARCHAR2(1)
+          CONSTRAINT tipo_nn NOT NULL
+          CHECK (tipo IN ('F','E')),
      fecha_creacion DATE,
      usuario_creacion VARCHAR2(25),
      fec_ultima_modificacion DATE,
