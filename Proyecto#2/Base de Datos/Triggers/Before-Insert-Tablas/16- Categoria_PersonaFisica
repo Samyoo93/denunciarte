@@ -1,0 +1,8 @@
+CREATE OR REPLACE TRIGGER beforeInsert_categoria_PerFis
+       BEFORE UPDATE --DELETE OR INSERT OR UPDATE
+          ON denunciarte.categoria_personaFisica FOR EACH ROW
+          --REFERENCING NEW AS newRow
+       BEGIN
+          :new.fecha_creacion:= SYSDATE;
+          :new.usuario_creacion := USER;
+END;
