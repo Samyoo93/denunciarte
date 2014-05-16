@@ -1,0 +1,8 @@
+CREATE OR REPLACE TRIGGER beforeInsert_usuario
+       BEFORE UPDATE --DELETE OR INSERT OR UPDATE
+          ON denunciarte.usuario FOR EACH ROW
+          --REFERENCING NEW AS newRow
+       BEGIN
+          :new.fecha_creacion:= SYSDATE;
+          :new.usuario_creacion := USER;
+END;
