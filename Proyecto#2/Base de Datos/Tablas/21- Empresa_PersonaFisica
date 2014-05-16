@@ -7,7 +7,7 @@ CREATE TABLE empresa_personaFisica
           CONSTRAINT empresa_id_fk_nn NOT NULL,
           CONSTRAINT empresa_id_fk FOREIGN KEY(empresa_id_fk)
                REFERENCES empresa(empresa_id),
-     cedulaFisica_id_fk NUMBER(6)
+     cedulaFisica_id_fk NUMBER(9)
           CONSTRAINT cedulaFisica_id_fk_EmpPerFi_nn NOT NULL,
           CONSTRAINT cedulaFisica_id_fk_EmpPerFi FOREIGN KEY(cedulaFisica_id_fk)
                REFERENCES personaFisica(cedulaFisica_id),
