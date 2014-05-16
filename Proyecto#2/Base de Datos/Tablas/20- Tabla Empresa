@@ -1,0 +1,12 @@
+CREATE TABLE empresa
+(
+     empresa_id NUMBER(6)
+          CONSTRAINT empresa_id_nn NOT NULL
+          CONSTRAINT empresa_id_pk PRIMARY KEY,
+     nombre VARCHAR2(50)
+          CONSTRAINT nombre_empresa_nn NOT NULL,
+     fecha_creacion DATE,
+     usuario_creacion VARCHAR2(25),
+     fec_ultima_modificacion DATE,
+     usuario_ultima_modificacion VARCHAR2(25)   
+);
