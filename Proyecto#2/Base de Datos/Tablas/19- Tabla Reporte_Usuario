@@ -1,0 +1,18 @@
+CREATE TABLE Reporte_Usuario
+(    
+     reporte_usuario_id NUMBER(6)
+          CONSTRAINT reporte_usuario_id_nn NOT NULL
+          CONSTRAINT pk_reporte_usuario_id PRIMARY KEY ,     
+     cedulaUsuario_id_fk NUMBER(9)
+          CONSTRAINT usuario_id_fk_ReportUsuario_nn NOT NULL,
+          CONSTRAINT fisica_id_fk_ReportUsuario FOREIGN KEY(cedulaUsuario_id_fk)
+               REFERENCES usuario(cedulaUsuario_id),
+     reporte_id_fk NUMBER(6)
+          CONSTRAINT reporte_id_fk_ReportUsuario_nn NOT NULL,
+          CONSTRAINT reporte_id_fk_ReportUsuario FOREIGN KEY(reporte_id_fk)
+               REFERENCES reporte(reporte_id),
+     fecha_creacion DATE,
+     usuario_creacion VARCHAR2(25),
+     fec_ultima_modificacion DATE,
+     usuario_ultima_modificacion VARCHAR2(25)   
+);
