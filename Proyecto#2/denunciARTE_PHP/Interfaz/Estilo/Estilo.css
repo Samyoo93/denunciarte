@@ -1,0 +1,65 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	
+	alignment-adjust:auto;
+	background-color: #fff;
+	width:800px;
+	height:900px;
+	border:#914998;
+}
+
+h1{
+	position: absolute;
+	font: small-caps 100%/200% serif;
+	font-size: 54px;
+	color:#914998;
+}
+
+
+h2{
+	position: absolute;
+	font: small-caps 100%/200% serif;
+	font-size: 24px;
+	color:#914998;
+}
+a{
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:16px;
+	color:#914998;
+}
+
+button[type=submit]{
+	color: #CFCFCF;
+	font: small-caps 100%/200% serif;
+	font-size: 16px;
+	text-decoration: none;
+	cursor: pointer;
+	border: 2px solid #ccc;
+	letter-spacing: 1px;
+	background-color:#914998;/*#93C;/* #D670DE;*/
+	position: absolute;
+	
+ 
+}
+
+/* cuadro Gris */
+#CuadroGris{
+	/*Bordes redondeados*/
+	-webkit-border-radius: 10px;/*Para chrome y Safari*/
+	-moz-border-radius: 10px;/*Para Firefox*/
+	-o-border-radius: 10px;/*Para Opera*/
+	border-radius: 10px;/*El estandar por defecto*/
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#CFCFCF), to(#CFCFCF));    /*Para chrome y Safari*/
+	/*Degradados*/
+	background-image: -moz-linear-gradient(top center, #CFCFCF, #CFCFCF);/*Para Firefox*/
+	background-image: -o-linear-gradient(top, #CFCFCF, #CFCFCF);/*Para Opera*/
+	background-image: linear-gradient(top, #CFCFCF, #CFCFCF);/*El estandar por defecto*/
+	border: 1px solid rgba(193, 65, 211,0.8);
+	box-shadow: 0pt 2px 5px rgba(105, 108, 109,  0.7),  
+        0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
+	border-radius: 5px;
+
+	
+	}
