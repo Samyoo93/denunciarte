@@ -65,8 +65,8 @@ function registrar(){
 <img src="Imagenes/playStore.jpg" style="position:absolute; top:430px; left:250px;" />
 </section>
 
-<section id='error' style='position:absolute; top:170px; left:545px;'>
-</section>
+<div id='registro'>
+</div>
 
 <!-- Registro de usuarios -->
 <section style="position:absolute; top:170px; left:480px; width:450px; height:300px;">
