@@ -24,7 +24,7 @@ function registrar(){
 	var cedula3= document.getElementById("cedula3").value;
 	
 
-    var vars = 'nombre='+nombre+'&primerApellido='+primerApellido+"&segundoApellido="+segundoApellido+'&fecNac='+fecNac+'&email='+email+'&email2='+email2+'&genero='+genero+'&usuario='+usuario+'&contrasena='+contrasena+'&contrasena2='+contrasena2;
+    var vars = 'nombre='+nombre+'&primerApellido='+primerApellido+"&segundoApellido="+segundoApellido+'&fecNac='+fecNac+'&nick='+nick+'&cedula1='+cedula1+'&cedula2='+cedula2+'&cedula3='+cedula3+'&genero='+genero+'&usuario='+usuario+'&contrasena='+contrasena+'&contrasena2='+contrasena2;
     hr.open("POST", url, true);
     // Set content type header information for sending url encoded variables in the request
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
