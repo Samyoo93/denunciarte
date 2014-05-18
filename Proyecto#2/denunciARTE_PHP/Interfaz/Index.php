@@ -14,8 +14,6 @@ function registrar(){
     var primerApellido = document.getElementById("primerApellido").value;
     var segundoApellido = document.getElementById("segundoApellido").value;
     var fecNac = document.getElementById("fecNac").value;
-    var email = document.getElementById("email").value;
-    var email2 = document.getElementById("email2").value;
     var genero = document.getElementById("genero").value;
     var contrasena = document.getElementById("contrasena").value;
 	var contrasena = document.getElementById("contrasena2").value;
@@ -100,8 +98,7 @@ function registrar(){
           
     <input type = "radio" name = "genero" id = "genero" value = "M" style="position:absolute; top:470px; left:250px;" />
     <a for = "Masculino" style="position:absolute; top:470px; left:270px;">Masculino</a>
-    
-	<a style="position:absolute; top:470px; left:"
+ 
     <input type="checkbox" style="position:absolute; top:510px; left:60px;" />
     <a style="position:absolute; left:80px; top:510px;"> Aceptas las </a> <a href="" style="position:absolute; top:510px; left:170px;"> Condiciones de uso </a><a style="position:absolute; top:510px; left:310px"> y que has leído la </a> <a href="" style="position:absolute; top:530px; left:80px;">Política de uso de datos.</a>
     <button type="submit" onclick='registrar()' style="position:absolute; top:560px; left:60px; width:200px;">Registrarse</button> 
