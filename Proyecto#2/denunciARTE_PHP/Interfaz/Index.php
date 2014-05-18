@@ -16,7 +16,7 @@ function registrar(){
     var fecNac = document.getElementById("fecNac").value;
     var genero = document.getElementById("genero").value;
     var contrasena = document.getElementById("contrasena").value;
-	var contrasena = document.getElementById("contrasena2").value;
+    var contrasena2 = document.getElementById("contrasena2").value;
     var usuario = document.getElementById("usuario").value;
 	var nick= document.getElementById("nick").value;
 	var cedula1= document.getElementById("cedula1").value;
@@ -47,10 +47,10 @@ function registrar(){
 <section id="CuadroGris" style=" top:20px; position:absolute; left:20px; width:960px; height:120px">
 <h1 style="position:absolute; left:30px; top:-20px;"> DenunciARTE </h1>
 <a style="position:absolute; left:510px; top:30px;"> Usuario </a>
-<input type="text" style="position:absolute; top:50px; left:510px;" placeholder="Usuario" />
+<input type="text" style="position:absolute; top:50px; left:510px;" placeholder="Usuario" id="usuarioLogin" />
 <a style="position:absolute; left:690px; top:30px;"> Contraseña </a>
 <a href="" style="position:absolute; left:690px; font-size:12px; top:80px;">¿Olvidaste tu contraseña?</a>
-<input type="text" style="position:absolute; top:50px; left:690px;" placeholder="Contraseña" />
+<input type="text" style="position:absolute; top:50px; left:690px;" id="contrasenaLogin" placeholder="Contraseña" />
 <button type="submit" style="position:absolute; top:50px; left:870px;">Entrar</button>
 </section>
 <!-- LOGO -->
