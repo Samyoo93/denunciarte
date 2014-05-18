@@ -18,7 +18,7 @@ function registrar(){
     var email2 = document.getElementById("email2").value;
     var genero = document.getElementById("genero").value;
     var contrasena = document.getElementById("contrasena").value;
-	var contrasena = document.getElementById("contrasena2").value;
+    var contrasena2 = document.getElementById("contrasena2").value;
     var usuario = document.getElementById("usuario").value;
 
     var vars = 'nombre='+nombre+'&primerApellido='+primerApellido+"&segundoApellido="+segundoApellido+'&fecNac='+fecNac+'&email='+email+'&email2='+email2+'&genero='+genero+'&usuario='+usuario+'&contrasena='+contrasena+'&contrasena2='+contrasena2;
