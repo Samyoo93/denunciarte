@@ -8,20 +8,22 @@
 
     //crear variables ligadas a la pg con html
 
-	$usuario = "fsa1";//$_POST['usuario'];
-	$password = "123queso";//$_POST['password'];
-    $password2 = "123queso";//$_POST['password2'];
-	$nombre = "Franco";//$_POST['nombre'];
-	$primerApellido = "Solis";//$_POST['primerApellido'];
-	$segundoApellido = "Alvarado";//$_POST['segundoApellido'];
-	$genero = "M";//$_POST['sexo'];
-	$fechaNacimiento = '2010-10-10';// $_POST['fechaNacimiento'];
-	$privacidad = 1;//$_POST['privacidad'];
-    $cedula1 = 123;//$_POST["cedula1"]; 
-	$cedula2 = 321;//$_POST["cedula2"];  
-	$cedula3 = 1;//$_POST["cedula3"];  
-    $cedula = $cedula1 . $cedula2 . $cedula3; 
-    $cedula = intval($cedula);
+	$usuario = $_POST['usuario'];
+	$password = $_POST['password'];
+    $password2 = $_POST['password2'];
+	$nombre =$_POST['nombre'];
+	$primerApellido = $_POST['primerApellido'];
+	$segundoApellido = $_POST['segundoApellido'];
+	$genero = $_POST['genero'];
+	$fechaNacimiento = $_POST['fecNac'];
+	$privacidad = 1;
+	//La cédula no la puse en el formulario al igual que el nick
+	//para que las agregue al iniciarSesión.
+        //$cedula1 = 123;//$_POST["cedula1"]; 
+	//$cedula2 = 321;//$_POST["cedula2"];  
+	//$cedula3 = 1;//$_POST["cedula3"];  
+    //$cedula = $cedula1 . $cedula2 . $cedula3; 
+    //$cedula = intval($cedula);
 
     $def = "ECHO DE TODO EL HTML IGNORAR POR AHORA";
 
