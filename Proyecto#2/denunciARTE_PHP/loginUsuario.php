@@ -7,9 +7,8 @@
 		die();
 	}
 	//crea variables ligadas a la pg con html
-    $usuario = "fsa1";//$_POST['usuario'];
-    $password = "123queso";//$_POST['password'];
-    $def = "ECHO DE TODO EL HTML IGNORAR POR AHORA";
+    $usuario = $_POST['usuarioLogin'];
+    $password = $_POST['contrasenaLogin'];
 
     if($usuario != null and $password != null) {
         //verifica que se llenen todos los campos
@@ -28,10 +27,10 @@
             //**********************************************************************************
             if ($rows == 0) {
                 //Ya existe el usuario
-               echo "<section id='error' style='position:absolute; top:10px; left:350px; background-color:#ff3e3e;'>
-               <a style='font-size:20px; color:#000;'>El usuario ". $usuario ." no existe.</a>
-               </section>";
-               echo $def;
+                echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
+                <a style='font-size:20px; color:#F00; font-size:16px;'>**El usuario ". $usuario ." no existe..</a>
+                </section>";
+               
             } else {
                 //valida si el password es correcto, y si lo es conecta al usuario
                 $canLogin = "begin :isValid := pack_usuario.confirmarPassword(:password, :usuario); end;";
@@ -45,13 +44,14 @@
                     echo "<section id='success' style='position:absolute; top:15px; left:370px; background-color:#6ae364;'>
                     <a style='font-size:20px; color:#000;'>Login con exito.</a>
                     </section>";
-                    echo $def;
+                    
+                    
                 } else {
                     //mensaje de error
-                    echo "<section id='error' style='position:absolute; top:10px; left:350px; background-color:#ff3e3e;'>
-                    <a style='font-size:20px; color:#000;'>Contraseña invalida.</a>
+                    echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
+                    <a style='font-size:20px; color:#F00; font-size:16px;'>**Contraseña invalida.</a>
                     </section>";
-                    echo $def;    
+                        
                 }
             }
         } else {
@@ -61,9 +61,9 @@
         }
     } else {
         //mensaje de error
-        echo "<section id='error' style='position:absolute; top:10px; left:350px; background-color:#ff3e3e;'>
-        <a style='font-size:20px; color:#000;'>Debe de llenar los espacios.</a>
+       echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
+        <a style='font-size:20px; color:#F00; font-size:16px;'>**Debe de llenar todos los espacios.</a>
         </section>";
-        echo $def;        
+                
     }
 ?>
