@@ -18,8 +18,13 @@ function registrar(){
     var email2 = document.getElementById("email2").value;
     var genero = document.getElementById("genero").value;
     var contrasena = document.getElementById("contrasena").value;
-    var contrasena2 = document.getElementById("contrasena2").value;
+	var contrasena = document.getElementById("contrasena2").value;
     var usuario = document.getElementById("usuario").value;
+	var nick= document.getElementById("nick").value;
+	var cedula1= document.getElementById("cedula1").value;
+	var cedula2=document.getElementById("cedula2").value;
+	var cedula3= document.getElementById("cedula3").value;
+	
 
     var vars = 'nombre='+nombre+'&primerApellido='+primerApellido+"&segundoApellido="+segundoApellido+'&fecNac='+fecNac+'&email='+email+'&email2='+email2+'&genero='+genero+'&usuario='+usuario+'&contrasena='+contrasena+'&contrasena2='+contrasena2;
     hr.open("POST", url, true);
@@ -61,37 +66,45 @@ function registrar(){
 <a style="position:absolute; top:450px; left:120px;">Descárgalo desde</a>
 <img src="Imagenes/playStore.jpg" style="position:absolute; top:430px; left:250px;" />
 </section>
+
+<section id='error' style='position:absolute; top:170px; left:545px;'>
+</section>
+
 <!-- Registro de usuarios -->
 <section style="position:absolute; top:170px; left:480px; width:450px; height:300px;">
-<div id="registro">
 <h2 style="position:absolute; left:30px;">Regístrate</h2>
 <a style="position:absolute; left:30px; top:50px;">________________________________________</a>
 <a style="position:absolute; top:90px; left:60px;">Nombre</a>
 <input type="text" id="nombre" placeholder="Nombre" style="position:absolute; top: 90px; left:130px; width:80px;" />
 <input type="text" id="primerApellido" placeholder="PrimerApellido" style="position:absolute; top: 90px; left:220px; width:100px;" />
 <input type="text" id="segundoApellido" placeholder="SegundoApellido" style="position:absolute; top: 90px; left:330px; width:100px;" />
-<a style="position:absolute; top:130px; left:60px;">Correo electrónico</a>
-<input type="text" id="email" style="position:absolute; top: 150px; left:130px; width:300px;" />
-<a style="position:absolute; top:190px; left:60px;">Confirmar el correo</a>
-<input type="text" id="email2" style="position:absolute; top: 210px; left:130px; width:300px;" />
+<a style="position:absolute; top:130px; left:60px;">Cédula</a>
+<input type="text" id="cedula1" align="center" placeholder="1" style="position:absolute; top: 150px; left:130px; width:20px;" />
+<label style="position:absolute; top:155px; left:165px;">-</label>
+<input type="text" id="cedula2" align='center' placeholder="1111" style="position:absolute; top: 150px; left:190px; width:100px;" />
+<label style="position:absolute; top:155px; left:310px;">-</label>
+<input type="text" id="cedula3" align="center" placeholder="1111" style="position:absolute; top: 150px; left:330px; width:100px;" />
+<a style="position:absolute; top:190px; left:60px;">Nick</a>
+<input type="text" id="nick" placeholder="Alías para reportes" align="center" style="position:absolute; top: 210px; left:130px; width:300px;" />
 <a style="position:absolute; top:250px; left:60px;">Usuario</a>
-<input type="text" id="usuario" style="position:absolute; top: 250px; left:130px; width:300px;" />
+<input type="text" id="usuario" placeholder="De 1-24 carácteres." style="position:absolute; top: 250px; left:130px; width:300px;" />
 <a style="position:absolute; top:290px; left:60px;">Contraseña</a>
-<input type="password" id="contrasena" style="position:absolute; top: 310px; left:130px; width:300px;" />
+<input type="password" id="contrasena"  placeholder="De 1-15 carácteres."style="position:absolute; top: 310px; left:130px; width:300px;" />
 <a style="position:absolute; top:350px; left:60px;">Confirmar la contraseña</a>
-<input type="password" id="contrasena2" style="position:absolute; top: 370px; left:130px; width:300px;" />
+<input type="password" id="contrasena2" placeholder="Verifique las contraseñas" style="position:absolute; top: 370px; left:130px; width:300px;" />
 <a style="position:absolute; top:410px; left:60px;">Fecha de nacimiento</a>
 <input type="date" id="fecNac"style="position:absolute; top: 430px; left:130px; width:300px;" />
 <a style="position: absolute; left: 60px; top: 470px;">Género</a>
 	<input type = "radio" name = "genero" id = "genero" value = "F" checked = "checked" style="		     position:absolute; top:470px; left:140px;"/>
     <a for = "Femenino" style="position:absolute; top:470px; left:160px;">Femenino</a>
           
-    <input type = "radio" name = "sexo" id = "sexo" value = "M" style="position:absolute; top:470px; left:250px;" />
+    <input type = "radio" name = "genero" id = "genero" value = "M" style="position:absolute; top:470px; left:250px;" />
     <a for = "Masculino" style="position:absolute; top:470px; left:270px;">Masculino</a>
+    
+	<a style="position:absolute; top:470px; left:"
     <input type="checkbox" style="position:absolute; top:510px; left:60px;" />
     <a style="position:absolute; left:80px; top:510px;"> Aceptas las </a> <a href="" style="position:absolute; top:510px; left:170px;"> Condiciones de uso </a><a style="position:absolute; top:510px; left:310px"> y que has leído la </a> <a href="" style="position:absolute; top:530px; left:80px;">Política de uso de datos.</a>
-    <button type="submit" onclick="registrar"style="position:absolute; top:560px; left:60px; width:200px;">Registrarse</button> 
-</div>
+    <button type="submit" onclick='registrar()' style="position:absolute; top:560px; left:60px; width:200px;">Registrarse</button> 
 </section>
 
 <!-- Registro Entidad-->
