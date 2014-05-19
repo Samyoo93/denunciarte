@@ -3,13 +3,13 @@ CREATE TABLE Review_personaFisica
      review_personaFisica_id NUMBER(6)
           CONSTRAINT review_personaFisica_id_pk PRIMARY KEY
           CONSTRAINT review_personaFisica_id_nn NOT NULL,
-     review_id_fk NUMBER(6)
+     review_id NUMBER(6)
           CONSTRAINT review_id_fk_RevPerFis_nn NOT NULL,
-          CONSTRAINT review_id_fk_RevPerFis FOREIGN KEY(review_id_fk)
+          CONSTRAINT review_id_fk_RevPerFis FOREIGN KEY(review_id)
                REFERENCES review(review_id),
-     cedulaFisica_id_fk   NUMBER(9)
+     cedulaFisica_id   NUMBER(9)
           CONSTRAINT fisica_id_fk_RevPerFis_nn NOT NULL,
-          CONSTRAINT fisica_id_fk_RevPerFis FOREIGN KEY(cedulaFisica_id_fk)
+          CONSTRAINT fisica_id_fk_RevPerFis FOREIGN KEY(cedulaFisica_id)
                REFERENCES personaFisica(cedulafisica_Id),
      fecha_creacion DATE,
      usuario_creacion VARCHAR2(25),
