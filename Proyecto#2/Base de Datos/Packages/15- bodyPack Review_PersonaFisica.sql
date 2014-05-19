@@ -5,7 +5,7 @@ CREATE OR REPLACE PACKAGE BODY pack_review_personaFisica AS
           IS
           BEGIN
                INSERT INTO review_personaFisica
-                    (review_personaFisica_id, cedulaFisica_id_fk, review_id_fk)
+                    (review_personaFisica_id, cedulaFisica_id, review_id)
                VALUES
                     (s_review_personaFisica.Nextval, cedulaFisica, reviewId);
 	       COMMIT;
