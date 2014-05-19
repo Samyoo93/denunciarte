@@ -5,7 +5,7 @@ CREATE OR REPLACE PACKAGE BODY pack_empresa_personaFisica AS
           IS
           BEGIN
                INSERT INTO empresa_personaFisica
-                    (empresa_personaFisica_id, empresa_id_fk, cedulaFisica_id_fk)
+                    (empresa_personaFisica_id, empresa_id, cedulaFisica_id)
                VALUES
                     (s_empresa_personaFisica.nextval, empresaId, cedulaFisica);
             COMMIT;
