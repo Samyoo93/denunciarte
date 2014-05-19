@@ -5,7 +5,7 @@ CREATE OR REPLACE PACKAGE BODY pack_reporte_usuario AS
           IS
           BEGIN
                INSERT INTO reporte_usuario
-                    (reporte_usuario_id, cedulaUsuario_id_fk, reporte_id_fk)
+                    (reporte_usuario_id, cedulaUsuario_id, reporte_id)
                VALUES
                     (s_reporte_usuario.nextval, cedulaUsuario, reporte_id);
             COMMIT;
