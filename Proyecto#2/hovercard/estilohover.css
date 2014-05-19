@@ -1,0 +1,9 @@
+.review {
+    display: none;
+}
+.left {
+    float: left;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.75em;
+}
+
