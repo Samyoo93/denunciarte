@@ -10,11 +10,11 @@ CREATE OR REPLACE PACKAGE BODY pack_personaFisica AS
                SELECT cedulaFisica_id 
                INTO cedula
                FROM personaFisica
-               WHERE personaFisica.Persona_Id_Fk = personaId;
+               WHERE personaFisica.Persona_Id = personaId;
 
                EXCEPTION
                     WHEN NO_DATA_FOUND THEN
-                         DBMS_OUTPUT.put_line('El nombre es inválido');
+                         DBMS_OUTPUT.put_line('El nombre es invï¿½lido');
 
                RETURN(cedula);
      END;
@@ -24,7 +24,7 @@ CREATE OR REPLACE PACKAGE BODY pack_personaFisica AS
           IS
           BEGIN
                INSERT INTO personaFisica
-                    (cedulaFisica_id, persona_id_fk)
+                    (cedulaFisica_id, persona_id)
                VALUES
                     (cedulaFisica, persona_id);
 	       COMMIT;
