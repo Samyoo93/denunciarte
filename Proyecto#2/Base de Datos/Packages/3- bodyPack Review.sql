@@ -5,7 +5,7 @@ CREATE OR REPLACE PACKAGE BODY pack_review AS
           IS
           BEGIN
                INSERT INTO review
-                    (review_id, nota, descripcion, calificacion, cedulaUsuario_id_fk)
+                    (review_id, nota, descripcion, calificacion, cedulaUsuario_id)
                VALUES
                     (s_review.nextval, nota, descripcion, calificacion, cedulaUsuario);
  	       COMMIT;
