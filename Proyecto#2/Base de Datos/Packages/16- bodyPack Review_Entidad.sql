@@ -6,7 +6,7 @@ CREATE OR REPLACE PACKAGE BODY pack_review_entidad AS
 
           BEGIN
                INSERT INTO review_entidad
-                    (review_entidad_id, entidad_id_fk, review_id_fk)
+                    (review_entidad_id, entidad_id, review_id)
                VALUES
                     (s_review_entidad.Nextval, entidadId, reviewId);
 	       COMMIT;
