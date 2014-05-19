@@ -9,7 +9,7 @@ CREATE OR REPLACE PACKAGE BODY pack_direccion_entidad AS
         where nombre = nombre_barrio;
 
         insert into direccion_entidad
-               (direccionexacta, barrio_id_fk, entidad_id_fk, direccion_entidad_id)
+               (direccionexacta, barrio_id, entidad_id, direccion_entidad_id)
         values
                (exacta, id_barrio, s_entidad.currval, s_direccion_entidad.nextval);
 	       COMMIT;
