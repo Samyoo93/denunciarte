@@ -11,10 +11,10 @@ CREATE OR REPLACE PACKAGE BODY pack_provincia AS
                INTO provinciaId
                FROM provincia
                WHERE provincia.nombre = nombre;
-
+               RETURN(provinciaId);
                EXCEPTION
                     WHEN NO_DATA_FOUND THEN
-                         DBMS_OUTPUT.put_line('El nombre es inválido');
+                         DBMS_OUTPUT.put_line('El nombre es invï¿½lido');
 
                RETURN(provinciaId);
      END;
