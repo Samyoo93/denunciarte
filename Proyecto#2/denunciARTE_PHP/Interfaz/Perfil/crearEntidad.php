@@ -4,6 +4,37 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>DenunciARTE</title>
 <link rel="stylesheet" href="../Estilo/Estilo.css" />
+    <script>
+        function crear(){
+    // Create our XMLHttpRequest object
+    var hr = new XMLHttpRequest();
+    // Create some variables we need to send to our PHP file
+    var url = "registroEntidad.php";
+    var nombre = document.getElementById("nombre").value;
+    var cedJuridica = document.getElementById("cedJuridica").value;
+    var pais = document.getElementById("pais").value;
+    var provincia = document.getElementById("provincia").value;
+    var canton = document.getElementById("canton").value;
+    var distrito = document.getElementById("distrito").value;
+    var barrio = document.getElementById("barrio").value;
+    var tipoCategoria = document.getElementById("tipoCategoria").value;
+    var vars = 'nombre='+nombre+'&cedJuridica='+cedJuridica+'&pais='+pais+'&provincia='+provincia+'&canton='+canton+'&distrito='+distrito+
+        '&barrio='+barrio+'&tipoCategoria='+tipoCategoria;
+    hr.open("POST", url, true);
+    // Set content type header information for sending url encoded variables in the request
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    // Access the onreadystatechange event for the XMLHttpRequest object
+    hr.onreadystatechange = function() {
+	    if(hr.readyState == 4 && hr.status == 200) {
+		    var return_data = hr.responseText;
+			document.getElementById("crearEntidad").innerHTML = return_data;
+	    }
+    }
+    // Send the data to PHP now... and wait for response to update the status div
+    hr.send(vars); // Actually execute the request
+    document.getElementById("crearEntidad").innerHTML = "procesando...";
+	}
+	</script>
 </head>
 
 <body style="width:700px;">
@@ -25,35 +56,36 @@
 <h2 style="position:absolute; top:210px; left:70px;">Dirección</h2>
 <a style="position:absolute; top:250px; left:70px;">_________</a>
 <a style="position:absolute; top:280px; left:70px;">País</a>
-<select name='pais' required style="position:absolute; top:280px; text-align:center;
+<select name='pais' required id='pais' style="position:absolute; top:280px; text-align:center;
 left:200px; width:300px;">
 </select>	
-
+<div id='crearEntidad'>
+</div>
 <a style="position:absolute; top:310px; left:70px;">Provincia</a>
-<select name='provincia' required style="position:absolute; top:310px; text-align:center;
+<select name='provincia' required id='provincia' style="position:absolute; top:310px; text-align:center;
 left:200px; width:300px;">
 </select>
 <a style="position:absolute; top:340px; left:70px;">Cantón</a>
-<select name='canton' required style="position:absolute; top:340px; text-align:center;
+<select name='canton' required id='canton' style="position:absolute; top:340px; text-align:center;
 left:200px; width:300px;">
 </select>
 <a style="position:absolute; top:370px; left:70px;">Distrito</a>
-<select name='distrito' required style="position:absolute; top:370px; text-align:center;
+<select name='distrito' required id='distrito' style="position:absolute; top:370px; text-align:center;
 left:200px; width:300px;">
 </select>
 <a style="position:absolute; top:400px; left:70px;">Barrio</a>
-<select name='barrio' required style="position:absolute; top:400px; text-align:center;
+<select name='barrio' required id='barrio' style="position:absolute; top:400px; text-align:center;
 left:200px; width:300px;">
 </select>
 <h2 style="position:absolute; top:440px; left:70px;">Categoría</h2>
 <a style="position:absolute; top:480px; left:70px;">_______________</a>
 <a style="position:absolute; top:510px; left:70px;">Nombre</a>
-<select name='tipoCategoria' required style="position:absolute; top:510px; text-align:center;
+<select name='tipoCategoria' required id='tipoCategoria' style="position:absolute; top:510px; text-align:center;
 left:200px; width:300px;">
 	<option value="otra">Otra</option>
 </select>
 <button type="submit" style="position:absolute; top:570px; left:130px; width:150px;">Cancelar</button>
-<button type="submit" style="position:absolute; top:570px; left:310px; width:150px;">Crear</button>
+<button type="submit" onClick='crear()' style="position:absolute; top:570px; left:310px; width:150px;">Crear</button>
 </div>
 </section>
 <!-- Nueva categoría-->
