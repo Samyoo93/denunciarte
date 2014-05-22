@@ -30,9 +30,35 @@
 			document.getElementById("crearEntidad").innerHTML = return_data;
 	    }
     }
+
     // Send the data to PHP now... and wait for response to update the status div
     hr.send(vars); // Actually execute the request
     document.getElementById("crearEntidad").innerHTML = "procesando...";
+	}
+    function refresh(){
+        // Create our XMLHttpRequest object
+        var hr = new XMLHttpRequest();
+        // Create some variables we need to send to our PHP file
+        var url = "locationRefreshEntidad.php";
+        var pais = document.getElementById("pais").value;
+        var provincia = document.getElementById("provincia").value;
+        var canton = document.getElementById("canton").value;
+        var distrito = document.getElementById("distrito").value;
+        var barrio = document.getElementById("barrio").value;
+        var vars = 'pais='+pais+'&provincia='+provincia+'&canton='+canton+'&distrito='+distrito+'&barrio='+barrio;
+        hr.open("POST", url, true);
+        // Set content type header information for sending url encoded variables in the request
+        hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        // Access the onreadystatechange event for the XMLHttpRequest object
+        hr.onreadystatechange = function() {
+            if(hr.readyState == 4 && hr.status == 200) {
+                var return_data = hr.responseText;
+                document.getElementById("crearEntidad").innerHTML = return_data;
+            }
+        }
+        // Send the data to PHP now... and wait for response to update the status div
+        hr.send(vars); // Actually execute the request
+        document.getElementById("crearEntidad").innerHTML = "procesando...";
 	}
 	</script>
 </head>
@@ -78,19 +104,19 @@ left:200px; width:300px;'>";
 <div id='crearEntidad'>
 </div>
 <a style="position:absolute; top:310px; left:70px;">Provincia</a>
-<select name='provincia' required id='provincia' style="position:absolute; top:310px; text-align:center;
+<select name='provincia' required id='provincia' onchange='refresh()' style="position:absolute; top:310px; text-align:center;
 left:200px; width:300px;">
 </select>
 <a style="position:absolute; top:340px; left:70px;">Cantón</a>
-<select name='canton' required id='canton' style="position:absolute; top:340px; text-align:center;
+<select name='canton' required id='canton' onchange='refresh()' style="position:absolute; top:340px; text-align:center;
 left:200px; width:300px;">
 </select>
 <a style="position:absolute; top:370px; left:70px;">Distrito</a>
-<select name='distrito' required id='distrito' style="position:absolute; top:370px; text-align:center;
+<select name='distrito' required id='distrito' onchange='refresh()' style="position:absolute; top:370px; text-align:center;
 left:200px; width:300px;">
 </select>
 <a style="position:absolute; top:400px; left:70px;">Barrio</a>
-<select name='barrio' required id='barrio' style="position:absolute; top:400px; text-align:center;
+<select name='barrio' required id='barrio' onchange='refresh()' style="position:absolute; top:400px; text-align:center;
 left:200px; width:300px;">
 </select>
 <a style="position:absolute; top:430px; left:70px;"> Dirección exacta </a>
