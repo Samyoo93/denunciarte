@@ -6,10 +6,10 @@
 		echo "Invalid conection" . var_dump (OCIError());
 		die();
 	}
+
 	//crea variables ligadas a la pg con html
     $usuario = $_POST['usuarioLogin'];
     $password = $_POST['contrasenaLogin'];
-
     if($usuario != null and $password != null) {
         //verifica que se llenen todos los campos
         if(strlen($usuario) < 26 and strlen($password) < 16) {
@@ -56,13 +56,15 @@
             }
         } else {
             //mensaje de error
-            echo "<script> alert('Máximo 25 caracteres para usuario y 15 para la contraseña.') </script>";
+            echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
+            <a style='font-size:20px; color:#F00; font-size:16px;'>**Máximo 25 caracteres para usuario y 15 para la contraseña.</a>
+            </section>";
         
         }
     } else {
         //mensaje de error
-       echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
-        <a style='font-size:20px; color:#F00; font-size:16px;'>**Debe de llenar todos los espacios.</a>
+        echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
+        <a style='font-size:20px; color:#F00; font-size:16px;'>**Debe de llenar todos los espacios para ingresar.</a>
         </section>";
                 
     }
