@@ -15,7 +15,7 @@
 	$fechaNacimiento = '2010-10-10';// $_POST['fechaNacimiento'];
     $cedula1 = 1535;//$_POST["cedula1"]; 
 	$cedula2 = 34;//$_POST["cedula2"];  
-	$cedula3 = 1;//$_POST["cedula3"];  
+	$cedula3 = 21;//$_POST["cedula3"];
     $cedula = $cedula1 . $cedula2 . $cedula3; 
     $categoria = 'otra';//$_POST['categoria'];
     $existe_cat = 1;
@@ -50,7 +50,7 @@
                     } else {
                       
                         if($categoria == 'otra') {
-                            $categoria2 = 'hoslis';//$_POST['categoria2'];
+                            $categoria2 = 'categoriaNew';//$_POST['categoria2'];
                             $descripcion = 'DI esta';//$_POST['descripcion'];    
                             $categoria = $categoria2;
 
@@ -104,32 +104,41 @@
                             ociexecute($query_getnombre);
                             
                              
+                             //registra la nueva categoria
+                            $setcat = "begin pack_categoria_personaFisica.set_CatPerFis(pack_categoria.get_id(:categoria), :cedula); end;";
+                            $query_setcat = ociparse($conn, $setcat);
+                            ocibindbyname($query_setcat, ":categoria", $categoria);
+                            ocibindbyname($query_setcat, ":cedula", $cedula);
+                            ociexecute($query_setcat);
                             echo "entro al final";
-
-                            
-
                         }
-                    
-                        
+
                     }
 
                 } else {
                     //mensaje de error
-                    echo "<script> alert('El máximo de caracteres para cédula es de 9 y contraseña es de 15.') </script>";
+                    echo "<section id='error' style='position:absolute; top:15px; left:300px; background-color:#ff3e3e;'>
+                    <a style='font-size:20px; color:#000;'>El máximo de caracteres para cédula es de 9 y contraseña es de 15.</a>
+                    </section>";
                 }
             } else {
                 //mensaje de error
-                echo "<script> alert('La cédula debe de ser un número.') </script>";
+                echo "<section id='error' style='position:absolute; top:15px; left:300px; background-color:#ff3e3e;'>
+                <a style='font-size:20px; color:#000;'>La cédula debe de ser un número.</a>
+                </section>";
+
             }
         } else {
             //mensaje de error
-            echo "<script> alert('El máximo de caracteres para nombre, apellidos y usuario es de 25.') </script>";
+            echo "<section id='error' style='position:absolute; top:15px; left:300px; background-color:#ff3e3e;'>
+            <a style='font-size:20px; color:#000;'>El máximo de caracteres para nombre, apellidos y usuario es de 25.</a>
+            </section>";
         }
     } else {
         //mensaje de error
-		echo "<section id='error' style='position:absolute; top:15px; left:300px; background-color:#ff3e3e;'>
-				<a style='font-size:20px; color:#000;'>Llenar todos los espacios.</a>
-				</section>";
+        echo "<section id='error' style='position:absolute; top:15px; left:300px; background-color:#ff3e3e;'>
+        <a style='font-size:20px; color:#000;'>Llenar todos los espacios.</a>
+		</section>";
 		
 	}
 		

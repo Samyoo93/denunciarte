@@ -28,7 +28,7 @@
             if ($rows == 0) {
                 //Ya existe el usuario
                 echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
-                <a style='font-size:20px; color:#F00; font-size:16px;'>**El usuario ". $usuario ." no existe..</a>
+                <a style='font-size:20px; color:#F00; font-size:16px;'>**El usuario ". $usuario ." no existe.</a>
                 </section>";
                
             } else {
