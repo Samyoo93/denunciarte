@@ -61,9 +61,11 @@ left:200px; width:300px;">
 <a style="color:#FF33D7; left:10px;">_____________________________________</a>
 <h2 style="position:absolute; top:10px; left:10px;"> Nueva Categoría</h2>
 <a style="position:absolute; left:10px; top:80px;">Nombre</a>
+<a style="position:absolute; left:10px; top:115px;">Descripción</a>
+<textarea style="position:absolute; left:80px; top:135px; height:65px;"></textarea>
 <input type="text" id="categoriaNombre"  style="position:absolute; top:80px; left:80px;" />
 <button type="submit" style="position:absolute; top:70px; left:250px;">Agregar</button>
-<a style="color:#FF33D7; position:absolute; left:10px; top:120px;">_____________________________________</a>
+<a style="color:#FF33D7; position:absolute; left:10px; top:200px;">_____________________________________</a>
 </section>
 
 <!-- Pie de página -->
