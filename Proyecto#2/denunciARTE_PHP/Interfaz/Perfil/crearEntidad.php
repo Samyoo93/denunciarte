@@ -56,9 +56,25 @@
 <h2 style="position:absolute; top:210px; left:70px;">Dirección</h2>
 <a style="position:absolute; top:250px; left:70px;">_________</a>
 <a style="position:absolute; top:280px; left:70px;">País</a>
-<select name='pais' required id='pais' style="position:absolute; top:280px; text-align:center;
-left:200px; width:300px;">
-</select>	
+<!-- Select de país creado dinámicamente con php desde la base de datos. -->
+    <?php
+		include('../conection.php');
+		$conn = oci_connect($user, $pass, $db);
+		$sql = "SELECT nombre FROM pais";
+		$stmt = oci_parse($conn, $sql);
+		ociexecute($stmt);
+		echo "<select name='pais' required id='pais' style='position:absolute; top:280px; text-align:center;
+left:200px; width:300px;'>";
+		while ( $row = oci_fetch_assoc($stmt) ) {
+
+			if($row['NOMBRE']==$pais) {
+				echo "<option selected value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
+			} else {
+				echo "<option value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
+			}
+		}
+
+	echo "</select>"; ?>
 <div id='crearEntidad'>
 </div>
 <a style="position:absolute; top:310px; left:70px;">Provincia</a>
