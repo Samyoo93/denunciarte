@@ -11,10 +11,10 @@ CREATE OR REPLACE PACKAGE BODY pack_canton AS
                INTO cantonId
                FROM canton
                WHERE canton.nombre = nombre;
-
+	       RETURN(cantonId);
                EXCEPTION
                     WHEN NO_DATA_FOUND THEN
-                         DBMS_OUTPUT.put_line('El nombre es inválido');
+                         DBMS_OUTPUT.put_line('El nombre es invï¿½lido');
 
                RETURN(cantonId);
      END;
