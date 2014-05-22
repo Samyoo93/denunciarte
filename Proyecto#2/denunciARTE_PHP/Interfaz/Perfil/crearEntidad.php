@@ -77,19 +77,21 @@ left:200px; width:300px;">
 <select name='barrio' required id='barrio' style="position:absolute; top:400px; text-align:center;
 left:200px; width:300px;">
 </select>
-<h2 style="position:absolute; top:440px; left:70px;">Categoría</h2>
-<a style="position:absolute; top:480px; left:70px;">_______________</a>
-<a style="position:absolute; top:510px; left:70px;">Nombre</a>
-<select name='tipoCategoria' required id='tipoCategoria' style="position:absolute; top:510px; text-align:center;
+<a style="position:absolute; top:430px; left:70px;"> Dirección exacta </a>
+<textarea style="position:absolute; top:450px; left:200px; width:290px; height:50px;" ></textarea>
+<h2 style="position:absolute; top:490px; left:70px;">Categoría</h2>
+<a style="position:absolute; top:530px; left:70px;">_______________</a>
+<a style="position:absolute; top:560px; left:70px;">Nombre</a>
+<select name='tipoCategoria' required style="position:absolute; top:560px; text-align:center;
 left:200px; width:300px;">
 	<option value="otra">Otra</option>
 </select>
-<button type="submit" style="position:absolute; top:570px; left:130px; width:150px;">Cancelar</button>
-<button type="submit" onClick='crear()' style="position:absolute; top:570px; left:310px; width:150px;">Crear</button>
+<button type="submit" style="position:absolute; top:620px; left:130px; width:150px;">Cancelar</button>
+<button type="submit" style="position:absolute; top:620px; left:310px; width:150px;">Crear</button>
 </div>
 </section>
 <!-- Nueva categoría-->
-<section style="position:absolute; top:530px; left:560px; width:400px;">
+<section style="position:absolute; top:580px; left:560px; width:400px;">
 <a style="color:#FF33D7; left:10px;">_____________________________________</a>
 <h2 style="position:absolute; top:10px; left:10px;"> Nueva Categoría</h2>
 <a style="position:absolute; left:10px; top:80px;">Nombre</a>
