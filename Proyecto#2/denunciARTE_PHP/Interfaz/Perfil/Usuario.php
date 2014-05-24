@@ -48,6 +48,7 @@
 <img src="../Imagenes/Denunciarteicono.jpg" style="position:absolute; left:0px;" />
 <input type=search results=5 placeholder='Buscar entidad, persona.'  name=busqueda style="position:absolute; left:95px; top:30px; width:300px;">
 <button type="submit" style="position:absolute; top:20px; left:400px;">Buscar</button>
+<a href=""  style="position:absolute; top:50px; left:125px;">+Busqueda avanzada</a>
 <section style="position:absolute; left:560px;">
 <nav align="center" >
 <ul id="menu">
