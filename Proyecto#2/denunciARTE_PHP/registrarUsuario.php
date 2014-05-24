@@ -27,7 +27,6 @@
     $cedula = $cedula1 . $cedula2 . $cedula3; 
     $cedula = intval($cedula);
 
-    $cedula = 1241;
 
 	if($usuario != null and $password != null and $nombre != null and $primerApellido != null and $segundoApellido != null
       and $fechaNacimiento != null and $privacidad != null and $cedula != null) {

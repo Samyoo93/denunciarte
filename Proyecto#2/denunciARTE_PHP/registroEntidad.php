@@ -1,5 +1,5 @@
 <?php
-    include("conection.php"); 
+    include("../conection.php");
 									  
 	$conn = OCILogon($user, $pass, $db); 
 	if (!$conn) {  
@@ -7,23 +7,17 @@
 		die();
 	}
 
+
 	//crea variables ligadas a la pg con html
-    $nombre = 'Los patitos';//$_POST['nombre'];
-    $pais = 'Costa Rica';//$_POST['pais'];
-    $provincia = 'San Jose';// = $_POST['provincia'];
-    $canton = 'Santa Ana';//= $_POST['canton'];
-    $distrito = 'Santa Ana centro';//$_POST['distrito'];
-    $barrio = 'Machete';//$_POST['barrio'];
-    $direccionExacta = 'Del palo de mango 100 oeste al otro lado del chino';//$_POST['direccionExacta'];
-    $cedJuridica = 1522237;//$_POST['cedJuridica'];
-    /*
-    $cedJuridica1 = $_POST['cedJuridica1'];
-    $cedJuridica2 = $_POST['cedJuridica2'];
-    $cedJuridica3 = $_POST['cedJuridica3'];  
-    $cedJuridica = $cedJuridica1 . $cedJuridica2 . $cedJuridica3;
-    $cedJuridica = intval($cedJuridica);
-    */
-    $categoria = 'otra';//$_POST['categoria'];
+    $nombre = $_POST['nombre'];
+    $pais = $_POST['pais'];
+    $provincia = $_POST['provincia'];
+    $canton = $_POST['canton'];
+    $distrito = $_POST['distrito'];
+    $barrio = $_POST['barrio'];
+    $direccionExacta = $_POST['direccionExacta'];
+    $cedJuridica = $_POST['cedJuridica'];
+    $categoria = $_POST['tipoCategoria'];
     $existe_cat = 1;
 
    
@@ -46,7 +40,7 @@
 
                 //**********************************************************************************
                 if ($rows > 0) {
-                    echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
+                    echo "<section id='error' style='position:absolute; top:140px; left:200px;'>
                     <a style='font-size:20px; color:#F00; font-size:16px;'>**La cédula jurídica " . $cedJuridica . " ya se encuentra registrada.</a>
                     </section>";
                     
@@ -54,8 +48,8 @@
                     
                     
                     if($categoria == 'otra') {
-                        $categoria2 = 'hoslis';//$_POST['categoria2'];
-                        $descripcion = 'DI esta';//$_POST['descripcion'];    
+                        $categoria2 = $_POST['categoria2'];
+                        $descripcion = $_POST['descripcion'];
                         $categoria = $categoria2;
                         
                         $check_existe_cat = "SELECT COUNT(*) AS NUM_ROWS FROM categoria WHERE nombre=:categoria and tipo = 'E'";
@@ -78,7 +72,7 @@
                             
                         } else {
                             $existe_cat = -1;
-                            echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
+                            echo "<section id='error' style='position:absolute; top:140px; left:200px;'>
                             <a style='font-size:20px; color:#F00; font-size:16px;'>**La categoria " . $categoria . " ya se encuentra registrada.</a>
                             </section>";
                                
@@ -122,11 +116,13 @@
                 }
             } else {
                 //mensaje de error
-                echo "<script> alert('La cédula debe de ser un número.') </script>";
+                echo "<section id='error' style='position:absolute; top:140px; left:200px;'>
+                <a style='font-size:20px; color:#F00; font-size:16px;'>**La cédula debe de ser un número.</a>
+                </section>";
             }
         } else {
             //mensaje de error
-            echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
+            echo "<section id='error' style='position:absolute; top:140px; left:200px;'>
             <a style='font-size:20px; color:#F00; font-size:16px;'>**El largo máximo es de 25, la cédula de 9 y la dirección exacta de 50.</a>
             </section>";
               
@@ -134,7 +130,7 @@
     
     } else {
         //mensaje de error
-        echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
+        echo "<section id='error' style='position:absolute; top:140px; left:200px;'>
         <a style='font-size:20px; color:#F00; font-size:16px;'>**Debe de llenar los espacios.</a>
         </section>";
           

@@ -5,35 +5,40 @@
 <title>DenunciARTE</title>
 <link rel="stylesheet" href="../Estilo/Estilo.css" />
     <script>
-        function crear(){
-    // Create our XMLHttpRequest object
-    var hr = new XMLHttpRequest();
-    // Create some variables we need to send to our PHP file
-    var url = "registroEntidad.php";
-    var nombre = document.getElementById("nombre").value;
-    var cedJuridica = document.getElementById("cedJuridica").value;
-    var pais = document.getElementById("pais").value;
-    var provincia = document.getElementById("provincia").value;
-    var canton = document.getElementById("canton").value;
-    var distrito = document.getElementById("distrito").value;
-    var barrio = document.getElementById("barrio").value;
-    var tipoCategoria = document.getElementById("tipoCategoria").value;
-    var vars = 'nombre='+nombre+'&cedJuridica='+cedJuridica+'&pais='+pais+'&provincia='+provincia+'&canton='+canton+'&distrito='+distrito+
-        '&barrio='+barrio+'&tipoCategoria='+tipoCategoria;
-    hr.open("POST", url, true);
-    // Set content type header information for sending url encoded variables in the request
-    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    // Access the onreadystatechange event for the XMLHttpRequest object
-    hr.onreadystatechange = function() {
-	    if(hr.readyState == 4 && hr.status == 200) {
-		    var return_data = hr.responseText;
-			document.getElementById("crearEntidad").innerHTML = return_data;
-	    }
-    }
 
-    // Send the data to PHP now... and wait for response to update the status div
-    hr.send(vars); // Actually execute the request
-    document.getElementById("crearEntidad").innerHTML = "procesando...";
+    function crear(){
+        // Create our XMLHttpRequest object
+        var hr = new XMLHttpRequest();
+        // Create some variables we need to send to our PHP file
+        var url = "registroEntidad.php";
+        var nombre = document.getElementById('nombre').value;
+        var cedJuridica = document.getElementById('cedJuridica').value;
+        var pais = document.getElementById('pais').value;
+        var provincia = document.getElementById('provincia').value;
+        var canton = document.getElementById('canton').value;
+        var distrito = document.getElementById('distrito').value;
+        var barrio = document.getElementById('barrio').value;
+        var tipoCategoria = document.getElementById('tipoCategoria').value;
+        var categoria2 = document.getElementById('categoria2').value;
+        var direccionExacta = document.getElementById('direccionExacta').value;
+        var descripcion = document.getElementById('descripcion').value;
+
+        var vars = 'nombre='+nombre+'&cedJuridica='+cedJuridica+'&pais='+pais+'&provincia='+provincia+'&canton='+canton+'&distrito='+distrito+
+            '&barrio='+barrio+'&tipoCategoria='+tipoCategoria+'&categoria2='+categoria2+'&direccionExacta='+direccionExacta+
+            '&descripcion='+descripcion;
+        hr.open("POST", url, true);
+        // Set content type header information for sending url encoded variables in the request
+        hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        // Access the onreadystatechange event for the XMLHttpRequest object
+        hr.onreadystatechange = function() {
+            if(hr.readyState == 4 && hr.status == 200) {
+                var return_data = hr.responseText;
+                document.getElementById("crearEntidad").innerHTML = return_data;
+            }
+        }
+        // Send the data to PHP now... and wait for response to update the status div
+        hr.send(vars); // Actually execute the request
+        document.getElementById("crearEntidad").innerHTML = "procesando...";
 	}
     function refresh(){
         // Create our XMLHttpRequest object
@@ -53,12 +58,12 @@
         hr.onreadystatechange = function() {
             if(hr.readyState == 4 && hr.status == 200) {
                 var return_data = hr.responseText;
-                document.getElementById("crearEntidad").innerHTML = return_data;
+                document.getElementById("direccion").innerHTML = return_data;
             }
         }
         // Send the data to PHP now... and wait for response to update the status div
         hr.send(vars); // Actually execute the request
-        document.getElementById("crearEntidad").innerHTML = "procesando...";
+        document.getElementById("direccion").innerHTML = "procesando...";
 	}
 	</script>
 </head>
@@ -79,6 +84,7 @@
 <input type="text" id="nombre" style="position:absolute; top:150px; left:200px; width:300px;" />
 <a style="position:absolute; top:190px; left:70px;">Cédula Jurídica</a>
 <input type="text" id="cedJuridica" style="position:absolute; top:190px; left:200px; width:300px;"/>
+<div id='direccion'>
 <h2 style="position:absolute; top:210px; left:70px;">Dirección</h2>
 <a style="position:absolute; top:250px; left:70px;">_________</a>
 <a style="position:absolute; top:280px; left:70px;">País</a>
@@ -89,8 +95,9 @@
 		$sql = "SELECT nombre FROM pais";
 		$stmt = oci_parse($conn, $sql);
 		ociexecute($stmt);
-		echo "<select name='pais' required id='pais' style='position:absolute; top:280px; text-align:center;
+		echo "<select name='pais' required id='pais' onchange='refresh()' style='position:absolute; top:280px; text-align:center;
 left:200px; width:300px;'>";
+        echo "<option value=''>Seleccione uno</option>";
 		while ( $row = oci_fetch_assoc($stmt) ) {
 
 			if($row['NOMBRE']==$pais) {
@@ -101,45 +108,66 @@ left:200px; width:300px;'>";
 		}
 
 	echo "</select>"; ?>
-<div id='crearEntidad'>
-</div>
+
 <a style="position:absolute; top:310px; left:70px;">Provincia</a>
 <select name='provincia' required id='provincia' onchange='refresh()' style="position:absolute; top:310px; text-align:center;
 left:200px; width:300px;">
+    <option value=''>Seleccione uno</option>
 </select>
 <a style="position:absolute; top:340px; left:70px;">Cantón</a>
 <select name='canton' required id='canton' onchange='refresh()' style="position:absolute; top:340px; text-align:center;
 left:200px; width:300px;">
+    <option value=''>Seleccione uno</option>
 </select>
 <a style="position:absolute; top:370px; left:70px;">Distrito</a>
-<select name='distrito' required id='distrito' onchange='refresh()' style="position:absolute; top:370px; text-align:center;
+<select name='distrito' required id='distrito' onchange='refresh()'9 style="position:absolute; top:370px; text-align:center;
 left:200px; width:300px;">
+    <option value=''>Seleccione uno</option>
 </select>
 <a style="position:absolute; top:400px; left:70px;">Barrio</a>
-<select name='barrio' required id='barrio' onchange='refresh()' style="position:absolute; top:400px; text-align:center;
+<select name='barrio' required id='barrio' style="position:absolute; top:400px; text-align:center;
 left:200px; width:300px;">
+    <option value=''>Seleccione uno</option>
 </select>
+</div>
 <a style="position:absolute; top:430px; left:70px;"> Dirección exacta </a>
-<textarea style="position:absolute; top:450px; left:200px; width:290px; height:50px;" ></textarea>
+<textarea id='direccionExacta' style="position:absolute; top:450px; left:200px; width:290px; height:50px;" ></textarea>
 <h2 style="position:absolute; top:490px; left:70px;">Categoría</h2>
 <a style="position:absolute; top:530px; left:70px;">_______________</a>
 <a style="position:absolute; top:560px; left:70px;">Nombre</a>
-<select name='tipoCategoria' required style="position:absolute; top:560px; text-align:center;
-left:200px; width:300px;">
-	<option value="otra">Otra</option>
-</select>
+
+    <?php
+        include('../conection.php');
+		$conn = oci_connect($user, $pass, $db);
+		$sql = "SELECT nombre FROM categoria";
+		$stmt = oci_parse($conn, $sql);
+		ociexecute($stmt);
+		echo "<select name='tipoCategoria' required id='tipoCategoria' style='position:absolute;
+        top:560px; text-align:center; left:200px; width:300px;'>";
+        echo "<option value=''>Seleccione uno</option>";
+		while ( $row = oci_fetch_assoc($stmt) ) {
+
+            echo "<option value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
+
+		}
+        echo "<option value='otra'>Otra</option>
+        </select>";
+    ?>
+
 <button type="submit" style="position:absolute; top:620px; left:130px; width:150px;">Cancelar</button>
-<button type="submit" style="position:absolute; top:620px; left:310px; width:150px;">Crear</button>
+<button type="submit" onClick='crear()' style="position:absolute; top:620px; left:310px; width:150px;">Crear</button>
 </div>
 </section>
+<div id='crearEntidad'>
+</div>
 <!-- Nueva categoría-->
 <section style="position:absolute; top:580px; left:560px; width:400px;">
 <a style="color:#FF33D7; left:10px;">_____________________________________</a>
 <h2 style="position:absolute; top:10px; left:10px;"> Nueva Categoría</h2>
 <a style="position:absolute; left:10px; top:80px;">Nombre</a>
 <a style="position:absolute; left:10px; top:115px;">Descripción</a>
-<textarea style="position:absolute; left:80px; top:135px; height:65px;"></textarea>
-<input type="text" id="categoriaNombre"  style="position:absolute; top:80px; left:80px;" />
+<textarea id='descripcion' style="position:absolute; left:80px; top:135px; height:65px;"></textarea>
+<input type="text" id='categoria2'  style="position:absolute; top:80px; left:80px;" />
 <button type="submit" style="position:absolute; top:70px; left:250px;">Agregar</button>
 <a style="color:#FF33D7; position:absolute; left:10px; top:200px;">_____________________________________</a>
 </section>

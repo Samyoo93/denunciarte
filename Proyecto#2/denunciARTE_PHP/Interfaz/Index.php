@@ -18,13 +18,12 @@ function registrar(){
     var contrasena = document.getElementById("contrasena").value;
 	var contrasena2 = document.getElementById("contrasena2").value;
     var usuario = document.getElementById("usuario").value;
-	var nick= document.getElementById("nick").value;
 	var cedula1= document.getElementById("cedula1").value;
 	var cedula2=document.getElementById("cedula2").value;
 	var cedula3= document.getElementById("cedula3").value;
 	
 
-    var vars = 'nombre='+nombre+'&primerApellido='+primerApellido+"&segundoApellido="+segundoApellido+'&fecNac='+fecNac+'&nick='+nick+'&cedula1='+cedula1+'&cedula2='+cedula2+'&cedula3='+cedula3+'&genero='+genero+'&usuario='+usuario+'&contrasena='+contrasena+'&contrasena2='+contrasena2;
+    var vars = 'nombre='+nombre+'&primerApellido='+primerApellido+"&segundoApellido="+segundoApellido+'&fecNac='+fecNac+'&cedula1='+cedula1+'&cedula2='+cedula2+'&cedula3='+cedula3+'&genero='+genero+'&usuario='+usuario+'&contrasena='+contrasena+'&contrasena2='+contrasena2;
     hr.open("POST", url, true);
     // Set content type header information for sending url encoded variables in the request
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -105,8 +104,7 @@ function registrar(){
 <input type="text" id="cedula3" align="center" placeholder="1111" style="position:absolute; top: 150px; left:330px; width:100px;" />
 <a style="position:absolute; top:190px; left:60px;">Usuario</a>
 <a style="position:absolute; top:210px; left:60px;">(Nombre que lo identificará al realizar un comentario.)</a>
-<input type="text" id="usuario" placeholder="Alías para reportes" align="center" style="position:absolute; top: 250px; left:130px; width:300px;" />
-<input type="text" id="usuario" placeholder="Usuario de 1-24 carácteres." style="position:absolute; top: 250px; left:130px; width:300px;" />
+<input type="text" id="usuario" placeholder="Álias para reportes" align="center" style="position:absolute; top: 250px; left:130px; width:300px;" />
 <a style="position:absolute; top:290px; left:60px;">Contraseña</a>
 <input type="password" id="contrasena"  placeholder="De 1-15 carácteres."style="position:absolute; top: 310px; left:130px; width:300px;" />
 <a style="position:absolute; top:350px; left:60px;">Confirmar la contraseña</a>
