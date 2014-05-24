@@ -9,61 +9,26 @@
 <body style="width:700px;">
 
 <!-- Menú vertical -->
-<section id="CuadroGris" style="position:absolute; top:150px; left:700px; width:270px; height:250px;">
-<h2 style="position:absolute; top:10px; left:80px;">Mostrar</h2>
-<button type="submit" style="position:absolute; top:90px;left:30px; font-size:18px; width:200px;">Categorías</button>
-<button type="submit" style="position:absolute; top:140px; left:30px; font-size:18px; width:200px;">Entidades</button>
+<section id="CuadroGris" style="position:absolute; top:150px; left:700px; width:270px; height:150px;">
+<button type="submit" style="position:absolute; top:20px; left:30px; font-size:18px; width:200px;">Calificar</button>
+<button type="submit" style="position:absolute; top:70px;left:30px; font-size:18px; width:200px;">Reportar</button>
 </section>
 
 <section style="position:absolute; left:20px; top:100px; width:630px; height:400px;">
 <div id="mostrar" style="overflow-y:scroll;">
-<h1 style="position:absolute; left:150px;"> Crear Entidad </h1>
-<a style="position:absolute; top:150px; left:70px;">Nombre</a>
-<input type="text" id="nombre" style="position:absolute; top:150px; left:200px; width:300px;" />
-<a style="position:absolute; top:190px; left:70px;">Cédula Jurídica</a>
-<input type="text" id="cedJuridica" style="position:absolute; top:190px; left:200px; width:300px;"/>
-<h2 style="position:absolute; top:210px; left:70px;">Dirección</h2>
-<a style="position:absolute; top:250px; left:70px;">_________</a>
-<a style="position:absolute; top:280px; left:70px;">País</a>
-<select name='pais' required style="position:absolute; top:280px; text-align:center;
-left:200px; width:300px;">
-</select>	
+<h1 style="position:absolute; left:150px;"> Nombre: </h1>
+<a style="position:absolute; top:150px; left:70px;">Apellidos:</a>
+<a style="position:absolute; top:180px; left:70px;">Edad:</a>
+<a style="position:absolute; top:210px; left:70px;">Género:</a>
+<h2 style="position:absolute; top:240px; left:70px;">Trabajo</h2>
+<a style="position:absolute; top:280px; left:70px;">_________</a>
+<a style="position:absolute; top:310px; left:70px;">Lugar de trabajo:</a>
+<a style="position:absolute; top:340px; left:70px;">Cargo:</a>
+<h2 style="position:absolute; top:370px; left:70px;">Calificaciones</h2>
+<a style="position:absolute; top:410px; left:70px;">_______________</a>
+<a style="position:absolute; top:440px; left:70px;">Promedio:</a>
 
-<a style="position:absolute; top:310px; left:70px;">Provincia</a>
-<select name='provincia' required style="position:absolute; top:310px; text-align:center;
-left:200px; width:300px;">
-</select>
-<a style="position:absolute; top:340px; left:70px;">Cantón</a>
-<select name='canton' required style="position:absolute; top:340px; text-align:center;
-left:200px; width:300px;">
-</select>
-<a style="position:absolute; top:370px; left:70px;">Distrito</a>
-<select name='distrito' required style="position:absolute; top:370px; text-align:center;
-left:200px; width:300px;">
-</select>
-<a style="position:absolute; top:400px; left:70px;">Barrio</a>
-<select name='barrio' required style="position:absolute; top:400px; text-align:center;
-left:200px; width:300px;">
-</select>
-<h2 style="position:absolute; top:440px; left:70px;">Categoría</h2>
-<a style="position:absolute; top:480px; left:70px;">_______________</a>
-<a style="position:absolute; top:510px; left:70px;">Nombre</a>
-<select name='tipoCategoria' required style="position:absolute; top:510px; text-align:center;
-left:200px; width:300px;">
-	<option value="otra">Otra</option>
-</select>
-<button type="submit" style="position:absolute; top:570px; left:130px; width:150px;">Cancelar</button>
-<button type="submit" style="position:absolute; top:570px; left:310px; width:150px;">Crear</button>
 </div>
-</section>
-<!-- Nueva categoría-->
-<section style="position:absolute; top:530px; left:560px; width:400px;">
-<a style="color:#FF33D7; left:10px;">_____________________________________</a>
-<h2 style="position:absolute; top:10px; left:10px;"> Nueva Categoría</h2>
-<a style="position:absolute; left:10px; top:80px;">Nombre</a>
-<input type="text" id="categoriaNombre"  style="position:absolute; top:80px; left:80px;" />
-<button type="submit" style="position:absolute; top:70px; left:250px;">Agregar</button>
-<a style="color:#FF33D7; position:absolute; left:10px; top:120px;">_____________________________________</a>
 </section>
 
 <!-- Pie de página -->
