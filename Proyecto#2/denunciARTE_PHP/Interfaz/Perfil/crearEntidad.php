@@ -40,17 +40,20 @@
         hr.send(vars); // Actually execute the request
         document.getElementById("crearEntidad").innerHTML = "procesando...";
 	}
-    function refresh(){
+    function refresh(changed){
         // Create our XMLHttpRequest object
         var hr = new XMLHttpRequest();
         // Create some variables we need to send to our PHP file
         var url = "locationRefreshEntidad.php";
+        var which = changed;
+
         var pais = document.getElementById("pais").value;
         var provincia = document.getElementById("provincia").value;
         var canton = document.getElementById("canton").value;
         var distrito = document.getElementById("distrito").value;
         var barrio = document.getElementById("barrio").value;
-        var vars = 'pais='+pais+'&provincia='+provincia+'&canton='+canton+'&distrito='+distrito+'&barrio='+barrio;
+
+        var vars = 'pais='+pais+'&provincia='+provincia+'&canton='+canton+'&distrito='+distrito+'&barrio='+barrio+'&which='+which;
         hr.open("POST", url, true);
         // Set content type header information for sending url encoded variables in the request
         hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -95,7 +98,7 @@
 		$sql = "SELECT nombre FROM pais";
 		$stmt = oci_parse($conn, $sql);
 		ociexecute($stmt);
-		echo "<select name='pais' required id='pais' onchange='refresh()' style='position:absolute; top:280px; text-align:center;
+		echo "<select name='pais' required id='pais' onchange='refresh(1)' style='position:absolute; top:280px; text-align:center;
 left:200px; width:300px;'>";
         echo "<option value=''>Seleccione uno</option>";
 		while ( $row = oci_fetch_assoc($stmt) ) {
@@ -110,22 +113,22 @@ left:200px; width:300px;'>";
 	echo "</select>"; ?>
 
 <a style="position:absolute; top:310px; left:70px;">Provincia</a>
-<select name='provincia' required id='provincia' onchange='refresh()' style="position:absolute; top:310px; text-align:center;
+<select name='provincia' required id='provincia' onchange='refresh(2)' style="position:absolute; top:310px; text-align:center;
 left:200px; width:300px;">
     <option value=''>Seleccione uno</option>
 </select>
 <a style="position:absolute; top:340px; left:70px;">Cantón</a>
-<select name='canton' required id='canton' onchange='refresh()' style="position:absolute; top:340px; text-align:center;
+<select name='canton' required id='canton' onchange='refresh(3)' style="position:absolute; top:340px; text-align:center;
 left:200px; width:300px;">
     <option value=''>Seleccione uno</option>
 </select>
 <a style="position:absolute; top:370px; left:70px;">Distrito</a>
-<select name='distrito' required id='distrito' onchange='refresh()'9 style="position:absolute; top:370px; text-align:center;
+<select name='distrito' required id='distrito' onchange='refresh(4)' style="position:absolute; top:370px; text-align:center;
 left:200px; width:300px;">
     <option value=''>Seleccione uno</option>
 </select>
 <a style="position:absolute; top:400px; left:70px;">Barrio</a>
-<select name='barrio' required id='barrio' style="position:absolute; top:400px; text-align:center;
+<select name='barrio' required id='barrio' onchange='refresh(5)' style="position:absolute; top:400px; text-align:center;
 left:200px; width:300px;">
     <option value=''>Seleccione uno</option>
 </select>
