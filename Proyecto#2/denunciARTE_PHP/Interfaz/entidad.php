@@ -103,13 +103,13 @@ function crear(){
 left:130px; width:300px;">
 </select>
     <?php
-		include('../conection.php');
+		include('conection.php');
 		$conn = oci_connect($user, $pass, $db);
 		$sql = "SELECT nombre FROM pais";
 		$stmt = oci_parse($conn, $sql);
 		ociexecute($stmt);
-		echo "<select name='pais' required onchange='refresh(1)' style="position:absolute; top:250px; text-align:center;
-left:130px; width:300px;">";
+		echo "<select name='pais' required onchange='refresh(1)' style='position:absolute; top:250px; text-align:center;
+left:130px; width:300px;'>";
         echo "<option value=''>Seleccione uno</option>";
 		while ( $row = oci_fetch_assoc($stmt) ) {
 
