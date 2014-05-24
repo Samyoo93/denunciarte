@@ -6,14 +6,28 @@
 <link rel="stylesheet" href="../Estilo/Estilo.css" />
 </head>
 
-<body style="width:700px;">
+<body style="width:700px;" onload="Abrir_ventana('http://URL/ejemplo-popup.html')">
 
 <!-- Menú vertical -->
 <section id="CuadroGris" style="position:absolute; top:150px; left:700px; width:270px; height:150px;">
 <button type="submit" style="position:absolute; top:20px; left:30px; font-size:18px; width:200px;">Calificar</button>
-<button type="submit" style="position:absolute; top:70px;left:30px; font-size:18px; width:200px;">Reportar</button>
+<button type="submit" style="position:absolute; top:70px;left:30px; font-size:18px; width:200px;" >
+<a href="#openModal" style="color: #CFCFCF;
+	font: small-caps 100%/200% serif;
+	background-color:#914998;
+	font-size: 16px;">Reportar</a>
+</button>
+<div id="openModal" class="modalDialog">
+	<div>
+		<a href="#close" title="Close" class="close">X</a>
+		<h2>Reportar a esta persona</h2>
+		<p style="position:absolute; top:70px;">Si desea reportar a NOMBRE DE USUARIO, indique el motivo por el cual desea reportarlo.</p>
+		<p style="position:absolute; top:130px;">Motivo</p>
+        <textarea style="position:absolute; top:150px; left: 150px; width:350px; height:150px;"></textarea>
+        <button type="submit" style="position:absolute; top: 320px; left:150px; width:100px;">Reportar</button>
+	</div>
+</div>
 </section>
-
 <section style="position:absolute; left:20px; top:100px; width:630px; height:400px;">
 <div id="mostrar" style="overflow-y:scroll;">
 <h1 style="position:absolute; left:150px;"> Nombre: </h1>
@@ -47,8 +61,8 @@
 <section id="CuadroGris" style="position:absolute; left:20px; height:90px; width:960px;">
 <img src="../Imagenes/Denunciarteicono.jpg" style="position:absolute; left:0px;" />
 <input type=search results=5 placeholder='Buscar entidad, persona.'  name=busqueda style="position:absolute; left:95px; top:30px; width:300px;">
+<a href=""  style="position:absolute; top:70px; left:125px;">+Busqueda avanzada</a>
 <button type="submit" style="position:absolute; top:20px; left:400px;">Buscar</button>
-<a href=""  style="position:absolute; top:50px; left:125px;">+Busqueda avanzada</a>
 <section style="position:absolute; left:560px;">
 <nav align="center" >
 <ul id="menu">
@@ -64,7 +78,6 @@
     <li style="width:60px; height:60px;"><img src="../Imagenes/flechafinal.png" style="position:absolute; top:40px;" />
     	<ul>
         	<li style="font-size:16px; width:150px;"><a href="">Crear una entidad</a></li>
-            <li style="font-size:16px; width:150px;"><a href="">Crear una categoría</a></li>
      		<li style="font-size:16px; width:150px;"><a href="">Cerrar sesión</a></li>
     		<li style="font-size:16px; width:150px;"><a href="">Ayuda</a></li>
   		</ul>
