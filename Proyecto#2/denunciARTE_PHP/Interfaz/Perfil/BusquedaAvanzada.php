@@ -18,9 +18,26 @@
 
 <!--Sección que se actualiza-->
 <div id="mostrar">
+<!--Sección que se actualiza-->
+<div id="mostrar">
 <section style="position:absolute; left:350px; top:100px; width:630px; height:400px;">
 <h1 style="position:absolute; left:150px;"> Búsqueda avanzada </h1>
-<a style="position:absolute; top:150px; left:70px;">*Nadie te ha calificado.</a>
+<a style="position:absolute; top:170px; left:70px;">Buscar.</a>
+<select style="position:absolute; top:170px;left:130px;">
+    <option>Entidad</option>
+    <option>Categoría</option>
+    <option>Persona Física</option>
+</select>
+<a style="position:absolute; top:170px; left:270px;">por</a>
+<!-- Select de persona
+<select style="position:absolute; top:170px; left:320px;">
+    <option>Cédula</option>
+    <option>Nombre</option>
+    <option>Primer Apellido</option>
+    <option>Segundo Apellido</option>
+</select>
+-->
+<button type="submit" style="position:absolute; top:160px; left:480px;">Buscar</button>
 </section>
 </div>
 <!-- Pie de página -->
@@ -39,7 +56,7 @@
 <section id="CuadroGris" style="position:absolute; left:20px; height:90px; width:960px;">
 <img src="../Imagenes/Denunciarteicono.jpg" style="position:absolute; left:0px;" />
 <input type=search results=5 placeholder='Buscar entidad, persona.'  name=busqueda style="position:absolute; left:95px; top:30px; width:300px;">
-<a href=""  style="position:absolute; top:50px; left:125px;">+Busqueda avanzada</a>
+<a href=""  style="position:absolute; top:60px; left:125px;">+Busqueda avanzada</a>
 <button type="submit" style="position:absolute; top:20px; left:400px;">Buscar</button>
 <section style="position:absolute; left:560px;">
 <nav align="center" >
