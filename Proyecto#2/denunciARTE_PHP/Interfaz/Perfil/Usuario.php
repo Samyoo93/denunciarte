@@ -3,21 +3,33 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>DenunciARTE</title>
-<link rel="stylesheet" href="../Estilo/Estilo.css" />
+    <link rel="stylesheet" href="../Estilo/Estilo.css" />
+    <link href="libs/jquery.qtip.custom/jquery.qtip.css" rel="stylesheet">
+    <link href="../Estilo/estilohover.css" rel="stylesheet">
+    <link rel="stylesheet" href="rateit/src/rateit.css">
+    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <meta charset="utf-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="libs/jquery.qtip.custom/jquery.qtip.js"></script>
+    <script src="rateit/src/jquery.rateit.js" type="text/javascript"></script>
+    <script src="script.js" type="text/javascript"></script>
 </head>
 
 <body style="width:700px;" onload="Abrir_ventana('http://URL/ejemplo-popup.html')">
 
 <!-- Menú vertical -->
 <section id="CuadroGris" style="position:absolute; top:150px; left:700px; width:270px; height:150px;">
-<button type="submit" style="position:absolute; top:20px; left:30px; font-size:18px; width:200px;">Calificar</button>
+<button type="submit" style="position:absolute; top:20px; left:30px; font-size:18px; width:200px;"><a href="#openRate" style="color: #CFCFCF;
+	font: small-caps 100%/200% serif;
+	background-color:#914998;
+	font-size: 16px;">Calificar</a></button>
 <button type="submit" style="position:absolute; top:70px;left:30px; font-size:18px; width:200px;" >
-<a href="#openModal" style="color: #CFCFCF;
+<a href="#openReport" style="color: #CFCFCF;
 	font: small-caps 100%/200% serif;
 	background-color:#914998;
 	font-size: 16px;">Reportar</a>
 </button>
-<div id="openModal" class="modalDialog">
+<div id="openReport" class="modalDialog">
 	<div>
 		<a href="#close" title="Close" class="close">X</a>
 		<h2>Reportar a esta persona</h2>
@@ -25,6 +37,23 @@
 		<p style="position:absolute; top:130px;">Motivo</p>
         <textarea style="position:absolute; top:150px; left: 150px; width:350px; height:150px;"></textarea>
         <button type="submit" style="position:absolute; top: 320px; left:150px; width:100px;">Reportar</button>
+	</div>
+</div>
+
+<div id="openRate" class="modalDialog">
+	<div>
+		<a href="#close" title="Close" class="close">X</a>
+		<h2>Calificar a esta persona</h2>
+		<p style="position:absolute; top:70px;">Si desea calificar a NOMBRE DE USUARIO, rellene los siguientes campos:</p>
+		<p style="position:absolute; top:130px;">Título</p>
+        <input type="text" style="position:absolute; top:150px; left: 150px; width:200px;"></input>
+        <p style="position:absolute; top:160px;">Descripción</p>
+        <textarea type="text" style="position:absolute; top:180px; left: 150px;width:300px; height:100px;">
+        </textarea>
+        <p style="position:absolute; top:280px;">Calificación</p>
+        <div class='rateit' data-rateit-max='10' data-rateit-readonly='true' data-rateit-       value="2" style="position:absolute; top:300px; left:150px;"></div>
+
+        <button type="submit" style="position:absolute; top: 350px; left:150px; width:100px;">Calificar</button>
 	</div>
 </div>
 </section>
