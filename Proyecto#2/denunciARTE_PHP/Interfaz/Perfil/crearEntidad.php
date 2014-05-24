@@ -208,7 +208,6 @@ left:200px; width:300px;">
     <li style="width:60px; height:60px;"><img src="../Imagenes/flechafinal.png" style="position:absolute; top:40px;" />
     	<ul>
         	<li style="font-size:16px; width:150px;"><a href="">Crear una entidad</a></li>
-            <li style="font-size:16px; width:150px;"><a href="">Crear una categoría</a></li>
      		<li style="font-size:16px; width:150px;"><a href="">Cerrar sesión</a></li>
     		<li style="font-size:16px; width:150px;"><a href="">Ayuda</a></li>
   		</ul>
