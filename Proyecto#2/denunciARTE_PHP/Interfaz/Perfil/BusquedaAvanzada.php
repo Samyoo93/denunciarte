@@ -29,6 +29,17 @@
     <option>Persona Física</option>
 </select>
 <a style="position:absolute; top:170px; left:270px;">por</a>
+<!-- Select de categoría-->
+<select style="position:absolute; top:170px; left:320px;">
+    <option>Nombre</option>
+</select>
+<!-- Select de entidad
+<select style="position:absolute; top:170px; left:320px;">
+    <option>Cédula Jurídica</option>
+    <option>Nombre</option>
+    <option>Categoría</option>
+</select>
+-->
 <!-- Select de persona
 <select style="position:absolute; top:170px; left:320px;">
     <option>Cédula</option>
