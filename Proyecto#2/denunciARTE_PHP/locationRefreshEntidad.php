@@ -15,6 +15,7 @@
     $cantonval = $_POST['canton'];
     $distritoval = $_POST['distrito'];
     $barrioval = $_POST['barrio'];
+    $which = $_POST['which'];
     
     $title = "<h2 style='position:absolute; top:210px; left:70px;'>Dirección</h2>
             <a style='position:absolute; top:250px; left:70px;'>_________</a>
@@ -25,18 +26,18 @@
             <a style='position:absolute; top:400px; left:70px;'>Barrio</a>";
 
 
-	$provincia="	<select name='provincia' required id='provincia' onchange='refresh()'
+	$provincia="	<select name='provincia' required id='provincia' onchange='refresh(2)'
                         style='position:absolute; top:310px; text-align:center; left:200px; width:300px;'>
 					   <option value=''>Seleccione uno</option>";
 
-	$canton="		<select name='canton' required id='canton' onchange='refresh()'
+	$canton="		<select name='canton' required id='canton' onchange='refresh(3)'
                         style='position:absolute; top:340px; text-align:center; left:200px; width:300px;'>
 					   <option value=''>Seleccione uno</option>";
 
-    $distrito="		<select name='distrito' required id='distrito' onchange='refresh()'
+    $distrito="		<select name='distrito' required id='distrito' onchange='refresh(4)'
                         style='position:absolute; top:370px; text-align:center; left:200px; width:300px;'>
 					   <option value=''>Seleccione uno</option>";
-    $barrio="		<select name='barrio' required id='barrio'
+    $barrio="		<select name='barrio' required id='barrio' onchange='refresh(5)'
                         style='position:absolute; top:400px; text-align:center; left:200px; width:300px;'>
 						<option value=''>Seleccione uno</option>";
     
@@ -46,11 +47,12 @@
 	$sql = "SELECT nombre FROM pais";
 		$stmt = oci_parse($conn, $sql);
 		ociexecute($stmt);
-		echo "<select name='pais' required id='pais' onchange='refresh()'
+		echo "<select name='pais' required id='pais' onchange='refresh(1)'
         style='position:absolute; top:280px; text-align:center; left:200px; width:300px;'>";
+        echo "<option value=''>Seleccione uno</option>";
 		while ( $row = oci_fetch_assoc($stmt) ) {
 
-			if($row['NOMBRE']==$pais) {
+			if($row['NOMBRE']==$paisval) {
 				echo "<option selected value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
 			} else {
 				echo "<option value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
@@ -71,7 +73,7 @@
     
     //despliega las provincias del pais correspondiente
 	while ( $row = oci_fetch_assoc($stmt) ) {
-		if($row['NOMBRE']==$provval) {
+		if($row['NOMBRE']==$provval and $which >= 2) {
 			echo "<option selected value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
 		} else {
 			echo "<option value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
@@ -90,7 +92,7 @@
 	
     //despliega los cantones de la provincia correspondiente
 	while ( $row = oci_fetch_assoc($stmt) ) {
-		if($row['NOMBRE']==$cantonval) {
+		if($row['NOMBRE']==$cantonval and $which >= 3) {
 			echo "<option selected value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
 		} else {
 			echo "<option value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
@@ -109,7 +111,7 @@
 	
     //despliega los distritos del canton correspondiente
 	while ( $row = oci_fetch_assoc($stmt) ) {
-		if($row['NOMBRE']==$distritoval) {
+		if($row['NOMBRE']==$distritoval and $which >= 4) {
 			echo "<option selected value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
 		} else {
 			echo "<option value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
@@ -128,7 +130,7 @@
 
     //despliega los distritos del barrio correspondiente
 	while ( $row = oci_fetch_assoc($stmt) ) {
-		if($row['NOMBRE']==$barrioval) {
+		if($row['NOMBRE']==$barrioval and $which == 5) {
 			echo "<option selected value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
 		} else {
 			echo "<option value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
