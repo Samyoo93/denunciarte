@@ -43,7 +43,7 @@ function crear(){
         // Create our XMLHttpRequest object
         var hr = new XMLHttpRequest();
         // Create some variables we need to send to our PHP file
-        var url = "locationRefreshEntidad.php";
+        var url = "locationRefreshEntidadNOLOGIN.php";
         var which = changed;
 
         var pais = document.getElementById("pais").value;
@@ -108,7 +108,7 @@ left:130px; width:300px;">
 		$sql = "SELECT nombre FROM pais";
 		$stmt = oci_parse($conn, $sql);
 		ociexecute($stmt);
-		echo "<select name='pais' required onchange='refresh(1)' style='position:absolute; top:250px; text-align:center;
+		echo "<select name='pais' required id='pais' onchange='refresh(1)' style='position:absolute; top:250px; text-align:center;
 left:130px; width:300px;'>";
         echo "<option value=''>Seleccione uno</option>";
 		while ( $row = oci_fetch_assoc($stmt) ) {
@@ -125,18 +125,22 @@ left:130px; width:300px;'>";
 <a style="position:absolute; top:290px; left:60px;">Provincia</a>
 <select name='provincia' id='provincia' onchange='refresh(2)' required style="position:absolute; top:290px; text-align:center;
 left:130px; width:300px;">
+    <option value=''>Seleccione uno</option>
 </select>
 <a style="position:absolute; top:330px; left:60px;">Cantón</a>
 <select name='canton' required id='canton' onchange='refresh(3)'style="position:absolute; top:330px; text-align:center;
 left:130px; width:300px;">
+    <option value=''>Seleccione uno</option>
 </select>
 <a style="position:absolute; top:370px; left:60px;">Distrito</a>
 <select name='distrito' required id='distrito' onchange='refresh(4)'style="position:absolute; top:370px; text-align:center;
 left:130px; width:300px;">
+    <option value=''>Seleccione uno</option>
 </select>
 <a style="position:absolute; top:400px; left:60px;">Barrio</a>
 <select name='barrio' required id='barrio' onchange='refresh(5)'style="position:absolute; top:400px; text-align:center;
 left:130px; width:300px;">
+    <option value=''>Seleccione uno</option>
 </select>
 </div>
 <a style="position:absolute; top:430px; left:60px;"> Dirección exacta </a>
