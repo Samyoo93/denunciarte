@@ -1,5 +1,5 @@
 <?php
-	include("conection.php");
+	include("../conection.php");
 	$conn = OCILogon($user, $pass, $db);
 	if (!$conn) {
 		echo "Invalid conection" . var_dump (OCIError());
@@ -8,16 +8,16 @@
 
     //crear variables ligadas a la pg con html
 
-	$nombre = "Franco";//$_POST['nombre'];
-	$primerApellido = "Solis";//$_POST['primerApellido'];
-	$segundoApellido = "Alvarado";//$_POST['segundoApellido'];
-	$genero = "M";//$_POST['sexo'];
-	$fechaNacimiento = '2010-10-10';// $_POST['fechaNacimiento'];
-    $cedula1 = 1535;//$_POST["cedula1"];
-	$cedula2 = 34;//$_POST["cedula2"];
-	$cedula3 = 21;//$_POST["cedula3"];
+	$nombre = $_POST['nombre'];
+	$primerApellido = $_POST['primerApellido'];
+	$segundoApellido = $_POST['segundoApellido'];
+	$genero = $_POST['genero'];
+	$fechaNacimiento = $_POST['fecNac'];
+    $cedula1 = $_POST["cedula1"];
+	$cedula2 = $_POST["cedula2"];
+	$cedula3 = $_POST["cedula3"];
     $cedula = $cedula1 . $cedula2 . $cedula3;
-    $categoria = 'otra';//$_POST['categoria'];
+    $categoria = 'otra';//;$_POST['categoria'];
     $existe_cat = 1;
 
 
@@ -50,7 +50,7 @@
                     } else {
 
                         if($categoria == 'otra') {
-                            $categoria2 = 'categoriaNew';//$_POST['categoria2'];
+                            $categoria2 = 'categoriaNewss';//$_POST['categoria2'];
                             $descripcion = 'DI esta';//$_POST['descripcion'];
                             $categoria = $categoria2;
 
