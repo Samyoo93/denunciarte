@@ -12,7 +12,7 @@ CREATE TABLE Review_entidad
           CONSTRAINT entidad_id_fk_RevEnt FOREIGN KEY(entidad_id)
                REFERENCES entidad(entidad_id),
      fecha_creacion DATE,
-     usuario_creacion VARCHAR2(25),
+     usuario_creacion VARCHAR2(50),
      fec_ultima_modificacion DATE,
-     usuario_ultima_modificacion VARCHAR2(25)   
+     usuario_ultima_modificacion VARCHAR2(50)   
 );
