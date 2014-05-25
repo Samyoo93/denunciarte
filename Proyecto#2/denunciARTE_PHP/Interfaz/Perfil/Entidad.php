@@ -60,7 +60,7 @@
 <section style="position:absolute; left:20px; top:100px; width:630px; height:400px;">
 <div id="mostrar" style="overflow-y:scroll;">
 <h1 style="position:absolute; left:150px;"> Nombre: </h1>
-<a style="position:absolute; top:150px; left:70px;">Apellidos:</a>
+<a style="position:absolute; top:150px; left:70px;">Cédula Jurídica:</a>
 <a style="position:absolute; top:180px; left:70px;">Edad:</a>
 <a style="position:absolute; top:210px; left:70px;">Género:</a>
 <h2 style="position:absolute; top:240px; left:70px;">Trabajo</h2>

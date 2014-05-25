@@ -261,7 +261,7 @@ ul#menu li:hover ul,ul#menu ul li:hover ul,ul#menu ul ul li:hover ul,ul#menu li.
 }
 
 .modalDialog > div {
-	width: 600px;
+	width: 650px;
     height: 400px;
 	position: relative;
 	margin: 10% auto;
