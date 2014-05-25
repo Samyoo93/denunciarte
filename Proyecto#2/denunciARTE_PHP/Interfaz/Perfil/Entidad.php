@@ -18,12 +18,14 @@
 <body style="width:700px;" onload="Abrir_ventana('http://URL/ejemplo-popup.html')">
 
 <!-- Menú vertical -->
-<section id="CuadroGris" style="position:absolute; top:150px; left:700px; width:270px; height:150px;">
-<button type="submit" style="position:absolute; top:20px; left:30px; font-size:18px; width:200px;"><a href="#openRate" style="color: #CFCFCF;
+<section id="CuadroGris" style="position:absolute; top:150px; left:700px; width:270px; height:180px;">
+<button type="submit" style="position:absolute; top:20px;left:30px; font-size:18px; width:200px;" >
+Actualizar</button>
+<button type="submit" style="position:absolute; top:70px; left:30px; font-size:18px; width:200px;"><a href="#openRate" style="color: #CFCFCF;
 	font: small-caps 100%/200% serif;
 	background-color:#914998;
 	font-size: 16px;">Calificar</a></button>
-<button type="submit" style="position:absolute; top:70px;left:30px; font-size:18px; width:200px;" >
+<button type="submit" style="position:absolute; top:120px;left:30px; font-size:18px; width:200px;" >
 <a href="#openReport" style="color: #CFCFCF;
 	font: small-caps 100%/200% serif;
 	background-color:#914998;
