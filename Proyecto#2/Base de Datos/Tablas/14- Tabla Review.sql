@@ -14,8 +14,8 @@ CREATE TABLE Review
           CONSTRAINT cedulaUsuario_id_fk_review  FOREIGN KEY (cedulaUsuario_id)
                REFERENCES usuario(cedulaUsuario_id),
      fecha_creacion DATE,
-     usuario_creacion VARCHAR2(25),
+     usuario_creacion VARCHAR2(50),
      fec_ultima_modificacion DATE,
-     usuario_ultima_modificacion VARCHAR2(25)   
+     usuario_ultima_modificacion VARCHAR2(50)   
 
 );

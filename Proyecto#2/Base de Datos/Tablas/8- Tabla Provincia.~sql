@@ -8,5 +8,9 @@ CREATE TABLE Provincia
      pais_id_fk NUMBER(6)
           CONSTRAINT pais_id_fk_nn NOT NULL,
           CONSTRAINT pais_id_fk_provincia FOREIGN KEY(pais_id_fk)
-               REFERENCES pais(pais_id)
+               REFERENCES pais(pais_id),
+     fecha_creacion DATE,
+     usuario_creacion VARCHAR2(25),
+     fec_ultima_modificacion DATE,
+     usuario_ultima_modificacion VARCHAR2(25)   
 );

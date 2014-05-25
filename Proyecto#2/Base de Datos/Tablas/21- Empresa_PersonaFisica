@@ -12,7 +12,7 @@ CREATE TABLE empresa_personaFisica
           CONSTRAINT cedulaFisica_id_fk_EmpPerFi FOREIGN KEY(cedulaFisica_id)
                REFERENCES personaFisica(cedulaFisica_id),
      fecha_creacion DATE,
-     usuario_creacion VARCHAR2(25),
+     usuario_creacion VARCHAR2(50),
      fec_ultima_modificacion DATE,
-     usuario_ultima_modificacion VARCHAR2(25)   
+     usuario_ultima_modificacion VARCHAR2(50)   
 );

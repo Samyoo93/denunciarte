@@ -11,12 +11,12 @@ CREATE TABLE Perfil
           CONSTRAINT privacidad_nn NOT NULL,
      estado NUMBER(1)
           CONSTRAINT estado_nn NOT NULL,
-     persona_id_fk NUMBER(6)
+     persona_id NUMBER(6)
           CONSTRAINT persona_id_fk_perfil_nn NOT NULL,
-          CONSTRAINT persona_id_fk_perfil FOREIGN KEY(persona_id_fk)
+          CONSTRAINT persona_id_fk_perfil FOREIGN KEY(persona_id)
                REFERENCES persona(persona_id), 
      fecha_creacion DATE,
-     usuario_creacion VARCHAR2(25),
+     usuario_creacion VARCHAR2(50),
      fec_ultima_modificacion DATE,
-     usuario_ultima_modificacion VARCHAR2(25)   
+     usuario_ultima_modificacion VARCHAR2(50)   
 );

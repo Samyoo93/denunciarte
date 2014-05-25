@@ -14,7 +14,7 @@ CREATE TABLE Direccion_entidad
           CONSTRAINT barrio_id_fk_DirecEnt FOREIGN KEY(barrio_id)
                REFERENCES barrio(barrio_id),
      fecha_creacion DATE,
-     usuario_creacion VARCHAR2(25),
+     usuario_creacion VARCHAR2(50),
      fec_ultima_modificacion DATE,
-     usuario_ultima_modificacion VARCHAR2(25)   
+     usuario_ultima_modificacion VARCHAR2(50)   
 );
