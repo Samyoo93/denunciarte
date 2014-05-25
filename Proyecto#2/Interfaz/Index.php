@@ -127,7 +127,7 @@ function registrar(){
 <!-- Registro de usuarios -->
 <section style="position:absolute; top:750px; left:480px; width:450px; height:100px;">
 <a style="position:absolute; left:30px; top:30px;">________________________________________</a>
-<a href="" style="position:absolute; top:60px; left:30px; color:#00F;">Crear un perfil</a>
+<a href="entidad.php" style="position:absolute; top:60px; left:30px; color:#00F;">Crear un perfil</a>
 <a style="position:absolute; top:60px; left:140px;">para una entidad.</a>
 
 </section>

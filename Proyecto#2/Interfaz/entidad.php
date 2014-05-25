@@ -9,7 +9,7 @@ function crear(){
         // Create our XMLHttpRequest object
         var hr = new XMLHttpRequest();
         // Create some variables we need to send to our PHP file
-        var url = "registroEntidad.php";
+        var url = "perfil/registroEntidad.php";
         var nombre = document.getElementById('nombre').value;
         var cedJuridica = document.getElementById('cedJuridica').value;
         var pais = document.getElementById('pais').value;
@@ -128,32 +128,46 @@ left:130px; width:300px;">
     <option value=''>Seleccione uno</option>
 </select>
 <a style="position:absolute; top:330px; left:60px;">Cantón</a>
-<select name='canton' required id='canton' onchange='refresh(3)'style="position:absolute; top:330px; text-align:center;
+<select name='canton' required id='canton' onchange='refresh(3)' style="position:absolute; top:330px; text-align:center;
 left:130px; width:300px;">
     <option value=''>Seleccione uno</option>
 </select>
 <a style="position:absolute; top:370px; left:60px;">Distrito</a>
-<select name='distrito' required id='distrito' onchange='refresh(4)'style="position:absolute; top:370px; text-align:center;
+<select name='distrito' required id='distrito' onchange='refresh(4)' style="position:absolute; top:370px; text-align:center;
 left:130px; width:300px;">
     <option value=''>Seleccione uno</option>
 </select>
 <a style="position:absolute; top:400px; left:60px;">Barrio</a>
-<select name='barrio' required id='barrio' onchange='refresh(5)'style="position:absolute; top:400px; text-align:center;
+<select name='barrio' required id='barrio' onchange='refresh(5)' style="position:absolute; top:400px; text-align:center;
 left:130px; width:300px;">
-    <option value=''>Seleccione uno</option>
+    <option value=''>Seleccione uno</option>\
 </select>
 </div>
 <a style="position:absolute; top:430px; left:60px;"> Dirección exacta </a>
-<textarea style="position:absolute; top:450px; left:130px; width:290px; height:50px;" ></textarea>
+<textarea id='direccionExacta' style="position:absolute; top:450px; left:130px; width:290px; height:50px;" ></textarea>
 <h2 style="position:absolute; top:490px; left:60px;">Categoría</h2>
 <a style="position:absolute; top:530px; left:60px;">_______________</a>
 <a style="position:absolute; top:560px; left:60px;">Nombre</a>
-<select name='tipoCategoria' required style="position:absolute; top:560px; text-align:center;
-left:130px; width:300px;">
-	<option value="otra">Otra</option>
-</select>
+
+    <?php
+        include('conection.php');
+		$conn = oci_connect($user, $pass, $db);
+		$sql = "SELECT nombre FROM categoria";
+		$stmt = oci_parse($conn, $sql);
+		ociexecute($stmt);
+		echo "<select name='tipoCategoria' required id='tipoCategoria'
+        style='position:absolute; top:560px; text-align:center; left:130px; width:300px;'>";
+        echo "<option value=''>Seleccione uno</option>";
+		while ( $row = oci_fetch_assoc($stmt) ) {
+
+            echo "<option value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
+
+		}
+        echo "<option value='otra'>Otra</option>
+        </select>";
+    ?>
 <button type="submit" style="position:absolute; top:620px; left:130px; width:150px;">Cancelar</button>
-<button type="submit" style="position:absolute; top:620px; left:310px; width:150px;">Crear</button>
+<button type="submit" onClick='crear()' style="position:absolute; top:620px; left:310px; width:150px;">Crear</button>
 </div>
 </section>
 <!-- Nueva categoría-->
@@ -162,8 +176,8 @@ left:130px; width:300px;">
 <h2 style="position:absolute; top:10px; left:10px;"> Nueva Categoría</h2>
 <a style="position:absolute; left:10px; top:80px;">Nombre</a>
 <a style="position:absolute; left:10px; top:115px;">Descripción</a>
-<textarea style="position:absolute; left:80px; top:135px; height:65px;"></textarea>
-<input type="text" id="categoriaNombre"  style="position:absolute; top:80px; left:80px;" />
+<textarea id='descripcion' style="position:absolute; left:80px; top:135px; height:65px;"></textarea>
+<input type="text"  id='categoria2'  style="position:absolute; top:80px; left:80px;" />
 <button type="submit" style="position:absolute; top:70px; left:250px;">Agregar</button>
 <a style="color:#FF33D7; position:absolute; left:10px; top:200px;">_____________________________________</a>
 </section>

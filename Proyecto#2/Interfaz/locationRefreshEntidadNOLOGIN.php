@@ -17,28 +17,28 @@
     $barrioval = $_POST['barrio'];
     $which = $_POST['which'];
 
-    $title = "<h2 style='position:absolute; top:210px; left:70px;'>Dirección</h2>
-            <a style='position:absolute; top:250px; left:70px;'>_________</a>
-            <a style='position:absolute; top:280px; left:70px;'>País</a>
-            <a style='position:absolute; top:310px; left:70px;'>Provincia</a>
-            <a style='position:absolute; top:340px; left:70px;'>Cantón</a>
-            <a style='position:absolute; top:370px; left:70px;'>Distrito</a>
-            <a style='position:absolute; top:400px; left:70px;'>Barrio</a>";
+    $title = '<h2 style="position:absolute; top:170px; left:60px;">Dirección</h2>
+            <a style="position:absolute; top:210px; left:60px;">__________</a>
+            <a style="position:absolute; top:250px; left:60px;">País</a>
+            <a style="position:absolute; top:290px; left:60px;">Provincia</a>
+            <a style="position:absolute; top:330px; left:60px;">Cantón</a>
+            <a style="position:absolute; top:370px; left:60px;">Distrito</a>
+            <a style="position:absolute; top:400px; left:60px;">Barrio</a>';
 
 
 	$provincia="	<select name='provincia' required id='provincia' onchange='refresh(2)'
-                        style='position:absolute; top:310px; text-align:center; left:200px; width:300px;'>
+                        style='position:absolute; top:290px; text-align:center; left:130px; width:300px;'>
 					   <option value=''>Seleccione uno</option>";
 
 	$canton="		<select name='canton' required id='canton' onchange='refresh(3)'
-                        style='position:absolute; top:340px; text-align:center; left:200px; width:300px;'>
+                        style='position:absolute; top:330px; text-align:center; left:130px; width:300px;'>
 					   <option value=''>Seleccione uno</option>";
 
     $distrito="		<select name='distrito' required id='distrito' onchange='refresh(4)'
-                        style='position:absolute; top:370px; text-align:center; left:200px; width:300px;'>
+                        style='position:absolute; top:370px; text-align:center; left:130px; width:300px;'>
 					   <option value=''>Seleccione uno</option>";
     $barrio="		<select name='barrio' required id='barrio' onchange='refresh(5)'
-                        style='position:absolute; top:400px; text-align:center; left:200px; width:300px;'>
+                        style='position:absolute; top:400px; text-align:center; left:130px; width:300px;'>
 						<option value=''>Seleccione uno</option>";
 
 
@@ -48,7 +48,7 @@
 		$stmt = oci_parse($conn, $sql);
 		ociexecute($stmt);
 		echo "<select name='pais' required id='pais' onchange='refresh(1)'
-        style='position:absolute; top:280px; text-align:center; left:200px; width:300px;'>";
+        style='position:absolute; top:250px; text-align:center; left:130px; width:300px;'>";
         echo "<option value=''>Seleccione uno</option>";
 		while ( $row = oci_fetch_assoc($stmt) ) {
 
