@@ -2,7 +2,7 @@
 
     /* Utilizado para modificar dinamicamente los boxes de pais, provincia, canton, distrito y barrio.
     */
-    include('..\conection.php');
+    include('conection.php');
     $conn = oci_connect($user, $pass, $db);
 	if (!$conn) {
 		echo "Invalid conection" . var_dump (OCIError());
