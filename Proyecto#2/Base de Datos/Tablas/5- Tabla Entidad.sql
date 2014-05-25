@@ -7,7 +7,7 @@ CREATE TABLE Entidad
           CONSTRAINT nombre_entidad_nn NOT NULL,
      cedulaJuridica NUMBER(9),
      fecha_creacion DATE,
-     usuario_creacion VARCHAR2(25),
+     usuario_creacion VARCHAR2(50),
      fec_ultima_modificacion DATE,
-     usuario_ultima_modificacion VARCHAR2(25)   
+     usuario_ultima_modificacion VARCHAR2(50)   
 );

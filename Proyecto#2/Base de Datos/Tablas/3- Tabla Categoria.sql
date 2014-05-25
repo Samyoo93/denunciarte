@@ -11,7 +11,7 @@ CREATE TABLE Categoria
           CONSTRAINT tipo_nn NOT NULL
           CHECK (tipo IN ('F','E')),
      fecha_creacion DATE,
-     usuario_creacion VARCHAR2(25),
+     usuario_creacion VARCHAR2(50),
      fec_ultima_modificacion DATE,
-     usuario_ultima_modificacion VARCHAR2(25)   
+     usuario_ultima_modificacion VARCHAR2(50)   
 );

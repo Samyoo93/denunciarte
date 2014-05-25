@@ -14,7 +14,7 @@ CREATE TABLE Persona
      fechaNacimiento DATE
           CONSTRAINT fechaNacimiento_nn NOT NULL,
      fecha_creacion DATE,
-     usuario_creacion VARCHAR2(25),
+     usuario_creacion VARCHAR2(50),
      fec_ultima_modificacion DATE,
-     usuario_ultima_modificacion VARCHAR2(25)   
+     usuario_ultima_modificacion VARCHAR2(50)   
 );
