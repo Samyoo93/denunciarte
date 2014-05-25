@@ -97,7 +97,7 @@
 <ul id="menu">
 	 <li><a title="Perfil" href=”#”>Usuario</a></li>
     <li><a title="Inicio" href="InicioUsuarios.php">Inicio</a></li>
-   
+
  	<li><a title="Privacidad"> <img src="../Imagenes/candado.png" /></a>
  	<ul>
      <li style="font-size:16px; width:150px;"><a href="">Configuración</a></li>

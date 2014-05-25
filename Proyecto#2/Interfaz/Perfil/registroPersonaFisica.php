@@ -1,7 +1,7 @@
 <?php
-	include("conection.php"); 			  
-	$conn = OCILogon($user, $pass, $db); 
-	if (!$conn) {  
+	include("conection.php");
+	$conn = OCILogon($user, $pass, $db);
+	if (!$conn) {
 		echo "Invalid conection" . var_dump (OCIError());
 		die();
 	}
@@ -13,14 +13,14 @@
 	$segundoApellido = "Alvarado";//$_POST['segundoApellido'];
 	$genero = "M";//$_POST['sexo'];
 	$fechaNacimiento = '2010-10-10';// $_POST['fechaNacimiento'];
-    $cedula1 = 1535;//$_POST["cedula1"]; 
-	$cedula2 = 34;//$_POST["cedula2"];  
+    $cedula1 = 1535;//$_POST["cedula1"];
+	$cedula2 = 34;//$_POST["cedula2"];
 	$cedula3 = 21;//$_POST["cedula3"];
-    $cedula = $cedula1 . $cedula2 . $cedula3; 
+    $cedula = $cedula1 . $cedula2 . $cedula3;
     $categoria = 'otra';//$_POST['categoria'];
     $existe_cat = 1;
 
-    
+
 
 	if($nombre != null and $primerApellido != null and $segundoApellido != null
       and $fechaNacimiento != null and $cedula != null) {
@@ -46,12 +46,12 @@
                         echo "<section id='error' style='position:absolute; top:10px; left:350px; background-color:#ff3e3e;'>
                         <a style='font-size:20px; color:#000;'>La cedula ".$cedula." ya se encuentra registrada.</a>
                         </section>";
-                        
+
                     } else {
-                      
+
                         if($categoria == 'otra') {
                             $categoria2 = 'categoriaNew';//$_POST['categoria2'];
-                            $descripcion = 'DI esta';//$_POST['descripcion'];    
+                            $descripcion = 'DI esta';//$_POST['descripcion'];
                             $categoria = $categoria2;
 
                             $check_existe_cat = "SELECT COUNT(*) AS NUM_ROWS FROM categoria WHERE nombre=:categoria and tipo = 'F'";
@@ -61,7 +61,7 @@
                             oci_define_by_name($query_check_existe_cat, "NUM_ROWS", $existe_cat);
                             ociexecute($query_check_existe_cat);
                             ocifetch($query_check_existe_cat);
-                        
+
                             if($existe_cat == 0) {
 
                                 //registra la nueva categoria
@@ -77,7 +77,7 @@
                                 echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
                                 <a style='font-size:20px; color:#F00; font-size:16px;'>**La categoria " . $categoria . " ya se encuentra registrada.</a>
                                 </section>";
-                                   
+
                             }
                         }
                         if($categoria != 'otra' and $existe_cat > 0) {
@@ -89,10 +89,10 @@
                         }
 
                         if($puede) {
-                        
-                    
+
+
                            //luego de validar todo agrega a la persona a la base de datos
-                            $getnombre = "begin pack_persona.set_persona_fisica(:nombre, :primerApellido, :segundoApellido, :genero, 
+                            $getnombre = "begin pack_persona.set_persona_fisica(:nombre, :primerApellido, :segundoApellido, :genero,
                             to_date(:fechaNacimiento, 'yyyy-mm-dd'), :cedula); end;";
                             $query_getnombre = ociparse($conn, $getnombre);
                             ocibindbyname($query_getnombre, ":nombre", $nombre);
@@ -102,8 +102,8 @@
                             ocibindbyname($query_getnombre, ":fechaNacimiento", $fechaNacimiento);
                             ocibindbyname($query_getnombre, ":cedula", $cedula);
                             ociexecute($query_getnombre);
-                            
-                             
+
+
                              //registra la nueva categoria
                             $setcat = "begin pack_categoria_personaFisica.set_CatPerFis(pack_categoria.get_id(:categoria), :cedula); end;";
                             $query_setcat = ociparse($conn, $setcat);
@@ -139,7 +139,7 @@
         echo "<section id='error' style='position:absolute; top:15px; left:300px; background-color:#ff3e3e;'>
         <a style='font-size:20px; color:#000;'>Llenar todos los espacios.</a>
 		</section>";
-		
+
 	}
-		
+
 ?>

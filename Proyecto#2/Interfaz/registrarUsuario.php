@@ -1,7 +1,7 @@
 <?php
-	include("conection.php"); 			  
-	$conn = OCILogon($user, $pass, $db); 
-	if (!$conn) {  
+	include("conection.php");
+	$conn = OCILogon($user, $pass, $db);
+	if (!$conn) {
 		echo "Invalid conection" . var_dump (OCIError());
 		die();
 	}
@@ -16,15 +16,15 @@
 	$segundoApellido = $_POST['segundoApellido'];
 	$genero = $_POST['genero'];
 	$fechaNacimiento = $_POST['fecNac'];
-	$privacidad = 1;	
+	$privacidad = 1;
     $year = preg_replace("/[^0-9]/","", $fechaNacimiento);
 	$year = (string)$year;
 	$year = substr($year, 0, 4);
 	$year = intval($year);
-    $cedula1 = $_POST["cedula1"]; 
-	$cedula2 = $_POST["cedula2"];  
-	$cedula3 = $_POST["cedula3"];  
-    $cedula = $cedula1 . $cedula2 . $cedula3; 
+    $cedula1 = $_POST["cedula1"];
+	$cedula2 = $_POST["cedula2"];
+	$cedula3 = $_POST["cedula3"];
+    $cedula = $cedula1 . $cedula2 . $cedula3;
     $cedula = intval($cedula);
 
 
@@ -71,7 +71,7 @@
 
                             } else {
                                 //luego de validar todo agrega a la persona a la base de datos
-                                $getnombre = "begin pack_persona.set_persona_usuario(:nombre, :primerApellido, :segundoApellido, :genero, 
+                                $getnombre = "begin pack_persona.set_persona_usuario(:nombre, :primerApellido, :segundoApellido, :genero,
                                 to_date(:fechaNacimiento, 'yyyy-mm-dd'),
                                 :usuario, :password, :cedula, :privacidad); end;";
                                 $query_getnombre = ociparse($conn, $getnombre);
@@ -88,19 +88,19 @@
                             }
                         }
                     } else {
-                        
+
                         echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
                             <a style='font-size:20px; color:#F00; font-size:16px;'>**Año inválido .</a>
                             </section>";
- 
+
                     }
                 } else {
                     //mensaje de error
-                    
+
                     echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
                             <a style='font-size:20px; color:#F00; font-size:16px;'>**Ambas contraseñas deben de coincidir.</a>
                             </section>";
-  
+
                 }
             } else {
                 //mensaje de error

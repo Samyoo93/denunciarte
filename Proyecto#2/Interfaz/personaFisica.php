@@ -22,7 +22,7 @@ function registrar(){
 	var cedula1= document.getElementById("cedula1").value;
 	var cedula2=document.getElementById("cedula2").value;
 	var cedula3= document.getElementById("cedula3").value;
-	
+
 
     var vars = 'nombre='+nombre+'&primerApellido='+primerApellido+"&segundoApellido="+segundoApellido+'&fecNac='+fecNac+'&nick='+nick+'&cedula1='+cedula1+'&cedula2='+cedula2+'&cedula3='+cedula3+'&genero='+genero+'&usuario='+usuario+'&contrasena='+contrasena+'&contrasena2='+contrasena2;
     hr.open("POST", url, true);
@@ -75,10 +75,10 @@ function registrar(){
 <a style="position:absolute; top:190px; left:60px;">Género</a>
     <input type = "radio" name = "genero" id = "genero" value = "F" checked = "checked" style="		     position:absolute; top:210px; left:140px;"/>
     <a for = "Femenino" style="position:absolute; top:210px; left:160px;">Femenino</a>
-          
+
     <input type = "radio" name = "genero" id = "genero" value = "M" style="position:absolute; top:210px; left:250px;" />
     <a for = "Masculino" style="position:absolute; top:210px; left:270px;">Masculino</a>
-    
+
 <a style="position:absolute; top:250px; left:60px;">Fecha de nacimiento</a>
 <input type="date" id="fecNac"style="position:absolute; top: 270px; left:130px; width:300px;" />
 
@@ -86,7 +86,7 @@ function registrar(){
 <input type="password" id="contrasena"  placeholder="Lugar de trabajo."style="position:absolute; top: 330px; left:130px; width:300px;" />
 <a style="position:absolute; top:370px; left:60px;">Cargo</a>
 <input type="password" id="contrasena2" placeholder="Cargo que desempeña" style="position:absolute; top: 390px; left:130px; width:300px;" />
-    <button type="submit" onclick='registrar()' style="position:absolute; top:460px; left:60px; width:200px;">Registrar</button> 
+    <button type="submit" onclick='registrar()' style="position:absolute; top:460px; left:60px; width:200px;">Registrar</button>
 </section>
 
 
