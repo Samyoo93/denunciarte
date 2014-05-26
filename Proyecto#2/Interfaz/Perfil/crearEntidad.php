@@ -3,13 +3,13 @@
 <head>
     <?php
 
-    session_start();
+    /*session_start();
     if ($_SESSION['loggedin'] !== TRUE) {
        header("Location: ../index.php");
        echo '<h1>You must log in first</h1>';
        exit();
     }
-    echo $_SESSION['usuario'];
+    echo $_SESSION['usuario'];*/
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>DenunciARTE</title>

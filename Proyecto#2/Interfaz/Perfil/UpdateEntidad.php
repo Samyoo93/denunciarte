@@ -4,11 +4,72 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>DenunciARTE</title>
     <link rel="stylesheet" href="../Estilo/Estilo.css" />
+    <script>
+    function refresh(changed){
+        // Create our XMLHttpRequest object
+        var hr = new XMLHttpRequest();
+        // Create some variables we need to send to our PHP file
+        var url = "locationRefreshEntidadUPDATE.php";
+        var which = changed;
+
+        var pais = document.getElementById("pais").value;
+        var provincia = document.getElementById("provincia").value;
+        var canton = document.getElementById("canton").value;
+        var distrito = document.getElementById("distrito").value;
+        var barrio = document.getElementById("barrio").value;
+
+        var vars = 'pais='+pais+'&provincia='+provincia+'&canton='+canton+'&distrito='+distrito+'&which='+which+'&barrio='+barrio;
+        hr.open("POST", url, true);
+        // Set content type header information for sending url encoded variables in the request
+        hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        // Access the onreadystatechange event for the XMLHttpRequest object
+        hr.onreadystatechange = function() {
+            if(hr.readyState == 4 && hr.status == 200) {
+                var return_data = hr.responseText;
+                document.getElementById("direccion").innerHTML = return_data;
+            }
+        }
+        // Send the data to PHP now... and wait for response to update the status div
+        hr.send(vars); // Actually execute the request
+        document.getElementById("direccion").innerHTML = "procesando...";
+	}
+    function registrar(){
+        // Create our XMLHttpRequest object
+        var hr = new XMLHttpRequest();
+        // Create some variables we need to send to our PHP file
+        var url = "procesarUpdateEntidad.php";
+        var nombre = document.getElementById("nombre").value;
+        var cedulaJuridica = document.getElementById("cedulaJuridica").value;
+        var pais = document.getElementById("pais").value;
+        var provincia = document.getElementById("provincia").value;
+        var canton = document.getElementById("canton").value;
+        var distrito = document.getElementById("distrito").value;
+        var barrio = document.getElementById("barrio").value;
+        var exacta = document.getElementById("exacta").value;
+
+
+        var vars = 'nombre='+nombre+'&cedulaJuridica='+cedulaJuridica+"&pais="+pais+'&provincia='+provincia+'&canton='+canton+'&distrito='+distrito+'&barrio='+barrio+'&exacta='+exacta;
+        hr.open("POST", url, true);
+        // Set content type header information for sending url encoded variables in the request
+        hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        // Access the onreadystatechange event for the XMLHttpRequest object
+        hr.onreadystatechange = function() {
+            if(hr.readyState == 4 && hr.status == 200) {
+                var return_data = hr.responseText;
+                document.getElementById("update").innerHTML = return_data;
+            }
+        }
+        // Send the data to PHP now... and wait for response to update the status div
+        hr.send(vars); // Actually execute the request
+        document.getElementById("update").innerHTML = "procesando...";
+	}
+    </script>
 </head>
 
 <body style="width:700px;" onload="Abrir_ventana('http://URL/ejemplo-popup.html')">
 
-
+<div id='update'>
+    </div>
 <section style="position:absolute; left:200px; top:100px; width:630px; height:400px;">
 <div id="mostrar" style="overflow-y:scroll;">
 <h1 style="position:absolute; left:150px; left:120px;"> Modificar Entidad </h1>
@@ -16,23 +77,49 @@
 <input type="text" id="nombre" style="position:absolute; left:200px; top:150px; width:300px;">
 <a style="position:absolute; top:180px; left:70px;">Cédula Jurídica</a>
     <input type="text" id="cedulaJuridica" style="position:absolute; left:200px; top:180px; width:300px;">
+<div id='direccion'>
 <h2 style="position:absolute; top:200px; left:70px;">Dirección</h2>
 <a style="position:absolute; top:240px; left:70px;">_________</a>
 <a style="position:absolute; top:270px; left:70px;">País</a>
-<select id="pais" style="position:absolute; left:200px; top:270px; width:300px;">
-</select>
+
+    <?php
+		include('../conection.php');
+		$conn = oci_connect($user, $pass, $db);
+		$sql = "SELECT nombre FROM pais";
+		$stmt = oci_parse($conn, $sql);
+		ociexecute($stmt);
+		echo "<select name='pais' required id='pais' onchange='refresh(1)' style='position:absolute; left:200px; top:270px; width:300px;'>";
+        echo "<option value=''>Seleccione uno</option>";
+		while ( $row = oci_fetch_assoc($stmt) ) {
+
+			if($row['NOMBRE']==$pais) {
+				echo "<option selected value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
+			} else {
+				echo "<option value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
+			}
+		}
+
+	echo "</select>"; ?>
 <a style="position:absolute; top:300px; left:70px;">Provincia</a>
-<select id="provincia" style="position:absolute; left:200px; top:300px; width:300px;">
+<select id="provincia" onchange='refresh(2)' style="position:absolute; left:200px; top:300px; width:300px;">
+    <option value=''>Seleccione uno</option>";
 </select>
 <a style="position:absolute; top:330px; left:70px;">Cantón</a>
-<select id="canton" style="position:absolute; left:200px; top:330px; width:300px;">
+<select id="canton" onchange='refresh(3)' style="position:absolute; left:200px; top:330px; width:300px;">
+    <option value=''>Seleccione uno</option>";
 </select>
 <a style="position:absolute; top:360px; left:70px;">Distrito</a>
-<select id="distrito" style="position:absolute; left:200px; top:360px; width:300px;">
+<select id="distrito" onchange='refresh(4)' style="position:absolute; left:200px; top:360px; width:300px;">
+    <option value=''>Seleccione uno</option>";
 </select>
-<a style="position:absolute; top:390px; left:70px;">Dirección Exacta</a>
-<textarea style="position:absolute; top:410px; left:200px; width:300px; height:100px;"></textarea>
-<button type="submit" style="position:absolute; top:550px; left:220px; width:200px;">Actualizar</button>
+<a style='position:absolute; top:390px; left:70px;'>Barrio</a>
+<select id='barrio' onchange='refresh(5)' style='position:absolute; top:390px; text-align:center; left:200px; width:300px;'>
+    <option value=''>Seleccione uno</option>";
+</select>
+</div>
+<a style="position:absolute; top:420px; left:70px;">Dirección Exacta</a>
+<textarea id='exacta' style="position:absolute; top:420px; left:200px; width:300px; height:100px;"></textarea>
+<button type="submit" onClick='registrar()' style="position:absolute; top:550px; left:220px; width:200px;">Actualizar</button>
 
 </div>
 </section>

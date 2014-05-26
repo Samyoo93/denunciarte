@@ -123,7 +123,7 @@
         } else {
             //mensaje de error
             echo "<section id='error' style='position:absolute; top:140px; left:200px;'>
-            <a style='font-size:20px; color:#F00; font-size:16px;'>**El largo máximo es de 25, la cédula de 9 y la dirección exacta de 50.</a>
+            <a style='font-size:20px; color:#F00; font-size:16px;'>**El largo máximo de nombre es de 25, la cédula de 9 y la dirección exacta de 50.</a>
             </section>";
 
         }
