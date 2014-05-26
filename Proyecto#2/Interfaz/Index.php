@@ -7,6 +7,7 @@
 <script type="text/javascript">
 function registrar(){
     // Create our XMLHttpRequest object
+
     var hr = new XMLHttpRequest();
     // Create some variables we need to send to our PHP file
     var url = "registrarUsuario.php";
@@ -14,30 +15,41 @@ function registrar(){
     var primerApellido = document.getElementById("primerApellido").value;
     var segundoApellido = document.getElementById("segundoApellido").value;
     var fecNac = document.getElementById("fecNac").value;
-    var genero = document.getElementById("genero").value;
+    if (document.getElementById('M').checked) {
+        var genero = document.getElementById('M').value;
+    } else {
+        var genero = document.getElementById("F").value;
+    }
+    if(document.getElementById('checka').checked){
+        var checka = 1;
+    } else {
+        var checka = 0;
+    }
+
     var contrasena = document.getElementById("contrasena").value;
-	var contrasena2 = document.getElementById("contrasena2").value;
+    var contrasena2 = document.getElementById("contrasena2").value;
     var usuario = document.getElementById("usuario").value;
-	var cedula1= document.getElementById("cedula1").value;
-	var cedula2=document.getElementById("cedula2").value;
-	var cedula3= document.getElementById("cedula3").value;
+    var cedula1= document.getElementById("cedula1").value;
+    var cedula2=document.getElementById("cedula2").value;
+    var cedula3= document.getElementById("cedula3").value;
 
 
-    var vars = 'nombre='+nombre+'&primerApellido='+primerApellido+"&segundoApellido="+segundoApellido+'&fecNac='+fecNac+'&cedula1='+cedula1+'&cedula2='+cedula2+'&cedula3='+cedula3+'&genero='+genero+'&usuario='+usuario+'&contrasena='+contrasena+'&contrasena2='+contrasena2;
+    var vars = 'nombre='+nombre+'&primerApellido='+primerApellido+"&segundoApellido="+segundoApellido+'&fecNac='+fecNac+'&cedula1='+cedula1+'&cedula2='+cedula2+'&cedula3='+cedula3+'&genero='+genero+'&usuario='+usuario+'&contrasena='+contrasena+'&contrasena2='+contrasena2+'&checka='+checka;
     hr.open("POST", url, true);
     // Set content type header information for sending url encoded variables in the request
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     // Access the onreadystatechange event for the XMLHttpRequest object
     hr.onreadystatechange = function() {
-	    if(hr.readyState == 4 && hr.status == 200) {
-		    var return_data = hr.responseText;
-			document.getElementById("registro").innerHTML = return_data;
-	    }
+        if(hr.readyState == 4 && hr.status == 200) {
+            var return_data = hr.responseText;
+            document.getElementById("registro").innerHTML = return_data;
+        }
     }
     // Send the data to PHP now... and wait for response to update the status div
     hr.send(vars); // Actually execute the request
     document.getElementById("registro").innerHTML = "procesando...";
-	}
+
+}
 
 	function login(){
     // Create our XMLHttpRequest object
@@ -112,13 +124,13 @@ function registrar(){
 <a style="position:absolute; top:410px; left:60px;">Fecha de nacimiento</a>
 <input type="date" id="fecNac"style="position:absolute; top: 430px; left:130px; width:300px;" />
 <a style="position: absolute; left: 60px; top: 470px;">Género</a>
-	<input type = "radio" name = "genero" id = "genero" value = "F" checked = "checked" style="		     position:absolute; top:470px; left:140px;"/>
+    <input type = "radio" name = "genero" id = "F" value = "F" checked = "checked" style="position:absolute; top:470px; left:140px;">
     <a for = "Femenino" style="position:absolute; top:470px; left:160px;">Femenino</a>
 
-    <input type = "radio" name = "genero" id = "genero" value = "M" style="position:absolute; top:470px; left:250px;" />
+    <input type = "radio" name = "genero" id = "M" value = "M" style="position:absolute; top:470px; left:250px;">
     <a for = "Masculino" style="position:absolute; top:470px; left:270px;">Masculino</a>
 
-    <input type="checkbox" style="position:absolute; top:510px; left:60px;" />
+    <input type="checkbox" id='checka' style="position:absolute; top:510px; left:60px;" />
     <a style="position:absolute; left:80px; top:510px;"> Aceptas las </a> <a href="" style="position:absolute; top:510px; left:170px;"> Condiciones de uso </a><a style="position:absolute; top:510px; left:310px"> y que has leído la </a> <a href="" style="position:absolute; top:530px; left:80px;">Política de uso de datos.</a>
     <button type="submit" onclick='registrar()' style="position:absolute; top:560px; left:60px; width:200px;">Registrarse</button>
 </section>
