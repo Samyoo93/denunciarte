@@ -1,6 +1,38 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <script>
+    function registrar(){
+        // Create our XMLHttpRequest object
+        var hr = new XMLHttpRequest();
+        // Create some variables we need to send to our PHP file
+        var url = "procesarUpdatePersonaFisica.php";
+        var nombre = document.getElementById("nombre").value;
+        var primerApellido = document.getElementById("primerApellido").value;
+        var segundoApellido = document.getElementById("segundoApellido").value;
+        var fecNac = document.getElementById("fecNac").value;
+        var genero = document.getElementById("genero").value;
+        var trabajo = document.getElementById("trabajo").value;
+        var cargo = document.getElementById("cargo").value;
+
+
+        var vars = 'nombre='+nombre+'&primerApellido='+primerApellido+"&segundoApellido="+segundoApellido+'&fecNac='+fecNac+'&genero='+genero+
+            '&trabajo='+trabajo+'&cargo='+cargo;
+        hr.open("POST", url, true);
+        // Set content type header information for sending url encoded variables in the request
+        hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        // Access the onreadystatechange event for the XMLHttpRequest object
+        hr.onreadystatechange = function() {
+            if(hr.readyState == 4 && hr.status == 200) {
+                var return_data = hr.responseText;
+                document.getElementById("update").innerHTML = return_data;
+            }
+        }
+        // Send the data to PHP now... and wait for response to update the status div
+        hr.send(vars); // Actually execute the request
+        document.getElementById("update").innerHTML = "procesando...";
+	}
+    </script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>DenunciARTE</title>
     <link rel="stylesheet" href="../Estilo/Estilo.css" />
@@ -14,7 +46,8 @@
     <script src="rateit/src/jquery.rateit.js" type="text/javascript"></script>
     <script src="script.js" type="text/javascript"></script>
 </head>
-
+<div id='update'>
+    </div>
 <body style="width:700px;">
 
 <section style="position:absolute; left:200px; top:100px; width:730px; height:400px;">
@@ -26,7 +59,7 @@
 <input type="text" id="primerApellido" style="position:absolute; left:200px; top:180px; width:130px;">
 <input type="text" id="segundoApellido" style="position:absolute; left:360px; top:180px; width:140px;">
 <a style="position:absolute; top:210px; left:70px;">Fecha de Nacimiento</a>
-<input type="date" id="nombre" style="position:absolute; left:200px; top:230px; width:300px;">
+<input type="date" id="fecNac" style="position:absolute; left:200px; top:230px; width:300px;">
 <a style="position:absolute; top:270px; left:70px;">Género</a>
 <input type = "radio" name = "genero" id = "genero" value = "F" checked = "checked" style="		     position:absolute; top:270px; left:200px;"/>
     <a for = "Femenino" style="position:absolute; top:270px; left:220px;">Femenino</a>
@@ -34,14 +67,13 @@
     <input type = "radio" name = "genero" id = "genero" value = "M" style="position:absolute; top:270px; left:310px;" />
     <a for = "Masculino" style="position:absolute; top:270px; left:330px;">Masculino</a>
 
-<a style="position:absolute; top:310px; left:70px;">Usuario</a>
-<input type="text" style="position:absolute; top:310px; left:200px;" id="usuario">
+<h2 style="position:absolute; top:280px; left:70px;">Trabajo</h2>
 <a style="position:absolute; top:320px; left:70px;">_________</a>
 <a style="position:absolute; top:360px; left:70px;">Lugar de trabajo</a>
 <input type="text" id="trabajo" style="position:absolute; left:200px; top:360px; width:300px;">
 <a style="position:absolute; top:400px; left:70px;">Cargo</a>
 <input type="text" id="cargo" style="position:absolute; left:200px; top:400px; width:300px;">
-<button type="submit" style="position:absolute; top:460px; left:200px; width:200px;">Actualizar</button>
+<button type="submit" onClick='registrar()' style="position:absolute; top:460px; left:200px; width:200px;">Actualizar</button>
 </div>
 </section>
 
