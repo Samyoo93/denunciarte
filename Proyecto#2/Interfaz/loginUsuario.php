@@ -44,6 +44,16 @@
                     echo "<section id='success' style='position:absolute; top:15px; left:370px; background-color:#6ae364;'>
                     <a style='font-size:20px; color:#000;'>Login con exito.</a>
                     </section>";
+                    session_start(); //inicia la sesion
+                    $_SESSION['usuario']= $usuario;
+                    $_SESSION['password']= $password;
+                    $getid = "begin :ced := pack_usuario.get_cedula(:usuario); end;";
+                    $query_getid = ociparse($conn, $getid);
+                    ocibindbyname($query_getid, ":usuario", $usuario);
+                    ocibindbyname($query_getid, ":ced", $ced, 100);
+                    ociexecute($query_getid);
+
+                    $_SESSION['cedula'] = $ced;
 
 
                 } else {
