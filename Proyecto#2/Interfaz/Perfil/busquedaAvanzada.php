@@ -111,7 +111,7 @@
 		<h1 style="position:absolute; left:240px; top:100px;"> Búsqueda avanzada </h1>
 		<a style="position:absolute; top:220px; left:230px;">Buscar</a>
 		<select onchange='refresh()' id='persona' onChange='' style="position:absolute; top:220px;left:180px;">
-            <option value=''>Seleccione una</option>
+            <option value='null'>Seleccione una</option>
 			<option value='personaJuridica'>Persona Jurídica</option>
 			<option value='categoria'>Categoría</option>
 			<option value='personaFisica'>Persona Física</option>
@@ -120,7 +120,7 @@
 		<a style="position:absolute; top:220px; left:320px;">por</a>
          <div id='busquedaCombo'>
 		<select id='tipoBusqueda' style="position:absolute; top:220px; left:350px;">
-            <option value=''>Seleccione una</option>
+            <option value='null'>Seleccione una</option>
 
 
 		</select>

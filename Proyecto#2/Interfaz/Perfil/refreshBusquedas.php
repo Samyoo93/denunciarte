@@ -4,7 +4,7 @@
     $tipoBusqueda = $_POST['tipoBusqueda'];
 
     $select = "<select id='tipoBusqueda' style='position:absolute; top:220px; left:350px;'>
-                <option value=''>Seleccione una</option>";
+                <option value='null'>Seleccione una</option>";
     echo $select;
     if($persona == 'personaJuridica') {
         echo "<option value='cedula'>Cédula</option>
