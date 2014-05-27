@@ -139,13 +139,14 @@
 
 				<li><a title="Privacidad"> <img src="../Imagenes/candado.png" /></a>
 					<ul>
-						<li style="font-size:16px; width:150px;"><a href="">Configuración</a></li>
-						<li style="font-size:16px; width:150px;"><a href="">Privacidad</a></li>
+						<li style="font-size:16px; width:150px;"><a href="UpdatePerfil.php">Configuración</a></li>
+						<li style="font-size:16px; width:150px;"><a href="privacidad.php">Privacidad</a></li>
 					</ul>
 				</li>
 				<li style="width:60px; height:60px;"><img src="../Imagenes/flechafinal.png" style="position:absolute; top:40px;" />
 					<ul>
-						<li style="font-size:16px; width:150px;"><a href="">Crear una entidad</a></li>
+						<li style="font-size:16px; width:150px;"><a href="crearEntidad.php">Crear una entidad</a></li>
+                        <li style="font-size:16px; width:150px;"><a href="crearPersonaFisica.php">Crear una persona</a></li>
 						<li style="font-size:16px; width:150px;"><a href="">Cerrar sesión</a></li>
 						<li style="font-size:16px; width:150px;"><a href="">Ayuda</a></li>
 					</ul>
