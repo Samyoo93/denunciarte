@@ -48,7 +48,7 @@
 <section style="position:absolute; left:560px;" onClick='BusquedaNombre()'>
 <nav align="center" >
 <ul id="menu">
-	 <li><a title="Perfil" href=”#”>Usuario</a></li>
+	 <li><a title="Perfil" href="MiPerfil.php">Usuario</a></li>
     <li><a title="Inicio" href="busquedaAvanzada.php">Inicio</a></li>
 
  	<li><a title="Privacidad"> <img src="../Imagenes/candado.png" /></a>

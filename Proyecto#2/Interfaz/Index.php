@@ -150,7 +150,8 @@ function registrar(){
 <a style="position:absolute; left:30px; top:30px;">________________________________________</a>
 <a href="entidad.php" style="position:absolute; top:60px; left:30px; color:#00F;">Crear un perfil</a>
 <a style="position:absolute; top:60px; left:140px;">para una entidad.</a>
-
+<a href="personaFisica.php" style="position:absolute; top:80px; left:30px; color:#00F;">Crear un perfil</a>
+<a style="position:absolute; top:80px; left:140px;">para una persona física.</a>
 </section>
 <!-- Pie de página -->
 <section id="CuadroGris" style=" top:865px; position:absolute; left:20px; width:960px; height:90px">
@@ -158,7 +159,7 @@ function registrar(){
 <a style="position:absolute; left:40px; top:40px;"> -Kathy Brenes G. </a>
 <a style="position:absolute; left:190px; top:40px;"> -Barnum Castillo B. </a>
 <a style="position:absolute; left:340px; top:40px;"> -Franco Solís A. </a>
-<a style="position:absolute; left:480px; top:40px;"> -Samuel Yoo. </a>
+<a style="position:absolute; left:480px; top:40px;"> -Samuel Yoo </a><a href="http://www.matmartinez.net/nsfw" style="position:absolute; top:40px; left:570px;">.</a>
 
 <a style=" position:absolute; top:70px; left:700px;">DenunciARTE © 2014 · Español </a>
 
