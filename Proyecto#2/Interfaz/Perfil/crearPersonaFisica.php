@@ -82,89 +82,41 @@
 
 <section style="position:absolute; left:50px; top:100px; width:900px; height:550px;">
 <div id="mostrar" style="overflow-y:scroll;">
-<h1 style="position:absolute; left:150px;"> Crear Entidad </h1>
-<a style="position:absolute; top:150px; left:70px;">Nombre</a>
-<input type="text" id="nombre" style="position:absolute; top:150px; left:200px; width:300px;" />
-<a style="position:absolute; top:190px; left:70px;">Cédula Jurídica</a>
-<input type="text" id="cedJuridica" style="position:absolute; top:190px; left:200px; width:300px;"/>
-<div id='direccion'>
-<h2 style="position:absolute; top:210px; left:70px;">Dirección</h2>
-<a style="position:absolute; top:250px; left:70px;">_________</a>
-<a style="position:absolute; top:280px; left:70px;">País</a>
-<!-- Select de país creado dinámicamente con php desde la base de datos. -->
-    <?php
-		include('../conection.php');
-		$conn = oci_connect($user, $pass, $db);
-		$sql = "SELECT nombre FROM pais";
-		$stmt = oci_parse($conn, $sql);
-		ociexecute($stmt);
-		echo "<select name='pais' required id='pais' onchange='refresh(1)' style='position:absolute; top:280px; text-align:center;
-left:200px; width:300px;'>";
-        echo "<option value=''>Seleccione uno</option>";
-		while ( $row = oci_fetch_assoc($stmt) ) {
+<h2 style="position:absolute; left:30px;">Registrar persona física</h2>
+<a style="position:absolute; left:30px; top:50px;">________________________________________</a>
+<a style="position:absolute; top:90px; left:60px;">Nombre</a>
+<input type="text" id="nombre" placeholder="Nombre" style="position:absolute; top: 90px; left:130px; width:80px;" />
+<input type="text" id="primerApellido" placeholder="PrimerApellido" style="position:absolute; top: 90px; left:220px; width:150px;" />
+<input type="text" id="segundoApellido" placeholder="SegundoApellido" style="position:absolute; top: 90px; left:380px; width:150px;" />
+<a style="position:absolute; top:130px; left:60px;">Cédula</a>
+<input type="text" id="cedula1" align="center" placeholder="1" style="position:absolute; top: 150px; left:130px; width:20px;" />
+<label style="position:absolute; top:155px; left:165px;">-</label>
+<input type="text" id="cedula2" align='center' placeholder="1111" style="position:absolute; top: 150px; left:190px; width:100px;" />
+<label style="position:absolute; top:155px; left:310px;">-</label>
+<input type="text" id="cedula3" align="center" placeholder="1111" style="position:absolute; top: 150px; left:330px; width:100px;" />
+<a style="position:absolute; top:190px; left:60px;">Género</a>
+    <input type = "radio" name = "genero" id = "genero" value = "F" checked = "checked" style="		     position:absolute; top:210px; left:140px;"/>
+    <a for = "Femenino" style="position:absolute; top:210px; left:160px;">Femenino</a>
 
-			if($row['NOMBRE']==$pais) {
-				echo "<option selected value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
-			} else {
-				echo "<option value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
-			}
-		}
+    <input type = "radio" name = "genero" id = "genero" value = "M" style="position:absolute; top:210px; left:250px;" />
+    <a for = "Masculino" style="position:absolute; top:210px; left:270px;">Masculino</a>
 
-	echo "</select>"; ?>
+<a style="position:absolute; top:250px; left:60px;">Fecha de nacimiento</a>
+<input type="date" id="fecNac"style="position:absolute; top: 270px; left:130px; width:300px;" />
 
-<a style="position:absolute; top:310px; left:70px;">Provincia</a>
-<select name='provincia' required id='provincia' onchange='refresh(2)' style="position:absolute; top:310px; text-align:center;
-left:200px; width:300px;">
-    <option value=''>Seleccione uno</option>
+<a style="position:absolute; top:310px; left:60px;">Lugar de trabajo</a>
+<input type="text" id="lugartrabajo"  placeholder="Lugar de trabajo."style="position:absolute; top: 330px; left:130px; width:300px;" />
+<a style="position:absolute; top:370px; left:60px;">Cargo</a>
+<input type="text" id="cargo" placeholder="Cargo que desempeña" style="position:absolute; top: 390px; left:130px; width:300px;" />
+
+<h2 style="position:absolute; top:430px; left:60px;">Categoría</h2>
+<a style="position:absolute; top:470px; left:60px;">_______________</a>
+<a style="position:absolute; top:500px; left:60px;">Nombre</a>
+<select name='tipoCategoria' required id='tipoCategoria' style='position:absolute;
+        top:500px; text-align:center; left:130px; width:300px;'>
 </select>
-<a style="position:absolute; top:340px; left:70px;">Cantón</a>
-<select name='canton' required id='canton' onchange='refresh(3)' style="position:absolute; top:340px; text-align:center;
-left:200px; width:300px;">
-    <option value=''>Seleccione uno</option>
-</select>
-<a style="position:absolute; top:370px; left:70px;">Distrito</a>
-<select name='distrito' required id='distrito' onchange='refresh(4)' style="position:absolute; top:370px; text-align:center;
-left:200px; width:300px;">
-    <option value=''>Seleccione uno</option>
-</select>
-<a style="position:absolute; top:400px; left:70px;">Barrio</a>
-<select name='barrio' required id='barrio' onchange='refresh(5)' style="position:absolute; top:400px; text-align:center;
-left:200px; width:300px;">
-    <option value=''>Seleccione uno</option>
-</select>
-</div>
-<a style="position:absolute; top:430px; left:70px;"> Dirección exacta </a>
-<textarea id='direccionExacta' style="position:absolute; top:450px; left:200px; width:290px; height:50px;" ></textarea>
-<h2 style="position:absolute; top:490px; left:70px;">Categoría</h2>
-<a style="position:absolute; top:530px; left:70px;">_______________</a>
-<a style="position:absolute; top:560px; left:70px;">Nombre</a>
-
-    <?php
-        include('../conection.php');
-		$conn = oci_connect($user, $pass, $db);
-		$sql = "SELECT nombre FROM categoria";
-		$stmt = oci_parse($conn, $sql);
-		ociexecute($stmt);
-		echo "<select name='tipoCategoria' required id='tipoCategoria' style='position:absolute;
-        top:560px; text-align:center; left:200px; width:300px;'>";
-        echo "<option value=''>Seleccione uno</option>";
-		while ( $row = oci_fetch_assoc($stmt) ) {
-
-            echo "<option value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
-
-		}
-        echo "<option value='otra'>Otra</option>
-        </select>";
-    ?>
-
-<button type="submit" style="position:absolute; top:620px; left:130px; width:150px;">Cancelar</button>
-<button type="submit" onClick='crear()' style="position:absolute; top:620px; left:310px; width:150px;">Crear</button>
-</div>
-</section>
-<div id='crearEntidad'>
-</div>
 <!-- Nueva categoría-->
-<section style="position:absolute; top:580px; left:560px; width:400px;">
+<section style="position:absolute; top:420px; left:500px; width:400px;">
 <a style="color:#FF33D7; left:10px;">_____________________________________</a>
 <h2 style="position:absolute; top:10px; left:10px;"> Nueva Categoría</h2>
 <a style="position:absolute; left:10px; top:80px;">Nombre</a>
@@ -173,7 +125,9 @@ left:200px; width:300px;">
 <input type="text" id='categoria2'  style="position:absolute; top:80px; left:80px;" />
 <a style="color:#FF33D7; position:absolute; left:10px; top:200px;">_____________________________________</a>
 </section>
-
+<button type="submit" onclick='registrar()' style="position:absolute; top:580px; left:60px; width:200px;">Registrar</button>
+</div>
+</section>
 <!-- Pie de página -->
 <section id="CuadroGris" style=" top:810px; position:absolute; left:20px; width:960px; height:90px">
 <a style="position:absolute; left:20px; top:10px;"> Desarrolladores </a>
@@ -187,7 +141,7 @@ left:200px; width:300px;">
 </section>
 
 <!-- Encabezado-->
-<section id="CuadroGris" style="position:absolute; left:20px; height:90px; width:960px;">
+<section id="CuadroGris" style="position:absolute; left:20px; height:90px; width:960px; top:0px;">
 <img src="../Imagenes/Denunciarteicono.jpg" style="position:absolute; left:0px;" />
 <input type=search results=5 placeholder='Buscar entidad, persona.'  name=busqueda style="position:absolute; left:95px; top:30px; width:300px;">
 <button type="submit" style="position:absolute; top:20px; left:400px;">Buscar</button>
