@@ -14,14 +14,6 @@
 
 <body style="width:700px;">
 
-<!-- Menú vertical -->
-<section id="CuadroGris" style="position:absolute; top:150px; left:20px; width:300px; height:300px;">
-<h2 style="font-size:24px; left:100px; top:10px;">Mostrar</h2>
-<button type="submit" style="position:absolute; top:80px; left:50px; font-size:18px; width:200px;">Calificaciones</button>
-<button type="submit" style="position:absolute; top:130px;left:50px; font-size:18px; width:200px;">Reportes</button>
-<button type="submit" style="position:absolute; top:180px;left:50px; font-size:18px; width:200px;">Trabajos</button>
-</section>
-
 <!--Sección que se actualiza-->
 <div id="mostrar">
 <section style="position:absolute; left:150px; top:100px; width:630px; height:400px;">
