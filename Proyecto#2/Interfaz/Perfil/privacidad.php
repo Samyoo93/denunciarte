@@ -7,6 +7,32 @@
        header("Location: ../index.php");
     }
     ?>
+<script>
+    function setPrivacidad(){
+        // Create our XMLHttpRequest object
+        var hr = new XMLHttpRequest();
+        // Create some variables we need to send to our PHP file
+        var url = "procesarPrivacidad.php";
+
+
+        var priv = document.getElementById('priv').value;
+
+        var vars = 'priv='+priv;
+        hr.open("POST", url, true);
+        // Set content type header information for sending url encoded variables in the request
+        hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        // Access the onreadystatechange event for the XMLHttpRequest object
+        hr.onreadystatechange = function() {
+            if(hr.readyState == 4 && hr.status == 200) {
+                var return_data = hr.responseText;
+                document.getElementById("privac").innerHTML = return_data;
+            }
+        }
+        // Send the data to PHP now... and wait for response to update the status div
+        hr.send(vars); // Actually execute the request
+        document.getElementById("privac").innerHTML = "procesando...";
+	}
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>DenunciARTE</title>
 <link rel="stylesheet" href="../Estilo/Estilo.css" />
@@ -15,16 +41,17 @@
 <body style="width:700px;">
 
 <!--Sección que se actualiza-->
-
+<div id='privac'>
+</div>
 <section style="position:absolute; left:200px; top:100px; width:630px; height:400px;">
 <div id="mostrar" style="overflow-y:scroll;">
 <h1 style="position:absolute; left:70px; font-size:45px;"> Configuración de privacidad </h1>
 <a style="position:absolute; top:150px; left:140px;">¿Quién puede ver tu información personal?</a>
-<select style="position:absolute; top:180px; left:200px;">
-    <option>Público</option>
-    <option>Solo yo</option>
+<select id='priv' style="position:absolute; top:180px; left:200px;">
+    <option value='publico'>Público</option>
+    <option value='privado'>Solo yo</option>
 </select>
-<button type="submit" style="position:absolute; top:220px; left:200px; width:100px;">Configurar</button>
+<button type="submit" onClick='setPrivacidad()' style="position:absolute; top:220px; left:200px; width:100px;">Configurar</button>
 </div>
 </section>
 
