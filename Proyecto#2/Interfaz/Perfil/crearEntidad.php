@@ -79,13 +79,6 @@
 
 <body style="width:700px;">
 
-<!-- Menú vertical -->
-<section id="CuadroGris" style="position:absolute; top:150px; left:700px; width:270px; height:250px;">
-<h2 style="position:absolute; top:10px; left:80px;">Mostrar</h2>
-<button type="submit" style="position:absolute; top:90px;left:30px; font-size:18px; width:200px;">Categorías</button>
-<button type="submit" style="position:absolute; top:140px; left:30px; font-size:18px; width:200px;">Entidades</button>
-</section>
-
 <section style="position:absolute; left:20px; top:100px; width:630px; height:400px;">
 <div id="mostrar" style="overflow-y:scroll;">
 <h1 style="position:absolute; left:150px;"> Crear Entidad </h1>
@@ -197,7 +190,6 @@ left:200px; width:300px;">
 <section id="CuadroGris" style="position:absolute; left:20px; height:90px; width:960px;">
 <img src="../Imagenes/Denunciarteicono.jpg" style="position:absolute; left:0px;" />
 <input type=search results=5 placeholder='Buscar entidad, persona.'  name=busqueda style="position:absolute; left:95px; top:30px; width:300px;">
-<a href=""  style="position:absolute; top:50px; left:125px;">+Busqueda avanzada</a>
 <button type="submit" style="position:absolute; top:20px; left:400px;">Buscar</button>
 <section style="position:absolute; left:560px;">
 <nav align="center" >
