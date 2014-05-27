@@ -14,19 +14,26 @@
 
 <body style="width:700px;">
 
-<!-- Menú vertical -->
-<section id="CuadroGris" style="position:absolute; top:150px; left:20px; width:300px; height:300px;">
-<h2 style="font-size:24px; left:100px; top:10px;">Mostrar</h2>
-<button type="submit" style="position:absolute; top:80px; left:50px; font-size:18px; width:200px;">Calificaciones</button>
-<button type="submit" style="position:absolute; top:130px;left:50px; font-size:18px; width:200px;">Reportes</button>
-<button type="submit" style="position:absolute; top:180px;left:50px; font-size:18px; width:200px;">Trabajos</button>
-</section>
 
 <!--Sección que se actualiza-->
 <div id="mostrar">
 <section style="position:absolute; left:350px; top:100px; width:630px; height:400px;">
-<h1 style="position:absolute; left:150px;"> Calificaciones </h1>
-<a style="position:absolute; top:150px; left:70px;">*Nadie te ha calificado.</a>
+<h1 style="position:absolute; left:150px;"> Búsqueda avanzada </h1>
+<a style="position:absolute; top:170px; left:50px;">Buscar</a>
+<select style="position:absolute; top:170px;left:100px;">
+    <option>Entidad</option>
+    <option>Categoría</option>
+    <option>Persona Física</option>
+</select>
+<a style="position:absolute; top:170px; left:230px;">por</a>
+<select style="position:absolute; top:170px; left:260px;">
+    <option>Cédula</option>
+    <option>Nombre</option>
+    <option>Primer Apellido</option>
+    <option>Segundo Apellido</option>
+</select>
+<input type="text" id="filtro" style="position:absolute; top:170px; left:410px; width:160px;">
+<button type="submit" style="position:absolute; top:160px; left:580px;">Buscar</button>
 </section>
 </div>
 <!-- Pie de página -->
