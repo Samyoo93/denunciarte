@@ -10,6 +10,14 @@
 	//crea variables ligadas a la pg con html
     $usuario = $_POST['usuarioLogin'];
     $password = $_POST['contrasenaLogin'];
+    $button = "<button type='submit' onClick='location.href=\"perfil/busquedaAvanzada.php\"'
+    style='position:absolute; top:95px; left:570px;
+    width:80px;'>Ingresar</button>";
+    $msgIng = "<section id='error' style='position:absolute; top:170px; left:545px;'>
+    <a style='font-size:20px; color:#21A33A; font-size:16px;'>**Inicio de sesión con éxito!</a>
+    </section>";
+
+
     if($usuario != null and $password != null) {
         //verifica que se llenen todos los campos
         if(strlen($usuario) < 26 and strlen($password) < 16) {
@@ -41,9 +49,7 @@
                 ociexecute($query_canLogin);
                 if ($isValid == 1) {
                     //notifica al usuario la conexión exitosa
-                    echo "<section id='success' style='position:absolute; top:15px; left:370px; background-color:#6ae364;'>
-                    <a style='font-size:20px; color:#000;'>Login con exito.</a>
-                    </section>";
+
                     session_start(); //inicia la sesion
                     $_SESSION['usuario']= $usuario;
                     $_SESSION['password']= $password;
@@ -54,7 +60,7 @@
                     ociexecute($query_getid);
 
                     $_SESSION['cedula'] = $ced;
-
+                    echo $button . $msgIng;
 
                 } else {
                     //mensaje de error

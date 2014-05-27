@@ -8,6 +8,8 @@
 
     //crear variables ligadas a la pg con html
 
+
+
 	$usuario = $_POST['usuario'];
 	$password = $_POST['contrasena'];
     $password2 = $_POST['contrasena2'];
@@ -27,6 +29,13 @@
     $cedula = $cedula1 . $cedula2 . $cedula3;
     $cedula = intval($cedula);
     $checka = $_POST['checka'];
+    $button = "<button type='submit' onClick='location.href=\"perfil/busquedaAvanzada.php\"'
+               style='position:absolute; top:730px; left:770px;
+               width:200px;'>Ingresar</button>";
+    $msgIng = "<section id='error' style='position:absolute; top:705px; left:770px;'>
+                <a style='font-size:20px; color:#21A33A; font-size:16px;'>**Registro exitoso!</a>
+                </section>";
+
 
     if($checka == 1) {
         if($usuario != null and $password != null and $nombre != null and $primerApellido != null and $segundoApellido != null
@@ -71,6 +80,9 @@
                                     </section>";
 
                                 } else {
+
+                                    //print 'window.location.href="RegistroUsuarios.php";</script>';
+                                    //location.reload();
                                     //luego de validar todo agrega a la persona a la base de datos
                                     $getnombre = "begin pack_persona.set_persona_usuario(:nombre, :primerApellido, :segundoApellido, :genero,
                                     to_date(:fechaNacimiento, 'yyyy-mm-dd'),
@@ -86,8 +98,20 @@
                                     ocibindbyname($query_getnombre, ":cedula", $cedula);
                                     ocibindbyname($query_getnombre, ":privacidad", $privacidad);
                                     ociexecute($query_getnombre);
+                                    session_start(); //inicia la sesion
+                                    $_SESSION['usuario']= $usuario;
+                                    $_SESSION['password']= $password;
+                                    $getid = "begin :ced := pack_usuario.get_cedula(:usuario); end;";
+                                    $query_getid = ociparse($conn, $getid);
+                                    ocibindbyname($query_getid, ":usuario", $usuario);
+                                    ocibindbyname($query_getid, ":ced", $ced, 100);
+                                    ociexecute($query_getid);
 
-                                    echo "<script>window.location.assign('/perfil/busquedaAvanzada.php')</script>";
+                                    $_SESSION['cedula'] = $ced;
+                                    echo $button;
+                                    echo $msgIng;
+                                    OCICommit($conn);
+
                                 }
                             }
                         } else {
@@ -107,11 +131,15 @@
                     }
                 } else {
                     //mensaje de error
-                    echo "<script> alert('El máximo de caracteres para cédula es de 9 y contraseña es de 15.') </script>";
+                    echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
+                    <a style='font-size:20px; color:#F00; font-size:16px;'>**El máximo de caracteres para cédula es de 9 y contraseña es de 15.</a>
+                    </section>";
                 }
             } else {
                 //mensaje de error
-                echo "<script> alert('El máximo de caracteres para nombre, apellidos y usuario es de 25.') </script>";
+                echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
+                <a style='font-size:20px; color:#F00; font-size:16px;'>**El máximo de caracteres para nombre, apellidos y usuario es de 25.</a>
+                </section>";
             }
         } else {
             //mensaje de error
@@ -124,4 +152,5 @@
                 <a style='font-size:20px; color:#F00; font-size:16px;'>**Debe de aceptar los terminos y condiciones de uso.</a>
                 </section>";
     }
+    OCILogOff($conn);
 ?>

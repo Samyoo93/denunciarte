@@ -23,7 +23,6 @@
 	$year = (string)$year;
 	$year = substr($year, 0, 4);
 	$year = intval($year);
-    $privacidad = 1; //$_POST['privacidad'];
 
 	if($password != null and $nombre != null and $primerApellido != null and $segundoApellido != null
       and $fechaNacimiento != null and $privacidad != null) {
@@ -49,11 +48,11 @@
                     ocibindbyname($query_modpersona, ":cedula", $cedula);
                     ociexecute($query_modpersona);
 
-                    $modusuario = "begin pack_usuario.mod_usuario(:cedula, :password, :privacidad); end;";
+                    $modusuario = "begin pack_usuario.mod_usuario(:cedula, :password); end;";
                     $query_modusuario = ociparse($conn, $modusuario);
-                    ocibindbyname($query_modpersona, ":cedula", $cedula);
-                    ocibindbyname($query_modpersona, ":password", $password);
-                    ocibindbyname($query_modpersona, ":privacidad", $privacidad);
+                    ocibindbyname($query_modusuario, ":cedula", $cedula);
+                    ocibindbyname($query_modusuario, ":password", $password);
+                    ociexecute($query_modusuario);
 
 
 

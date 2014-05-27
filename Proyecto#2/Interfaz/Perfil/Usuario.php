@@ -1,17 +1,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <?php
+    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+       header("Location: ../index.php");
+    }
+    ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>DenunciARTE</title>
     <link rel="stylesheet" href="../Estilo/Estilo.css" />
-    <link href="libs/jquery.qtip.custom/jquery.qtip.css" rel="stylesheet">
+    <link href="../libs/jquery.qtip.custom/jquery.qtip.css" rel="stylesheet">
     <link href="../Estilo/estilohover.css" rel="stylesheet">
-    <link rel="stylesheet" href="rateit/src/rateit.css">
+    <link rel="stylesheet" href="../rateit/src/rateit.css">
     <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="libs/jquery.qtip.custom/jquery.qtip.js"></script>
-    <script src="rateit/src/jquery.rateit.js" type="text/javascript"></script>
+    <script src="../libs/jquery.qtip.custom/jquery.qtip.js"></script>
+    <script src="../rateit/src/jquery.rateit.js" type="text/javascript"></script>
     <script src="script.js" type="text/javascript"></script>
 </head>
 

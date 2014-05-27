@@ -1,6 +1,11 @@
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <?php
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Denunciarte</title>
 <link rel="stylesheet" href="Estilo/Estilo.css" />
@@ -98,8 +103,7 @@ function registrar(){
 <a style="position:absolute; top:450px; left:120px;">Descárgalo desde</a>
 <img src="Imagenes/playStore.jpg" style="position:absolute; top:430px; left:250px;" />
 </section>
-<div id="registro">
-</div>
+
 <!-- Registro de usuarios -->
 <section style="position:absolute; top:170px; left:480px; width:450px; height:300px;">
 <h2 style="position:absolute; left:30px;">Regístrate</h2>
@@ -132,8 +136,13 @@ function registrar(){
 
     <input type="checkbox" id='checka' style="position:absolute; top:510px; left:60px;" />
     <a style="position:absolute; left:80px; top:510px;"> Aceptas las </a> <a href="" style="position:absolute; top:510px; left:170px;"> Condiciones de uso </a><a style="position:absolute; top:510px; left:310px"> y que has leído la </a> <a href="" style="position:absolute; top:530px; left:80px;">Política de uso de datos.</a>
+
+
     <button type="submit" onclick='registrar()' style="position:absolute; top:560px; left:60px; width:200px;">Registrarse</button>
 </section>
+    <div id="registro">
+    </div>
+
 
 <!-- Registro Entidad-->
 <!-- Registro de usuarios -->
