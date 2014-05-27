@@ -55,6 +55,28 @@
 			hr.send(vars); // Actually execute the request
 			document.getElementById("mostrar").innerHTML = "Procesando...";
 		}
+        function refresh(){
+        // Create our XMLHttpRequest object
+        var hr = new XMLHttpRequest();
+        // Create some variables we need to send to our PHP file
+        var url = "refreshBusquedas.php";
+        var persona = document.getElementById('persona').value;
+        var tipoBusqueda = document.getElementById('tipoBusqueda').value;
+        var vars = 'persona='+persona+'&tipoBusqueda='+tipoBusqueda;
+        hr.open("POST", url, true);
+        // Set content type header information for sending url encoded variables in the request
+        hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        // Access the onreadystatechange event for the XMLHttpRequest object
+        hr.onreadystatechange = function() {
+            if(hr.readyState == 4 && hr.status == 200) {
+                var return_data = hr.responseText;
+                document.getElementById("busquedaCombo").innerHTML = return_data;
+            }
+        }
+        // Send the data to PHP now... and wait for response to update the status div
+        hr.send(vars); // Actually execute the request
+        document.getElementById("busquedaCombo").innerHTML = "procesando...";
+	}
 	</script>
 </head>
 
@@ -78,21 +100,25 @@
 	</section>
 
 	<!--Menu busqueda avanzada-->
+
 	<section>
 		<h1 style="position:absolute; left:240px; top:100px;"> Búsqueda avanzada </h1>
 		<a style="position:absolute; top:220px; left:230px;">Buscar</a>
-		<select id='persona' style="position:absolute; top:220px;left:180px;">
+		<select onchange='refresh()' id='persona' onChange='' style="position:absolute; top:220px;left:180px;">
+            <option value=''>Seleccione una</option>
 			<option value='personaJuridica'>Persona Jurídica</option>
 			<option value='categoria'>Categoría</option>
 			<option value='personaFisica'>Persona Física</option>
+			<option value='juridicaFisica'>Jurídica, Física</option>
 		</select>
 		<a style="position:absolute; top:220px; left:320px;">por</a>
-		<select id='tipoBusqueda'style="position:absolute; top:220px; left:350px;">
-			<option value='cedula'>Cédula</option>
-			<option value='nombre'>Nombre</option>
-			<option value='primerApellido'>Primer Apellido</option>
-			<option value='segundoApellido'>Segundo Apellido</option>
+         <div id='busquedaCombo'>
+		<select id='tipoBusqueda' style="position:absolute; top:220px; left:350px;">
+            <option value=''>Seleccione una</option>
+
+
 		</select>
+        </div>
 		<input type="text" id="busqueda" style="position:absolute; top:220px; left:500px; width:160px;">
 		<button onclick='ajax_post()' type="submit" style="position:absolute; top:220px; left:670px;">Buscar</button>
 	</section>
