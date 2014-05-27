@@ -1,0 +1,6 @@
+$_SESSION['usuario']
+$_SESSION['password']
+$_SESSION['cedula'] 
+
+-1 -> baneado
+1 -> no baneado

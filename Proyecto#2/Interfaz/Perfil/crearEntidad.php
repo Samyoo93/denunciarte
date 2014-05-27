@@ -3,7 +3,7 @@
 <head>
     <?php
     session_start();
-    if (session_status() == PHP_SESSION_NONE) {
+    if (!isset($_SESSION['usuario'])) {
        header("Location: ../index.php");
     }
     ?>
@@ -207,7 +207,7 @@ left:200px; width:300px;">
     	<ul>
         	<li style="font-size:16px; width:150px;"><a href="crearEntidad.php">Crear una entidad</a></li>
             <li style="font-size:16px; width:150px;"><a href="crearPersonaFisica.php">Crear una persona</a></li>
-     		<li style="font-size:16px; width:150px;"><a href="">Cerrar sesión</a></li>
+     		<li style="font-size:16px; width:150px;"><a href="logout.php">Cerrar sesión</a></li>
     		<li style="font-size:16px; width:150px;"><a href="">Ayuda</a></li>
   		</ul>
   </li>
