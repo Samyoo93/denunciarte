@@ -48,53 +48,14 @@
 <section id="mostrar" style="position:absolute; left:20px; top:100px; width:630px; height:400px;">
 	<!-- Menú vertical, lo coloco aquí porque cada vez que se hace la busqueda elimina esta parte y la volverá a poner cuando carge la
 	pagina de nuevo-->
-	<section id="CuadroGris" style="position:absolute; top:150px; left:700px; width:270px; height:150px;">
-		<button type="submit" style="position:absolute; top:20px; left:30px; font-size:18px; width:200px;"><a href="#openRate" style="color: #CFCFCF;
-			font: small-caps 100%/200% serif;
-			background-color:#914998;
-			font-size: 16px;">Calificar</a></button>
-		<button type="submit" style="position:absolute; top:70px;left:30px; font-size:18px; width:200px;" >
-		<a href="#openReport" style="color: #CFCFCF;
-			font: small-caps 100%/200% serif;
-			background-color:#914998;
-			font-size: 16px;">Reportar</a>
-		</button>
-		<div id="openReport" class="modalDialog">
-			<div>
-				<a href="#close" title="Close" class="close">X</a>
-				<h2>Reportar a esta persona</h2>
-				<p style="position:absolute; top:70px;">Si desea reportar a NOMBRE DE USUARIO, indique el motivo por el cual desea reportarlo.</p>
-				<p style="position:absolute; top:130px;">Motivo</p>
-				<textarea style="position:absolute; top:150px; left: 150px; width:350px; height:150px;"></textarea>
-				<button type="submit" style="position:absolute; top: 320px; left:150px; width:100px;">Reportar</button>
-			</div>
-		</div>
-
-		<div id="openRate" class="modalDialog">
-			<div>
-				<a href="#close" title="Close" class="close">X</a>
-				<h2>Calificar a esta persona</h2>
-				<p style="position:absolute; top:70px;">Si desea calificar a NOMBRE DE USUARIO, rellene los siguientes campos:</p>
-				<p style="position:absolute; top:130px;">Título</p>
-				<input type="text" style="position:absolute; top:150px; left: 150px; width:200px;"></input>
-				<p style="position:absolute; top:160px;">Descripción</p>
-				<textarea type="text" style="position:absolute; top:180px; left: 150px;width:300px; height:100px;">
-				</textarea>
-				<p style="position:absolute; top:280px;">Calificación</p>
-				<div class='rateit' data-rateit-max='10' data-rateit-readonly='true' data-rateit-       value="2" style="position:absolute; top:300px; left:150px;"></div>
-
-				<button type="submit" style="position:absolute; top: 350px; left:150px; width:100px;">Calificar</button>
-			</div>
-		</div>
-	</section>
-
 	<?php
-		include("../conection.php");
+        //Carga todos los datos que provienen del id obtenido del url
+        include("../conection.php");
 		$conn = OCILogon($user, $pass, $db);
 
 		$persona = $_GET['persona'];
 		$id = $_GET['id'];
-
+        //Carga los elementos encontrados dependiendo de si es personaFisica o personaJuridica obtenido del url 
 		if($persona == 'personaFisica') {
 			//Se inicia el query con el procedimiento asignado
 			$query_procedimiento = ociparse($conn, "BEGIN :cursor := busquedas.personaPorId(:id); END;");
@@ -117,9 +78,9 @@
 				ociexecute($query_procedimiento);
 
 				oci_execute($cursor, OCI_DEFAULT);*/
-
+                $nombre = $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'];
 				$datos = $datos . '<h1 style="position:absolute; left:150px;"> Persona Física</h1>
-				<a style="position:absolute; top:150px; left:70px;">Nombre Completo:'. $fila['NOMBRE'] . $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'] .'</a>
+				<a style="position:absolute; top:150px; left:70px;">Nombre Completo:'. $nombre .'</a>
 				<a style="position:absolute; top:180px; left:70px;">Cédula:'. $fila['CEDULAFISICA_ID'] .'</a>
 				<a style="position:absolute; top:210px; left:70px;">Edad:'. $fila['FECHANACIMIENTO'] .'</a>
 				<a style="position:absolute; top:240px; left:70px;">Género:'. $fila['GENERO'] .'</a>
@@ -133,7 +94,7 @@
 				<a style="position:absolute; top:440px; left:70px;">Promedio:</a>';
 
 			}
-			echo $datos;
+			
 		} else if($persona == 'personaJuridica') {
 			//Se inicia el query con el procedimiento asignado
 			$query_procedimiento = ociparse($conn, "BEGIN :cursor := busquedas.entidadPorId(:id); END;");
@@ -149,10 +110,10 @@
 			oci_fetch_all($cursor, $array, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_NUM);
 			$datos = '';
 			foreach($array as $fila){
-
+                $nombre = $fila[0];
 				$datos = $datos . '
 				<h1 style="position:absolute; left:150px;"> Persona Jurídica</h1>
-				<a style="position:absolute; top:150px; left:70px;">Nombre:'. $fila[0] .'</a>
+				<a style="position:absolute; top:150px; left:70px;">Nombre:'. $nombre .'</a>
 				<a style="position:absolute; top:180px; left:70px;">Cédula:'. $fila[1] .'</a>
 				<a style="position:absolute; top:210px; left:70px;">Dirección Exacta:'. $fila[2] . $fila[3] . $fila[4] . $fila[5] . $fila[6] .'</a>
 				<a style="position:absolute; top:240px; left:70px;">País:'. $fila[7] .'</a>
@@ -163,11 +124,56 @@
 				';
 
 			}
-			echo $datos;
+			
 
 		}
-	?>
+        //El unico objetivo de esto es para cargar el nombre en la ventana emergente de clasificacion
+        $menuVertical = 
+            '<section id="CuadroGris" style="position:absolute; top:150px; left:700px; width:270px; height:150px;">
+		<button type="submit" style="position:absolute; top:20px; left:30px; font-size:18px; width:200px;"><a href="#openRate" style="color: #CFCFCF;
+			font: small-caps 100%/200% serif;
+			background-color:#914998;
+			font-size: 16px;">Calificar</a></button>
+		<button type="submit" style="position:absolute; top:70px;left:30px; font-size:18px; width:200px;" >
+		<a href="#openReport" style="color: #CFCFCF;
+			font: small-caps 100%/200% serif;
+			background-color:#914998;
+			font-size: 16px;">Reportar</a>
+		</button>
+		<div id="openReport" class="modalDialog">
+			<div>
+				<a href="#close" title="Close" class="close">X</a>
+				<h2>Reportar a esta persona</h2>
+				<p style="position:absolute; top:70px;">Si desea reportar a , indique el motivo por el cual desea reportarlo.</p>
+				<p style="position:absolute; top:130px;">Motivo</p>
+				<textarea style="position:absolute; top:150px; left: 150px; width:350px; height:150px;"></textarea>
+				<button type="submit" style="position:absolute; top: 320px; left:150px; width:100px;">Reportar</button>
+			</div>
+		</div>
 
+		<div id="openRate" class="modalDialog">
+			<div>
+				<a href="#close" title="Close" class="close">X</a>
+				<h2>Calificar a esta persona</h2>
+				<p style="position:absolute; top:70px;">Si desea calificar a '. $nombre .', rellene los siguientes campos:</p>
+				<p style="position:absolute; top:130px;">Título</p>
+				<input type="text" id="titulo" style="position:absolute; top:150px; left: 150px; width:200px;"></input>
+				<p style="position:absolute; top:160px;">Descripción</p>
+				<textarea type="text" id="descripcion" style="position:absolute; top:180px; left: 150px;width:300px; height:100px;">
+				</textarea>
+				<p style="position:absolute; top:280px;">Calificación</p>
+				<div class="rateit" data-rateit-max="10" data-rateit-readonly="true" data-rateit-value="2" style="position:absolute; top:300px; left:150px;"></div>
+
+				<button type="submit" onclick="agregarCalificacion()" style="position:absolute; top: 350px; left:150px; width:100px;">Calificar</button>
+			</div>
+		</div>
+	</section>';
+        echo $menuVertical;
+        echo $datos;
+	
+    ?>
+    
+    
 </section>
 
 <!-- Pie de página -->
@@ -204,9 +210,8 @@
 				</li>
 				<li style="width:60px; height:60px;"><img src="../Imagenes/flechafinal.png" style="position:absolute; top:40px;" />
 					<ul>
-						<li style="font-size:16px; width:150px;"><a href="crearEntidad.php">Crear una entidad</a></li>
-                        <li style="font-size:16px; width:150px;"><a href="crearPersonaFisica.php">Crear una persona</a></li>
-						<li style="font-size:16px; width:150px;"><a href="logout.php">Cerrar sesión</a></li>
+						<li style="font-size:16px; width:150px;"><a href="">Crear una entidad</a></li>
+						<li style="font-size:16px; width:150px;"><a href="">Cerrar sesión</a></li>
 						<li style="font-size:16px; width:150px;"><a href="">Ayuda</a></li>
 					</ul>
 				</li>
