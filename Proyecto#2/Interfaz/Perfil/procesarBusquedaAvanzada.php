@@ -135,8 +135,8 @@
 								</div>';
 		}
 	//Busca por cateria******************************************************************************************************************
-	} else if($persona == 'categoria'){
-		if($tipoBusqueda == 'nombre'){
+	} else if($persona == 'juridicaFisica'){
+		if($tipoBusqueda == 'categoria'){
 
 			$query_procedimiento = ociparse($conn, "BEGIN :cursor := busquedas.personaPorCategoria(:categoria); END;");
 			$cursor1 = oci_new_cursor($conn);
@@ -190,7 +190,13 @@
 							</div>';
 			}
 		}
-	}
+	} else if($persona =='categoria'){
+        if($tipoBusqueda == 'categoria'){
+
+
+        }
+    }
+
 
 	//El cierre de la seccion donde la informacion fue cargada
 	$division = $division . '</div></section>';
