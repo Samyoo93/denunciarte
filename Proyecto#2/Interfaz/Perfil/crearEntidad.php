@@ -79,7 +79,8 @@
 
 <body style="width:700px;">
 
-<section style="position:absolute; left:20px; top:100px; width:630px; height:400px;">
+
+<section style="position:absolute; left:50px; top:100px; width:900px; height:550px;">
 <div id="mostrar" style="overflow-y:scroll;">
 <h1 style="position:absolute; left:150px;"> Crear Entidad </h1>
 <a style="position:absolute; top:150px; left:70px;">Nombre</a>
@@ -170,7 +171,6 @@ left:200px; width:300px;">
 <a style="position:absolute; left:10px; top:115px;">Descripción</a>
 <textarea id='descripcion' style="position:absolute; left:80px; top:135px; height:65px;"></textarea>
 <input type="text" id='categoria2'  style="position:absolute; top:80px; left:80px;" />
-<button type="submit" style="position:absolute; top:70px; left:250px;">Agregar</button>
 <a style="color:#FF33D7; position:absolute; left:10px; top:200px;">_____________________________________</a>
 </section>
 
