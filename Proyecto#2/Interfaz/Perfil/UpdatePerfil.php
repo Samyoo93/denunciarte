@@ -92,7 +92,6 @@
 <section id="CuadroGris" style="position:absolute; left:20px; height:90px; width:960px;">
 <img src="../Imagenes/Denunciarteicono.jpg" style="position:absolute; left:0px;" />
 <input type=search results=5 placeholder='Buscar entidad, persona.'  name=busqueda style="position:absolute; left:95px; top:30px; width:300px;">
-<a href=""  style="position:absolute; top:70px; left:125px;">+Busqueda avanzada</a>
 <button type="submit" style="position:absolute; top:20px; left:400px;">Buscar</button>
 <section style="position:absolute; left:560px;">
 <nav align="center" >
@@ -102,13 +101,14 @@
 
  	<li><a title="Privacidad"> <img src="../Imagenes/candado.png" /></a>
  	<ul>
-     <li style="font-size:16px; width:150px;"><a href="">Configuración</a></li>
-    <li style="font-size:16px; width:150px;"><a href="">Privacidad</a></li>
+     <li style="font-size:16px; width:150px;"><a href="UpdatePerfil.php">Configuración</a></li>
+    <li style="font-size:16px; width:150px;"><a href="privacidad.php">Privacidad</a></li>
   </ul>
  </li>
     <li style="width:60px; height:60px;"><img src="../Imagenes/flechafinal.png" style="position:absolute; top:40px;" />
     	<ul>
-        	<li style="font-size:16px; width:150px;"><a href="">Crear una entidad</a></li>
+        	<li style="font-size:16px; width:150px;"><a href="crearEntidad.php">Crear una entidad</a></li>
+            <li style="font-size:16px; width:150px;"><a href="crearPersonaFisica.php">Crear una persona</a></li>
      		<li style="font-size:16px; width:150px;"><a href="">Cerrar sesión</a></li>
     		<li style="font-size:16px; width:150px;"><a href="">Ayuda</a></li>
   		</ul>
