@@ -142,7 +142,7 @@ left:200px; width:300px;">
     <?php
         include('../conection.php');
 		$conn = oci_connect($user, $pass, $db);
-		$sql = "SELECT nombre FROM categoria";
+		$sql = "SELECT nombre FROM categoria where tipo = 'E'";
 		$stmt = oci_parse($conn, $sql);
 		ociexecute($stmt);
 		echo "<select name='tipoCategoria' required id='tipoCategoria' style='position:absolute;

@@ -17,7 +17,7 @@
 	$cedula2 = $_POST["cedula2"];
 	$cedula3 = $_POST["cedula3"];
     $cedula = $cedula1 . $cedula2 . $cedula3;
-    $categoria = 'otra';//;$_POST['categoria'];
+    $categoria = $_POST['categoria'];
     $existe_cat = 1;
 
 
@@ -43,9 +43,10 @@
 
                     //**********************************************************************************
                     if ($rows > 0) {
-                        echo "<section id='error' style='position:absolute; top:10px; left:350px; background-color:#ff3e3e;'>
-                        <a style='font-size:20px; color:#000;'>La cedula ".$cedula." ya se encuentra registrada.</a>
+                        echo "<section id='error' style='position:absolute; top:7px; left:90px;'>
+                        <a style='font-size:20px; color:#F00; font-size:16px;'>**La cedula ".$cedula." ya se encuentra registrada.</a>
                         </section>";
+
 
                     } else {
 
@@ -74,7 +75,7 @@
 
                             } else {
                                 $existe_cat = -1;
-                                echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
+                                echo "<section id='error' style='position:absolute; top:7px; left:90px;'>
                                 <a style='font-size:20px; color:#F00; font-size:16px;'>**La categoria " . $categoria . " ya se encuentra registrada.</a>
                                 </section>";
 
@@ -110,35 +111,39 @@
                             ocibindbyname($query_setcat, ":categoria", $categoria);
                             ocibindbyname($query_setcat, ":cedula", $cedula);
                             ociexecute($query_setcat);
-                            echo "entro al final";
+                            echo "<section id='error' style='position:absolute; top:7px; left:90px;'>
+                            <a style='font-size:20px; color:#21A33A; font-size:16px;'>**Persona creada exitosamente!</a>
+                            </section>";
+
                         }
 
                     }
 
                 } else {
                     //mensaje de error
-                    echo "<section id='error' style='position:absolute; top:15px; left:300px; background-color:#ff3e3e;'>
-                    <a style='font-size:20px; color:#000;'>El máximo de caracteres para cédula es de 9 y contraseña es de 15.</a>
+                    echo "<section id='error' style='position:absolute; top:7px; left:90px;'>
+                    <a style='font-size:20px; color:#F00; font-size:16px;'>**El máximo de caracteres para cédula es de 9 y contraseña es de 15.</a>
                     </section>";
                 }
             } else {
                 //mensaje de error
-                echo "<section id='error' style='position:absolute; top:15px; left:300px; background-color:#ff3e3e;'>
-                <a style='font-size:20px; color:#000;'>La cédula debe de ser un número.</a>
+                echo "<section id='error' style='position:absolute; top:7px; left:90px;'>
+                <a style='font-size:20px; color:#F00; font-size:16px;'>**La cédula debe de ser un número.</a>
                 </section>";
+
 
             }
         } else {
             //mensaje de error
-            echo "<section id='error' style='position:absolute; top:15px; left:300px; background-color:#ff3e3e;'>
-            <a style='font-size:20px; color:#000;'>El máximo de caracteres para nombre, apellidos y usuario es de 25.</a>
+            echo "<section id='error' style='position:absolute; top:7px; left:90px;'>
+            <a style='font-size:20px; color:#F00; font-size:16px;'>**El máximo de caracteres para nombre, apellidos y usuario es de 25.</a>
             </section>";
         }
     } else {
         //mensaje de error
-        echo "<section id='error' style='position:absolute; top:15px; left:300px; background-color:#ff3e3e;'>
-        <a style='font-size:20px; color:#000;'>Llenar todos los espacios.</a>
-		</section>";
+        echo "<section id='error' style='position:absolute; top:7px; left:90px;'>
+        <a style='font-size:20px; color:#F00; font-size:16px;'>**Debe de llenar los espacios.</a>
+        </section>";
 
 	}
 

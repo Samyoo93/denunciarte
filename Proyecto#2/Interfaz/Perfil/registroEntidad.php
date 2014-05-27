@@ -112,6 +112,10 @@
                         ocibindbyname($query_setdireccion, ":direccionExacta", $direccionExacta);
                         ociexecute($query_setdireccion);
 
+                        echo "<section id='error' style='position:absolute; top:140px; left:200px;'>
+                        <a style='font-size:20px; color:#21A33A; font-size:16px;'>**Entidad creada exitosamente!</a>
+                        </section>";
+
                     }
                 }
             } else {

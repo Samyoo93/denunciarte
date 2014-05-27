@@ -16,22 +16,24 @@
         // Create our XMLHttpRequest object
         var hr = new XMLHttpRequest();
         // Create some variables we need to send to our PHP file
-        var url = "registroEntidad.php";
+        var url = "registroPersonaFisica.php";
         var nombre = document.getElementById('nombre').value;
-        var cedJuridica = document.getElementById('cedJuridica').value;
-        var pais = document.getElementById('pais').value;
-        var provincia = document.getElementById('provincia').value;
-        var canton = document.getElementById('canton').value;
-        var distrito = document.getElementById('distrito').value;
-        var barrio = document.getElementById('barrio').value;
-        var tipoCategoria = document.getElementById('tipoCategoria').value;
+        var primerApellido = document.getElementById('primerApellido').value;
+        var segundoApellido = document.getElementById('segundoApellido').value;
+        var cedula1 = document.getElementById('cedula1').value;
+        var cedula2 = document.getElementById('cedula2').value;
+        var cedula3 = document.getElementById('cedula3').value;
+        var genero = document.getElementById('genero').value;
+        var fecNac = document.getElementById('fecNac').value;
+        var lugartrabajo = document.getElementById('lugartrabajo').value;
+        var cargo = document.getElementById('cargo').value;
+        var categoria = document.getElementById('categoria').value;
         var categoria2 = document.getElementById('categoria2').value;
-        var direccionExacta = document.getElementById('direccionExacta').value;
         var descripcion = document.getElementById('descripcion').value;
 
-        var vars = 'nombre='+nombre+'&cedJuridica='+cedJuridica+'&pais='+pais+'&provincia='+provincia+'&canton='+canton+'&distrito='+distrito+
-            '&barrio='+barrio+'&tipoCategoria='+tipoCategoria+'&categoria2='+categoria2+'&direccionExacta='+direccionExacta+
-            '&descripcion='+descripcion;
+
+        var vars =  'nombre='+nombre+'&primerApellido='+primerApellido+'&segundoApellido='+segundoApellido+'&cedula1='+cedula1+'&cedula2='+cedula2+'&cedula3='+cedula3+'&genero='+genero+'&fecNac='+fecNac+'&lugartrabajo='+lugartrabajo+'&cargo='+cargo+'&categoria='+categoria+'&categoria2='+categoria2+'&descripcion='+descripcion;
+
         hr.open("POST", url, true);
         // Set content type header information for sending url encoded variables in the request
         hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -39,12 +41,12 @@
         hr.onreadystatechange = function() {
             if(hr.readyState == 4 && hr.status == 200) {
                 var return_data = hr.responseText;
-                document.getElementById("crearEntidad").innerHTML = return_data;
+                document.getElementById("crearPerFis").innerHTML = return_data;
             }
         }
         // Send the data to PHP now... and wait for response to update the status div
         hr.send(vars); // Actually execute the request
-        document.getElementById("crearEntidad").innerHTML = "procesando...";
+        document.getElementById("crearPerFis").innerHTML = "procesando...";
 	}
     function refresh(changed){
         // Create our XMLHttpRequest object
@@ -112,9 +114,25 @@
 <h2 style="position:absolute; top:430px; left:60px;">Categoría</h2>
 <a style="position:absolute; top:470px; left:60px;">_______________</a>
 <a style="position:absolute; top:500px; left:60px;">Nombre</a>
-<select name='tipoCategoria' required id='tipoCategoria' style='position:absolute;
-        top:500px; text-align:center; left:130px; width:300px;'>
-</select>
+
+
+    <?php
+        include('../conection.php');
+		$conn = oci_connect($user, $pass, $db);
+		$sql = "SELECT nombre FROM categoria where tipo = 'F'";
+		$stmt = oci_parse($conn, $sql);
+		ociexecute($stmt);
+		echo "<select name='categoria' required id='categoria' style='position:absolute;
+        top:500px; text-align:center; left:130px; width:300px;'>";
+        echo "<option value=''>Seleccione uno</option>";
+		while ( $row = oci_fetch_assoc($stmt) ) {
+
+            echo "<option value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
+
+		}
+        echo "<option value='otra'>Otra</option>
+        </select>";
+    ?>
 <!-- Nueva categoría-->
 <section style="position:absolute; top:420px; left:500px; width:400px;">
 <a style="color:#FF33D7; left:10px;">_____________________________________</a>
@@ -125,8 +143,10 @@
 <input type="text" id='categoria2'  style="position:absolute; top:80px; left:80px;" />
 <a style="color:#FF33D7; position:absolute; left:10px; top:200px;">_____________________________________</a>
 </section>
-<button type="submit" onclick='registrar()' style="position:absolute; top:580px; left:60px; width:200px;">Registrar</button>
+<button type="submit" onclick='crear()' style="position:absolute; top:580px; left:60px; width:200px;">Registrar</button>
 </div>
+<div id='crearPerFis'>
+    </div>
 </section>
 <!-- Pie de página -->
 <section id="CuadroGris" style=" top:810px; position:absolute; left:20px; width:960px; height:90px">
