@@ -151,7 +151,7 @@
 <nav align="center" >
 <ul id="menu">
 	 <li><a title="Perfil" href=”#”>Usuario</a></li>
-    <li><a title="Inicio" href="InicioUsuarios.php">Inicio</a></li>
+    <li><a title="Inicio" href="busquedaAvanzada.php">Inicio</a></li>
 
  	<li><a title="Privacidad"> <img src="../Imagenes/candado.png" /></a>
  	<ul>
