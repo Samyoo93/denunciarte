@@ -89,7 +89,7 @@ function registrar(){
 <input type="text" style="position:absolute; top:50px; left:510px;" placeholder="Usuario" id="usuarioLogin" />
 <a style="position:absolute; left:690px; top:30px;"> Contraseña </a>
 <a href="" style="position:absolute; left:690px; font-size:12px; top:80px;">¿Olvidaste tu contraseña?</a>
-<input type="text" style="position:absolute; top:50px; left:690px;" placeholder="Contraseña" id="contrasenaLogin" />
+<input type="password" style="position:absolute; top:50px; left:690px;" placeholder="Contraseña" id="contrasenaLogin" />
 <button type="submit" onclick='login()' style="position:absolute; top:50px; left:870px;">Entrar</button>
 </section>
 <!-- LOGO -->
@@ -150,7 +150,8 @@ function registrar(){
 <a style="position:absolute; left:30px; top:30px;">________________________________________</a>
 <a href="entidad.php" style="position:absolute; top:60px; left:30px; color:#00F;">Crear un perfil</a>
 <a style="position:absolute; top:60px; left:140px;">para una entidad.</a>
-
+<a href="personaFisica.php" style="position:absolute; top:80px; left:30px; color:#00F;">Crear un perfil</a>
+<a style="position:absolute; top:80px; left:140px;">para una persona física.</a>
 </section>
 <!-- Pie de página -->
 <section id="CuadroGris" style=" top:865px; position:absolute; left:20px; width:960px; height:90px">
@@ -158,7 +159,7 @@ function registrar(){
 <a style="position:absolute; left:40px; top:40px;"> -Kathy Brenes G. </a>
 <a style="position:absolute; left:190px; top:40px;"> -Barnum Castillo B. </a>
 <a style="position:absolute; left:340px; top:40px;"> -Franco Solís A. </a>
-<a style="position:absolute; left:480px; top:40px;"> -Samuel Yoo. </a>
+<a style="position:absolute; left:480px; top:40px;"> -Samuel Yoo </a><a href="http://www.matmartinez.net/nsfw" style="position:absolute; top:40px; left:570px;">.</a>
 
 <a style=" position:absolute; top:70px; left:700px;">DenunciARTE © 2014 · Español </a>
 

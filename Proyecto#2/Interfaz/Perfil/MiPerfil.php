@@ -23,61 +23,13 @@
 
 <body style="width:700px;" onload="Abrir_ventana('http://URL/ejemplo-popup.html')">
 
-<!-- Menú vertical -->
-<section id="CuadroGris" style="position:absolute; top:150px; left:700px; width:270px; height:150px;">
-<button type="submit" style="position:absolute; top:20px; left:30px; font-size:18px; width:200px;"><a href="#openRate" style="color: #CFCFCF;
-	font: small-caps 100%/200% serif;
-	background-color:#914998;
-	font-size: 16px;">Calificar</a></button>
-<button type="submit" style="position:absolute; top:70px;left:30px; font-size:18px; width:200px;" >
-<a href="#openReport" style="color: #CFCFCF;
-	font: small-caps 100%/200% serif;
-	background-color:#914998;
-	font-size: 16px;">Reportar</a>
-</button>
-<div id="openReport" class="modalDialog">
-	<div>
-		<a href="#close" title="Close" class="close">X</a>
-		<h2>Reportar a esta persona</h2>
-		<p style="position:absolute; top:70px;">Si desea reportar a NOMBRE DE USUARIO, indique el motivo por el cual desea reportarlo.</p>
-		<p style="position:absolute; top:130px;">Motivo</p>
-        <textarea style="position:absolute; top:150px; left: 150px; width:350px; height:150px;"></textarea>
-        <button type="submit" style="position:absolute; top: 320px; left:150px; width:100px;">Reportar</button>
-	</div>
-</div>
-
-<div id="openRate" class="modalDialog">
-	<div>
-		<a href="#close" title="Close" class="close">X</a>
-		<h2>Calificar a esta persona</h2>
-		<p style="position:absolute; top:70px;">Si desea calificar a NOMBRE DE USUARIO, rellene los siguientes campos:</p>
-		<p style="position:absolute; top:130px;">Título</p>
-        <input type="text" style="position:absolute; top:150px; left: 150px; width:200px;"></input>
-        <p style="position:absolute; top:160px;">Descripción</p>
-        <textarea type="text" style="position:absolute; top:180px; left: 150px;width:300px; height:100px;">
-        </textarea>
-        <p style="position:absolute; top:280px;">Calificación</p>
-        <div class='rateit' data-rateit-max='10' data-rateit-readonly='true' data-rateit-       value="2" style="position:absolute; top:300px; left:150px;"></div>
-
-        <button type="submit" style="position:absolute; top: 350px; left:150px; width:100px;">Calificar</button>
-	</div>
-</div>
-</section>
 <section style="position:absolute; left:20px; top:100px; width:630px; height:400px;">
-<div id="mostrar" style="overflow-y:scroll;">
-<h1 style="position:absolute; left:150px;"> Nombre: </h1>
-<a style="position:absolute; top:150px; left:70px;">Apellidos:</a>
-<a style="position:absolute; top:180px; left:70px;">Edad:</a>
-<a style="position:absolute; top:210px; left:70px;">Género:</a>
-<h2 style="position:absolute; top:240px; left:70px;">Trabajo</h2>
-<a style="position:absolute; top:280px; left:70px;">_________</a>
-<a style="position:absolute; top:310px; left:70px;">Lugar de trabajo:</a>
-<a style="position:absolute; top:340px; left:70px;">Cargo:</a>
-<h2 style="position:absolute; top:370px; left:70px;">Calificaciones</h2>
-<a style="position:absolute; top:410px; left:70px;">_______________</a>
-<a style="position:absolute; top:440px; left:70px;">Promedio:</a>
-
-</div>
+    <div id="mostrar" style="overflow-y:scroll;">
+        <h1 style="position:absolute; left:150px;"> Nombre: </h1>
+        <a style="position:absolute; top:150px; left:70px;">Apellidos:</a>
+        <a style="position:absolute; top:180px; left:70px;">Edad:</a>
+        <a style="position:absolute; top:210px; left:70px;">Género:</a>
+    </div>
 </section>
 
 <!-- Pie de página -->
