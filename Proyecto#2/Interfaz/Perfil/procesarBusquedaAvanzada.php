@@ -1,6 +1,6 @@
 <?php
 
-	include("conection.php");
+	include("../conection.php");
 	$conn = OCILogon($user, $pass, $db);
 
 	//Nombra las variables obtenidas de consultasAvanzadas

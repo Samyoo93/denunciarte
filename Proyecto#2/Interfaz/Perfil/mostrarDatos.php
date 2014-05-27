@@ -89,7 +89,7 @@
 	</section>
 
 	<?php
-		include("conection.php");
+		include("../conection.php");
 		$conn = OCILogon($user, $pass, $db);
 
 		$persona = $_GET['persona'];
