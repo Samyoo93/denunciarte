@@ -203,7 +203,7 @@
 
         echo $division;
     } else {
-        echo '<a style="color:#F00">Tienen que seleccionar una cagedoría<a>';
+        echo '<a style="color:#F00">Tienen que seleccionar una categoría<a>';
     }
 	OCICommit($conn);
 	ociLogOff($conn);
