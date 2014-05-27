@@ -17,7 +17,7 @@
 
 <!--Sección que se actualiza-->
 <div id="mostrar">
-<section style="position:absolute; left:350px; top:100px; width:630px; height:400px;">
+<section style="position:absolute; left:150px; top:100px; width:630px; height:400px;">
 <h1 style="position:absolute; left:150px;"> Búsqueda avanzada </h1>
 <a style="position:absolute; top:170px; left:50px;">Buscar</a>
 <select style="position:absolute; top:170px;left:100px;">
@@ -52,7 +52,6 @@
 <section id="CuadroGris" style="position:absolute; left:20px; height:90px; width:960px;">
 <img src="../Imagenes/Denunciarteicono.jpg" style="position:absolute; left:0px;" />
 <input type=search results=5 placeholder='Buscar entidad, persona.'  name=busqueda style="position:absolute; left:95px; top:30px; width:300px;">
-<a href=""  style="position:absolute; top:50px; left:125px;">+Busqueda avanzada</a>
 <button type="submit" style="position:absolute; top:20px; left:400px;">Buscar</button>
 <section style="position:absolute; left:560px;">
 <nav align="center" >
