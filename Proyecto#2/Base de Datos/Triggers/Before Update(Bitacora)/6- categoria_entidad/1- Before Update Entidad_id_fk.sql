@@ -1,5 +1,5 @@
 CREATE OR REPLACE TRIGGER BefUpdate_entidId_CategEntidad
-     BEFORE UPDATE OF entidad_id_fk
+     BEFORE UPDATE OF entidad_id
      ON Categoria_Entidad
      FOR EACH ROW
      BEGIN
@@ -17,8 +17,8 @@ CREATE OR REPLACE TRIGGER BefUpdate_entidId_CategEntidad
                (
                s_denunciarte_bitacora.nextval,
                'Categoria_Entidad',
-               'entidad_id_fk',
+               'entidad_id',
                sysdate,
-               :old.entidad_id_fk,
-               :new.entidad_id_fk);
+               :old.entidad_id,
+               :new.entidad_id);
 END BefUpdate_entidId_CategEntidad;

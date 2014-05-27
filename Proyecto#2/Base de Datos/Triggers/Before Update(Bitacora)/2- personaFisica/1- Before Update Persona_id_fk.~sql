@@ -1,5 +1,5 @@
 CREATE OR REPLACE TRIGGER BefUpdate_PersId_personaFisica
-     BEFORE UPDATE OF persona_id
+     BEFORE UPDATE OF persona_id_fk
      ON personaFisica
      FOR EACH ROW
      BEGIN

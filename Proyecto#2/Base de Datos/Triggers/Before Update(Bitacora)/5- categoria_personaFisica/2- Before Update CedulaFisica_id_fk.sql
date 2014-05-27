@@ -1,5 +1,5 @@
 CREATE OR REPLACE TRIGGER BefUpdate_cedula_CatPerFis
-     BEFORE UPDATE OF cedulaFisica_id_fk
+     BEFORE UPDATE OF cedulaFisica_id
      ON Categoria_Personafisica
      FOR EACH ROW
      BEGIN
@@ -17,8 +17,8 @@ CREATE OR REPLACE TRIGGER BefUpdate_cedula_CatPerFis
                (
                s_denunciarte_bitacora.nextval,
                'Categoria_Personafisica',
-               'cedulaFisica_id_fk',
+               'cedulaFisica_id',
                sysdate,
-               :old.cedulaFisica_id_fk,
-               :new.cedulaFisica_id_fk);
+               :old.cedulaFisica_id,
+               :new.cedulaFisica_id);
 END BefUpdate_cedula_CatPerFis;

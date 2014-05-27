@@ -1,5 +1,5 @@
 CREATE OR REPLACE TRIGGER BefUpdate_entidad_id_direccion
-     BEFORE UPDATE OF entidad_id_fk
+     BEFORE UPDATE OF entidad_id
      ON direccion_entidad
      FOR EACH ROW
      BEGIN
@@ -19,6 +19,6 @@ CREATE OR REPLACE TRIGGER BefUpdate_entidad_id_direccion
                'direccion_entidad',
                'entidad_id_fk',
                sysdate,
-               :old.entidad_id_fk,
-               :new.entidad_id_fk);
+               :old.entidad_id,
+               :new.entidad_id);
 END BefUpdate_entidad_id_direccion;

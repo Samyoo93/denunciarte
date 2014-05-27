@@ -72,7 +72,7 @@ CREATE OR REPLACE PACKAGE BODY pack_persona AS
                VALUES
                     (s_persona.nextval, nombre, primerApellido, segundoApellido, genero, fechaNacimiento);
      	         INSERT INTO usuario
-                     (persona_id, usuario, contrasena, cedulausuario_id, privacidad, estado, numbans, numreportes)
+                     (persona_id_fk, usuario, contrasena, cedulausuario_id, privacidad, estado, numbans, numreportes)
                VALUES
                     (s_persona.currval, usuario, password, cedula, privacidad, 1, 0, 0);
              COMMIT;
@@ -88,7 +88,7 @@ CREATE OR REPLACE PACKAGE BODY pack_persona AS
                VALUES
                     (s_persona.nextval, nombre, primerApellido, segundoApellido, genero, fechaNacimiento);
      	         INSERT INTO personafisica
-                     (persona_id, cedulafisica_id)
+                     (persona_id_fk, cedulafisica_id)
                VALUES
                     (s_persona.currval, cedula);
              COMMIT;

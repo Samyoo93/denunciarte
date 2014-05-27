@@ -1,4 +1,4 @@
-﻿CREATE OR REPLACE PACKAGE BODY pack_barrio AS
+CREATE OR REPLACE PACKAGE BODY pack_barrio AS
 
      --Funcion para obtener el de la tabla entidad
      FUNCTION get_id(nombre VARCHAR2)

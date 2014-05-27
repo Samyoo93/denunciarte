@@ -13,7 +13,7 @@ CREATE OR REPLACE PACKAGE BODY pack_reporte AS
            
                EXCEPTION
                     WHEN NO_DATA_FOUND THEN
-                         DBMS_OUTPUT.put_line('El nombre es inv√°lido');
+                         DBMS_OUTPUT.put_line('El nombre es inv·lido');
                
                RETURN(reporteId);
 
@@ -24,10 +24,11 @@ CREATE OR REPLACE PACKAGE BODY pack_reporte AS
           IS
           BEGIN
                INSERT INTO reporte
-                    (reporte_id, descripcion, cedulaUsuario_id_fk)
+                    (reporte_id, descripcion, cedulaUsuario_id)
                VALUES
                     (s_reporte.nextval, descripcion, cedulaUsuario);
                COMMIT;
      END;
 
 END pack_reporte;
+/

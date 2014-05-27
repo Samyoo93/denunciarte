@@ -1,6 +1,6 @@
-CREATE OR REPLACE TRIGGER BefUpdate_PersId_personaFisica
-     BEFORE UPDATE OF persona_id
-     ON personaFisica
+CREATE OR REPLACE TRIGGER BefUpdate_entidad_id_direccion
+     BEFORE UPDATE OF entidad_id_fk
+     ON direccion_entidad
      FOR EACH ROW
      BEGIN
      INSERT INTO
@@ -16,9 +16,9 @@ CREATE OR REPLACE TRIGGER BefUpdate_PersId_personaFisica
          VALUES
                (
                s_denunciarte_bitacora.nextval,
-               'PersonaFisica',
-               'persona_id_fk',
+               'direccion_entidad',
+               'entidad_id_fk',
                sysdate,
-               :old.persona_id_fk,
-               :new.persona_id_fk);
-END BefUpdate_PersId_personaFisica;
+               :old.entidad_id_fk,
+               :new.entidad_id_fk);
+END BefUpdate_entidad_id_direccion;

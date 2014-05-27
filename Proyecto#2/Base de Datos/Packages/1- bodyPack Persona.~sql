@@ -14,7 +14,7 @@ CREATE OR REPLACE PACKAGE BODY pack_persona AS
           EXCEPTION
 
           WHEN NO_DATA_FOUND THEN
-               DBMS_OUTPUT.put_line('El id es inv·lido');
+               DBMS_OUTPUT.put_line('El id es inv√°lido');
           RETURN(nombrePersona);
      END;
 
@@ -32,14 +32,14 @@ CREATE OR REPLACE PACKAGE BODY pack_persona AS
 
                EXCEPTION
                     WHEN NO_DATA_FOUND THEN
-                         DBMS_OUTPUT.put_line('El nombre es inv·lido');
+                         DBMS_OUTPUT.put_line('El nombre es inv√°lido');
 
                RETURN(personaId);
 
      END;
 
-     --Procedimiento para insertar usuarios
-     PROCEDURE set_persona_usuario(nombre VARCHAR2, primerApellido VARCHAR2, segundoApellido VARCHAR2, genero VARCHAR2, fechaNacimiento DATE,
+     --Procedimiento para insertar personas
+PROCEDURE set_persona(nombre VARCHAR2, primerApellido VARCHAR2, segundoApellido VARCHAR2, genero VARCHAR2, fechaNacimiento DATE,
        usuario VARCHAR2, password VARCHAR2, cedula VARCHAR2, privacidad number)
           IS
           BEGIN
@@ -48,28 +48,12 @@ CREATE OR REPLACE PACKAGE BODY pack_persona AS
                VALUES
                     (s_persona.nextval, nombre, primerApellido, segundoApellido, genero, fechaNacimiento);
      	         INSERT INTO usuario
-                     (persona_id, usuario, contrasena, cedulausuario_id, privacidad, estado, numbans, numreportes)
+                     (persona_id_fk, usuario, contrasena, cedulausuario_id, privacidad, estado, numbans, numreportes)
                VALUES
                     (s_persona.currval, usuario, password, cedula, privacidad, 1, 0, 0);
              COMMIT;
      END;
-     
-     --Procedimiento para insertar usuarios
-     PROCEDURE set_persona_fisica(nombre VARCHAR2, primerApellido VARCHAR2, segundoApellido VARCHAR2, genero VARCHAR2, 
-       fechaNacimiento DATE, cedula VARCHAR2)
-          IS
-          BEGIN
-               INSERT INTO persona
-                    (persona_id, nombre, primerApellido, segundoApellido, genero, fechaNacimiento)
-               VALUES
-                    (s_persona.nextval, nombre, primerApellido, segundoApellido, genero, fechaNacimiento);
-     	         INSERT INTO personafisica
-                     (persona_id, cedulafisica_id)
-               VALUES
-                    (s_persona.currval, cedula);
-             COMMIT;
-     END;
-     
+
      --Procedimiento para eliminar personas
      PROCEDURE del_persona (persona_id NUMBER)
           IS
@@ -90,4 +74,3 @@ CREATE OR REPLACE PACKAGE BODY pack_persona AS
      END;
 
 END pack_persona;
-/
