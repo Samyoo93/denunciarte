@@ -4,3 +4,7 @@ $_SESSION['cedula']
 
 -1 -> baneado
 1 -> no baneado
+
+privacidad:
+    publico: 1
+    privado: 0
