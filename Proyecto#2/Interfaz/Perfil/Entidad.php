@@ -82,6 +82,111 @@ Actualizar</button>
 </div>
 </section>
 
+
+<!-- EMPIEZAN LAS ESTRELLAS -->
+ <?php
+        $pcedulaFisica = 123; //aqui se pone la cedulafisica que se necesita hacer el review;
+        $hola = oci_parse($conn,"begin :result:= estrellas.get_sumaCaliPersonaFisica(:pcedulaFisica);end;");
+        oci_bind_by_name ($hola,':pcedulaFisica',$pcedulaFisica);
+        oci_bind_by_name($hola,':result',$result2,20);
+        oci_execute($hola);
+
+
+        $total1 = oci_parse ($conn,"begin :result:=estrellas.get_totalUsuarioDePF(:pcedulaFisica); end;");
+        oci_bind_by_name ($total1,':pcedulaFisica',$pcedulaFisica);
+        oci_bind_by_name($total1,':result',$result1,20);
+        oci_execute($total1);
+        if ($result1 == 0){
+            $rating = 0;
+
+        }else{
+            $rating = $result2/$result1;
+        }
+
+
+        echo " <div class='rateit' data-rateit-max='10'  data-rateit-readonly='true' data-rateit-value=".$rating."></div>";
+    ?>
+            <!--para cambiar el relleno de las estrellas-->
+
+    </a>
+
+
+</div>
+
+
+<div class="review">
+    <div>
+        <?php
+
+
+        $total1 = oci_parse ($conn,"begin :result:=estrellas.get_totalUsuarioDePF(:pcedulaFisica); end;");
+        oci_bind_by_name($total1,'pcedulaFisica',$pcedulaFisica);
+        oci_bind_by_name($total1,':result',$result1,20);
+        oci_execute($total1);
+        if ($result1 == 0){
+            $rating =  0;
+        }else{
+            $rating = $result2/$result1;
+        }
+
+
+        echo "<div class='left'>";
+        echo   " <h1>".round($rating)."</h1>";
+        echo   " <p>avg of<span>".$result1."</span>ratings";
+        echo   " <p>";
+        echo "</div>";
+
+        ?>
+
+
+        <div class="right">
+            <table>
+
+            <?php
+
+                for ($i = 1; $i<=10; $i++){
+                    $count = oci_parse ($conn,"begin :result:=estrellas.get_countPersonaFisica(:c, :pcedulaFisica); end;");
+                    oci_bind_by_name($count,':c',$i);
+                    oci_bind_by_name($count,':pcedulaFisica',$pcedulaFisica);
+                    oci_bind_by_name($count,':result',$resultado,20);
+
+
+                    oci_execute($count);
+                    $total = oci_parse ($conn,"begin :result:=estrellas.get_totalUsuarioDePF(:pcedulaFisica); end;");
+                    oci_bind_by_name ($total,':pcedulaFisica',$pcedulaFisica);
+                    oci_bind_by_name($total,':result',$resultado3,20);
+                    oci_execute($total);
+
+                    if ($resultado3 == 0){
+                        $porcentaje = 0;
+                    }else{
+                        $porcentaje = ($resultado/$resultado3)*100;
+                    }
+
+
+                    echo "<tr>";
+                     echo "<td> ",$i,"★","   </td>";
+                     echo     "<td>";
+                    echo           "<svg width='100' height='10'>";
+                    echo"        <rect x='0' y='0' width=".$porcentaje." height='10' fill='#914998' rx='10' ry='20' stroke-width='8'/>";
+                    echo "</svg>";
+                    echo "</td>";
+                    echo "<td>",$resultado,"</td>";
+                echo "</tr>" ;
+
+
+                }
+            ?>
+
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+        </div>
+    </section>
 <!-- Pie de página -->
 <section id="CuadroGris" style=" top:810px; position:absolute; left:20px; width:960px; height:90px">
 <a style="position:absolute; left:20px; top:10px;"> Desarrolladores </a>

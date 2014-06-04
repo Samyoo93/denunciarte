@@ -36,6 +36,28 @@ function registrar(){
     hr.send(vars); // Actually execute the request
     document.getElementById("registro").innerHTML = "procesando...";
 	}
+    function login(){
+    // Create our XMLHttpRequest object
+    var hr = new XMLHttpRequest();
+    // Create some variables we need to send to our PHP file
+    var url = "loginUsuario.php";
+    var usuarioLogin = document.getElementById("usuarioLogin").value;
+    var contrasenaLogin = document.getElementById("contrasenaLogin").value;
+    var vars = 'usuarioLogin='+usuarioLogin+'&contrasenaLogin='+contrasenaLogin;
+    hr.open("POST", url, true);
+    // Set content type header information for sending url encoded variables in the request
+    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    // Access the onreadystatechange event for the XMLHttpRequest object
+    hr.onreadystatechange = function() {
+	    if(hr.readyState == 4 && hr.status == 200) {
+		    var return_data = hr.responseText;
+			document.getElementById("logins").innerHTML = return_data;
+	    }
+    }
+    // Send the data to PHP now... and wait for response to update the status div
+    hr.send(vars); // Actually execute the request
+    document.getElementById("logins").innerHTML = "procesando...";
+	}
 	</script>
 </head>
 
@@ -47,14 +69,16 @@ function registrar(){
 <input type="text" style="position:absolute; top:50px; left:510px;" placeholder="Usuario" id="usuarioLogin" />
 <a style="position:absolute; left:690px; top:30px;"> Contraseña </a>
 <a href="" style="position:absolute; left:690px; font-size:12px; top:80px;">¿Olvidaste tu contraseña?</a>
-<input type="text" style="position:absolute; top:50px; left:690px;" placeholder="Contraseña" id="contrasenaLogin" />
-<button type="submit" style="position:absolute; top:50px; left:870px;">Entrar</button>
+<input type="password" style="position:absolute; top:50px; left:690px;" placeholder="Contraseña" id="contrasenaLogin" />
+<button type="submit" onClick='login()' style="position:absolute; top:50px; left:870px;">Entrar</button>
 </section>
 <!-- LOGO -->
 <img src="Imagenes/logoDenunciARTE2.png" style="position:absolute; top:140px; left:20px;"/>
 
-<div id="registro">
+<div id="registro" style="position:absolute; left:250px;top:170px; width:500px;">
 </div>
+<div id='logins'>
+    </div>
 <!-- Registro de usuarios -->
 <section style="position:absolute; top:200px; left:250px; width:650px; height:550px;">
 <h2 style="position:absolute; left:30px;">Registrar persona física</h2>
