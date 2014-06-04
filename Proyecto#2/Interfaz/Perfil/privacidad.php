@@ -14,8 +14,12 @@
         // Create some variables we need to send to our PHP file
         var url = "procesarPrivacidad.php";
 
+        if (document.getElementById('public').checked) {
+                var priv = document.getElementById('public').value;
+            } else {
+                var priv = document.getElementById('private').value;
+            }
 
-        var priv = document.getElementById('priv').value;
 
         var vars = 'priv='+priv;
         hr.open("POST", url, true);
@@ -47,12 +51,16 @@
 <div id="mostrar" style="overflow-y:scroll;">
 <h1 style="position:absolute; left:70px; font-size:45px;"> Configuración de privacidad </h1>
 <a style="position:absolute; top:150px; left:140px;">¿Quién puede ver tu información personal?</a>
-<select id='priv' style="position:absolute; top:180px; left:200px;">
-    <option value='publico'>Público</option>
-    <option value='privado'>Solo yo</option>
-</select>
+
+<input type = "radio" name = "priv" id = "public" value = "public" checked = "checked" style="position:absolute; top:180px; left:200px;">
+    <a for = "Femenino" style="position:absolute; top:180px; left:225px;">Público</a>
+
+<input type = "radio" name = "priv" id = "private" value = "private" style="position:absolute; top:180px; left:300px;">
+    <a for = "Femenino" style="position:absolute; top:180px; left:325px;">Privado</a>
+
 <button type="submit" onClick='setPrivacidad()' style="position:absolute; top:220px; left:200px; width:100px;">Configurar</button>
-</div>
+
+    </div>
 </section>
 
 <!-- Pie de página -->
