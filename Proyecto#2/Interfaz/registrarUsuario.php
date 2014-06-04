@@ -49,7 +49,7 @@
                         //passwords coincidan
                         if(1899 < $year && $year < 2014) {
                             //Revisa si el usuario existe ********************************************************
-                            $check_user =  "SELECT COUNT(*) AS NUM_ROWS FROM usuario WHERE usuario=:usuario";
+                            $check_user =  "SELECT COUNT(1) AS NUM_ROWS FROM usuario WHERE usuario=:usuario";
                             $query_check_user = ociparse($conn, $check_user);
                             ocibindbyname($query_check_user, ":usuario", $usuario);
                             $rows = 0;
@@ -65,7 +65,7 @@
 
                             } else {
                                 //Revisa si la cedula existe*********************************************************************
-                                $check_ced =  "SELECT COUNT(*) AS NUM_ROWS FROM usuario WHERE cedulausuario_id=:ced";
+                                $check_ced =  "SELECT COUNT(1) AS NUM_ROWS FROM usuario WHERE cedulausuario_id=:ced";
                                 $query_check_ced = ociparse($conn, $check_ced);
                                 ocibindbyname($query_check_ced, ":ced", $cedula);
                                 $rows = 0;

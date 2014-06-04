@@ -16,7 +16,7 @@
     $msgIng = "<section id='error' style='position:absolute; top:170px; left:545px;'>
     <a style='font-size:20px; color:#21A33A; font-size:16px;'>**Inicio de sesión con éxito!</a>
     </section>";
-
+    $max_rep = 10;
 
     if($usuario != null and $password != null) {
         //verifica que se llenen todos los campos
@@ -24,7 +24,7 @@
             //verifica que los largos no se excedan
 
             //Revisa si el usuario existe ********************************************************
-            $check_user =  "SELECT COUNT(*) AS NUM_ROWS FROM usuario WHERE usuario=:usuario";
+            $check_user =  "SELECT COUNT(1) AS NUM_ROWS FROM usuario WHERE usuario=:usuario";
             $query_check_user = ociparse($conn, $check_user);
             ocibindbyname($query_check_user, ":usuario", $usuario);
             $rows = 0;
@@ -49,18 +49,30 @@
                 ociexecute($query_canLogin);
                 if ($isValid == 1) {
                     //notifica al usuario la conexión exitosa
-
-                    session_start(); //inicia la sesion
-                    $_SESSION['usuario']= $usuario;
-                    $_SESSION['password']= $password;
                     $getid = "begin :ced := pack_usuario.get_cedula(:usuario); end;";
                     $query_getid = ociparse($conn, $getid);
                     ocibindbyname($query_getid, ":usuario", $usuario);
-                    ocibindbyname($query_getid, ":ced", $ced, 100);
+                    ocibindbyname($query_getid, ":ced", $cedula, 100);
                     ociexecute($query_getid);
 
-                    $_SESSION['cedula'] = $ced;
-                    echo $button . $msgIng;
+                    $banned = "begin :isBanned := pack_usuario.getNumRep(cedula_in => :cedula, max_rep => :max_rep); end;";
+                    $query_isBanned = ociparse($conn, $banned);
+                    ocibindbyname($query_isBanned, ":max_rep",$max_rep);
+                    ocibindbyname($query_isBanned, ":cedula", $cedula);
+                    ocibindbyname($query_isBanned, ":isBanned",$isBanned, 100);
+                    ociexecute($query_isBanned);
+                    if($isBanned == 0) {
+                        session_start(); //inicia la sesion
+                        $_SESSION['usuario']= $usuario;
+                        $_SESSION['password']= $password;
+                        $_SESSION['cedula'] = $cedula;
+                        echo $button . $msgIng;
+                    } else {
+                        echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
+                        <a style='font-size:20px; color:#F00; font-size:16px;'>**El usuario " . $usuario . " se encuentra actualmente baneado.</a>
+                        </section>";
+
+                    }
 
                 } else {
                     //mensaje de error
