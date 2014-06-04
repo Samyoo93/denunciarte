@@ -1,18 +1,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>DenunciARTE</title>
+
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>DenunciARTE</title>
     <link rel="stylesheet" href="../Estilo/Estilo.css" />
-    <link href="libs/jquery.qtip.custom/jquery.qtip.css" rel="stylesheet">
-    <link href="../Estilo/estilohover.css" rel="stylesheet">
-    <link rel="stylesheet" href="rateit/src/rateit.css">
+    <link href="../hovercard/libs/jquery.qtip.custom/jquery.qtip.css" rel="stylesheet">
+    <link href="../hovercard/estilohover.css" rel="stylesheet">
+    <link rel="stylesheet" href="../hovercard/rateit/src/rateit.css">
     <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="libs/jquery.qtip.custom/jquery.qtip.js"></script>
-    <script src="rateit/src/jquery.rateit.js" type="text/javascript"></script>
-    <script src="script.js" type="text/javascript"></script>
+    <script src="../hovercard/libs/jquery.qtip.custom/jquery.qtip.js"></script>
+    <script src="../hovercard/rateit/src/jquery.rateit.js" type="text/javascript"></script>
+    <script src="../hovercard/script.js" type="text/javascript"></script>
 	<script>
 		function ajax_post(){
 			// Create our XMLHttpRequest object
@@ -52,8 +55,9 @@
         //Carga todos los datos que provienen del id obtenido del url
         include("../conection.php");
 		$conn = OCILogon($user, $pass, $db);
+        session_start();
 
-		$persona = $_GET['persona'];
+        $persona = $_GET['persona'];
 		$id = $_GET['id'];
         //Carga los elementos encontrados dependiendo de si es personaFisica o personaJuridica obtenido del url 
 		if($persona == 'personaFisica') {
@@ -79,7 +83,9 @@
 
 				oci_execute($cursor, OCI_DEFAULT);*/
                 $nombre = $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'];
-				$datos = $datos . '<h1 style="position:absolute; left:150px;"> Persona Física</h1>
+                $cedula = $fila['CEDULAFISICA_ID'];
+				$_SESSION['cedulaTemporal'] = $cedula;
+                $datos = $datos . '<h1 style="position:absolute; left:150px;"> Persona Física</h1>
 				<a style="position:absolute; top:150px; left:70px;">Nombre Completo:'. $nombre .'</a>
 				<a style="position:absolute; top:180px; left:70px;">Cédula:'. $fila['CEDULAFISICA_ID'] .'</a>
 				<a style="position:absolute; top:210px; left:70px;">Edad:'. $fila['FECHANACIMIENTO'] .'</a>
@@ -91,10 +97,10 @@
 				<a style="position:absolute; top:340px; left:70px;">Cargo:'. $fila['CARGO'] .'</a>
 				<h2 style="position:absolute; top:370px; left:70px;">Calificaciones </h2>
 				<a style="position:absolute; top:410px; left:70px;">_______________</a>
-				<a style="position:absolute; top:440px; left:70px;">Promedio:</a>';
+				<a style="position:absolute; top:440px; left:70px;">Promedio: </a>';
 
 			}
-			
+
 		} else if($persona == 'personaJuridica') {
 			//Se inicia el query con el procedimiento asignado
 			$query_procedimiento = ociparse($conn, "BEGIN :cursor := busquedas.entidadPorId(:id); END;");
@@ -111,17 +117,18 @@
 			$datos = '';
 			foreach($array as $fila){
                 $nombre = $fila[0];
-				$datos = $datos . '
+                $cedula = $fila[1];
+				$_SESSION['cedulaTemporal'] = $cedula;
+                $datos = $datos . '
 				<h1 style="position:absolute; left:150px;"> Persona Jurídica</h1>
 				<a style="position:absolute; top:150px; left:70px;">Nombre:'. $nombre .'</a>
-				<a style="position:absolute; top:180px; left:70px;">Cédula:'. $fila[1] .'</a>
+				<a style="position:absolute; top:250px; left:70px;">Cédula:'. $fila[1] .'</a>
 				<a style="position:absolute; top:210px; left:70px;">Dirección Exacta:'. $fila[2] . $fila[3] . $fila[4] . $fila[5] . $fila[6] .'</a>
 				<a style="position:absolute; top:240px; left:70px;">País:'. $fila[7] .'</a>
 
-				<h2 style="position:absolute; top:240px; left:70px;">Calificaciones </h2>
-				<a style="position:absolute; top:280px; left:70px;">_______________</a>
-				<a style="position:absolute; top:300px; left:70px;">Promedio:</a>
-				';
+				<h2 style="position:absolute; top:370px; left:70px;">Calificaciones </h2>
+				<a style="position:absolute; top:410px; left:70px;">_______________</a>
+				<a style="position:absolute; top:440px; left:70px;">Promedio: </a>';
 
 			}
 			
@@ -152,20 +159,25 @@
 		</div>
 
 		<div id="openRate" class="modalDialog">
-			<div>
-				<a href="#close" title="Close" class="close">X</a>
-				<h2>Calificar a esta persona</h2>
-				<p style="position:absolute; top:70px;">Si desea calificar a '. $nombre .', rellene los siguientes campos:</p>
-				<p style="position:absolute; top:130px;">Título</p>
-				<input type="text" id="titulo" style="position:absolute; top:150px; left: 150px; width:200px;"></input>
-				<p style="position:absolute; top:160px;">Descripción</p>
-				<textarea type="text" id="descripcion" style="position:absolute; top:180px; left: 150px;width:300px; height:100px;">
-				</textarea>
-				<p style="position:absolute; top:280px;">Calificación</p>
-				<div class="rateit" data-rateit-max="10" data-rateit-readonly="true" data-rateit-value="2" style="position:absolute; top:300px; left:150px;"></div>
+				   <div>
+                <form action="../hovercard/pasarValorALaBase.php" method="post">
+                    <a href="#close" title="Close" class="close">X</a>
+                    <h2>Calificar a esta persona</h2>
+                    <p style="position:absolute; top:70px;">Si desea calificar a NOMBRE DE ENTIDAD, rellene los siguientes campos:</p>
+                    <p style="position:absolute; top:130px;">Título</p>
+                    <input type="text" name ="titulo" style="position:absolute; top:150px; left: 150px; width:200px;">
+                    <p style="position:absolute; top:160px;">Descripción</p>
+                    <textarea type="text" name="descripcion" style="position:absolute; top:180px; left: 150px;width:300px; height:100px;">
+                    </textarea>
+                    <p style="position:absolute; top:280px;">Calificación</p>
 
-				<button type="submit" onclick="agregarCalificacion()" style="position:absolute; top: 350px; left:150px; width:100px;">Calificar</button>
-			</div>
+                    <div class="rateit" id="estrellas" data-rateit-max="10" data-rateit-step=1 data-rateit-value=1 data-rateit-resetable="false"  style="position:absolute; top:300px; left:150px;">
+                        <input type="number" class="numCalf" name="estrellotas">
+                    </div>
+
+                    <button type="submit" style="position:absolute; top: 350px; left:150px; width:100px;">Calificar</button>
+                </form>
+            </div>
 		</div>
 	</section>';
         echo $menuVertical;
@@ -173,7 +185,107 @@
 	
     ?>
     
-    
+    <div class="pruebaReview"  style="position:absolute; top:440px; left:150px;">
+
+    <a href="#">
+    <?php
+
+        $hola = oci_parse($conn,"begin :result:= estrellas.get_sumaCaliPersonaFisica(:pcedulaFisica);end;");
+        oci_bind_by_name ($hola,':pcedulaFisica',$cedula);
+        oci_bind_by_name($hola,':result',$result2,20);
+        oci_execute($hola);
+
+        $total1 = oci_parse ($conn,"begin :result:=estrellas.get_totalUsuarioDePF(:pcedulaFisica); end;");
+        oci_bind_by_name ($total1,':pcedulaFisica',$cedula);
+        oci_bind_by_name($total1,':result',$result1,20);
+        oci_execute($total1);
+
+        if ($result1 == 0){
+            $rating = 0;
+
+        }else{
+            $rating = $result2/$result1;
+        }
+
+
+        echo " <div class='rateit' data-rateit-max='10'  data-rateit-readonly='true' data-rateit-value=".$rating."></div>";
+    ?>
+                    <!--para cambiar el relleno de las estrellas-->
+
+        </a>
+
+
+        </div>
+
+
+        <div class="review">
+            <div>
+                <?php
+
+
+                $total1 = oci_parse ($conn,"begin :result:=estrellas.get_totalUsuarioDePF(:pcedulaFisica); end;");
+                oci_bind_by_name($total1,'pcedulaFisica',$cedula);
+                oci_bind_by_name($total1,':result',$result1,20);
+                oci_execute($total1);
+                if ($result1 == 0){
+                    $rating =  0;
+                }else{
+                    $rating = $result2/$result1;
+                }
+
+
+                echo "<div class='left'>";
+                echo   " <h1>".round($rating)."</h1>";
+                echo   " <p>avg of<span>".$result1."</span>ratings";
+                echo   " <p>";
+                echo "</div>";
+
+                ?>
+
+
+                <div class="right">
+                    <table>
+
+                    <?php
+
+                        for ($i = 1; $i<=10; $i++){
+                            $count = oci_parse ($conn,"begin :result:=estrellas.get_countPersonaFisica(:c, :pcedulaFisica); end;");
+                            oci_bind_by_name($count,':c',$i);
+                            oci_bind_by_name($count,':pcedulaFisica',$cedula);
+                            oci_bind_by_name($count,':result',$resultado,20);
+
+
+                            oci_execute($count);
+                            $total = oci_parse ($conn,"begin :result:=estrellas.get_totalUsuarioDePF(:pcedulaFisica); end;");
+                            oci_bind_by_name ($total,':pcedulaFisica',$cedula);
+                            oci_bind_by_name($total,':result',$resultado3,20);
+                            oci_execute($total);
+
+                            if ($resultado3 == 0){
+                                $porcentaje = 0;
+                            }else{
+                                $porcentaje = ($resultado/$resultado3)*100;
+                            }
+
+
+                            echo "<tr>";
+                            echo "<td> ",$i,"★","   </td>";
+                            echo     "<td>";
+                            echo           "<svg width='100' height='10'>";
+                            echo"        <rect x='0' y='0' width=".$porcentaje." height='10' fill='#914998' rx='10' ry='20' stroke-width='8'/>";
+                            echo "</svg>";
+                            echo "</td>";
+                            echo "<td>",$resultado,"</td>";
+                        echo "</tr>" ;
+
+
+                        }
+                    ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+
 </section>
 
 <!-- Pie de página -->
