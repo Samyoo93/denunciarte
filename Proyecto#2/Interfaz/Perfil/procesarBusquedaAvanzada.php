@@ -191,10 +191,38 @@
                 }
             }
         } else if($persona =='categoria'){
-            if($tipoBusqueda == 'categoria'){
+            if($tipoBusqueda == 'alfabetico'){
+                 //Se inicia el query con el procedimiento asignado
+                $query_procedimiento = ociparse($conn, "BEGIN :cursor := busquedas.categoriaPorAlfabetico(:secuencia); END;");
+                //Genera el cursor donde la informacion sera guardada
+                $cursor = oci_new_cursor($conn);
 
+                //Se le pasa el parametro de busqueda
+                oci_bind_by_name($query_procedimiento, ':secuencia', $busqueda);
+                oci_bind_by_name($query_procedimiento, ':cursor', $cursor , -1, OCI_B_CURSOR);
 
+                ociexecute($query_procedimiento);
+                oci_execute($cursor, OCI_DEFAULT);
             }
+
+            oci_fetch_all($cursor, $array, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
+
+            foreach($array as $fila){
+                if($fila['TIPO'] == 'F'){
+                    $tipo = 'Persona Fisica';
+                } else if($fila['TIPO'] == 'E'){
+                    $tipo = 'Persona Jurídica';
+                }
+
+                $division = $division . '<div>
+                                    <a><b>Nombre: '. $fila['NOMBRE'] .'</b></a><br>
+                                    <a> Descripción:' . $fila['DESCRIPCION'] . '</a><br>
+                                    <a>	Tipo: '. $tipo .'</a><br>
+                                <hr size=5 width=580>
+                                </div>';
+                }
+
+
         }
 
 

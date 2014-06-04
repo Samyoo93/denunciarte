@@ -18,9 +18,9 @@ CREATE OR REPLACE PACKAGE busquedas IS
     FUNCTION categoriaPorNombre (pCategoria VARCHAR2) RETURN TYPES.ref_c;
     FUNCTION categoriaPorId (pid NUMBER) RETURN TYPES.ref_c;
     FUNCTION categoriaPorTipo(pTipo VARCHAR2) RETURN TYPES.ref_c;
+    FUNCTION categoriaPorAlfabetico(letra VARCHAR2) RETURN TYPES.ref_c;
     
     
-    FUNCTION buscarPorCategoriaConPF (pcategoria VARCHAR2) RETURN TYPES.ref_c;
     FUNCTION reviewPorNombre (pnombre VARCHAR2) RETURN TYPES.ref_c;
 END busquedas;
 /
@@ -34,7 +34,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
             SELECT p.persona_id, p.nombre,p.primerapellido,p.segundoapellido,p.genero,p.fechanacimiento,
                    pf.cedulafisica_id, pf.lugartrabajo
             from persona p, personafisica pf
-            where INSTR(p.nombre, pnombre) > 0 and p.persona_id = pf.persona_id
+            where p.nombre LIKE '%' || pnombre || '%' and p.persona_id = pf.persona_id
             order by p.nombre;
             return l_cursor;
     END;
@@ -47,7 +47,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
             SELECT p.persona_id,p.nombre,p.primerapellido,p.segundoapellido,
                    p.genero,p.fechanacimiento, pf.cedulafisica_id, pf.lugartrabajo
             from persona p, personafisica pf
-            where INSTR(p.primerapellido, pprimerApellido) > 0 and p.persona_id = pf.persona_id;
+            where p.primerapellido like '%' || pprimerApellido || '%' and p.persona_id = pf.persona_id;
             return l_cursor;
     END;
     
@@ -59,7 +59,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
             SELECT p.persona_id,p.nombre,p.primerapellido,p.segundoapellido,
                    p.genero, p.fechanacimiento, pf.cedulafisica_id, pf.lugartrabajo
             from persona p, personafisica pf
-            where INSTR(p.segundoapellido, psegundoApellido) > 0 and p.persona_id = pf.persona_id;
+            where p.segundoapellido LIKE '%' || psegundoApellido || '%' and p.persona_id = pf.persona_id;
             return l_cursor;
     END;
     
@@ -97,7 +97,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
             SELECT p.persona_id,p.nombre,p.primerapellido,p.segundoApellido,p.genero,
                    p.fechaNacimiento, pf.cedulafisica_id, pf.lugartrabajo
             FROM persona p, personafisica pf, categoria_personafisica cp, categoria c
-            WHERE INSTR(c.nombre, pcategoria) > 0 and c.categoria_id = cp.categoria_id and
+            WHERE c.nombre like '%' || pcategoria || '%' and c.categoria_id = cp.categoria_id and
                   cp.cedulaFisica_id = pf.cedulafisica_id and pf.persona_id = p.persona_id
              ORDER BY p.nombre;
             RETURN l_cursor;
@@ -112,7 +112,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
                    d.nombre, c.nombre, p.nombre, pais.nombre 
             FROM entidad e, direccion_entidad dn, barrio b, distrito d, canton c, provincia p,
                  pais
-            WHERE INSTR(e.nombre, pEntidad) > 0 and e.entidad_id = dn.entidad_id and 
+            WHERE e.nombre like '%' || pEntidad || '%' and e.entidad_id = dn.entidad_id and 
                   dn.barrio_id = b.barrio_id and b.distrito_id = d.distrito_id and 
                   d.canton_id = c.canton_id and c.provincia_id = p.provincia_id and
                   p.pais_id = pais.pais_id;
@@ -145,7 +145,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
                    b.nombre, d.nombre, c.nombre, p.nombre, pais.nombre
             FROM categoria cat, categoria_entidad ce, entidad e, direccion_entidad de,
                  barrio b, distrito d, canton c, provincia p, pais
-            WHERE INSTR(cat.nombre, pcategoria) > 0 and cat.categoria_id= ce.categoria_id and
+            WHERE cat.nombre like '%' || pcategoria || '%' and cat.categoria_id= ce.categoria_id and
                   ce.entidad_id = e.entidad_id and e.entidad_id = de.entidad_id and
                   de.barrio_id = b.barrio_id and b.distrito_id = d.distrito_id and 
                   d.canton_id = c.canton_id and c.provincia_id = p.provincia_id and
@@ -177,7 +177,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
             OPEN l_cursor FOR
             SELECT c.categoria_id,c.nombre,c.descripcion,c.tipo
             FROM categoria c
-            WHERE INSTR(c.nombre, pCategoria) > 0
+            WHERE c.nombre like '%' || pCategoria || '%'
             ORDER BY c.nombre;
             RETURN l_cursor;
     END;
@@ -206,18 +206,6 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
                RETURN l_cursor;
      END;
 
-     FUNCTION buscarPorCategoriaConPF (pcategoria VARCHAR2)
-          RETURN TYPES.ref_c
-          AS l_cursor TYPES.ref_c;
-          BEGIN
-               OPEN l_cursor FOR
-               SELECT c.categoria_id,c.nombre,c.descripcion,c.tipo, p.nombre,p.primerapellido,p.segundoapellido,pf.cedulafisica_id
-               FROM categoria c,categoria_personafisica cpf, personafisica pf, persona p
-               WHERE pcategoria = c.nombre AND cpf.categoria_id = c.categoria_id AND cpf.cedulafisica_id = pf.cedulafisica_id 
-                    AND p.persona_id = pf.persona_id;
-               RETURN l_cursor;
-     END;
-
      FUNCTION reviewPorNombre (pnombre VARCHAR2)
           RETURN TYPES.ref_c
           AS l_cursor TYPES.ref_c;
@@ -227,6 +215,17 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
                FROM persona p, Personafisica pf, review_personafisica rpf, review r
                WHERE pnombre = p.nombre and p.persona_id = pf.persona_id AND pf.cedulafisica_id = rpf.cedulafisica_id 
                     AND rpf.review_id = r.review_id;
+               RETURN l_cursor;
+     END;
+     
+     FUNCTION categoriaPorAlfabetico(letra VARCHAR2) 
+          RETURN TYPES.ref_c
+          AS l_cursor TYPES.ref_c;
+           BEGIN
+               OPEN l_cursor FOR
+               SELECT c.categoria_id,c.nombre,c.descripcion,c.tipo
+               FROM categoria c
+               WHERE c.nombre LIKE letra || '%';
                RETURN l_cursor;
      END;
 END busquedas;
