@@ -15,6 +15,9 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="../hovercard/libs/jquery.qtip.custom/jquery.qtip.js"></script>
     <script src="../hovercard/rateit/src/jquery.rateit.js" type="text/javascript"></script>
+    <script src="../hovercard/estrellas.js" type="text/javascript"></script>
+    <script src="../hovercard/ObtenerValor.js" type="text/javascript"></script>
+
     <script src="../hovercard/script.js" type="text/javascript"></script>
 	<script>
 		function ajax_post(){
@@ -57,8 +60,12 @@
 		$conn = OCILogon($user, $pass, $db);
         session_start();
 
+        //Hace la diferencia entre persona fisca y juridica
         $persona = $_GET['persona'];
+        $_SESSION['tipoPersona'] = $persona;
+        //Variable que se usará para sacar los datos que se van a mostrar
 		$id = $_GET['id'];
+
         //Carga los elementos encontrados dependiendo de si es personaFisica o personaJuridica obtenido del url 
 		if($persona == 'personaFisica') {
 			//Se inicia el query con el procedimiento asignado
@@ -121,10 +128,10 @@
 				$_SESSION['cedulaTemporal'] = $cedula;
                 $datos = $datos . '
 				<h1 style="position:absolute; left:150px;"> Persona Jurídica</h1>
-				<a style="position:absolute; top:150px; left:70px;">Nombre:'. $nombre .'</a>
+				<a style="position:absolute; top:170px; left:70px;">Nombre:'. $nombre .'</a>
 				<a style="position:absolute; top:250px; left:70px;">Cédula:'. $fila[1] .'</a>
-				<a style="position:absolute; top:210px; left:70px;">Dirección Exacta:'. $fila[2] . $fila[3] . $fila[4] . $fila[5] . $fila[6] .'</a>
-				<a style="position:absolute; top:240px; left:70px;">País:'. $fila[7] .'</a>
+				<a style="position:absolute; top:300px; left:70px;">Dirección Exacta:'. $fila[2] . $fila[3] . $fila[4] . $fila[5] . $fila[6] .'</a>
+				<a style="position:absolute; top:320px; left:70px;">País:'. $fila[7] .'</a>
 
 				<h2 style="position:absolute; top:370px; left:70px;">Calificaciones </h2>
 				<a style="position:absolute; top:410px; left:70px;">_______________</a>
@@ -163,7 +170,7 @@
                 <form action="../hovercard/pasarValorALaBase.php" method="post">
                     <a href="#close" title="Close" class="close">X</a>
                     <h2>Calificar a esta persona</h2>
-                    <p style="position:absolute; top:70px;">Si desea calificar a NOMBRE DE ENTIDAD, rellene los siguientes campos:</p>
+                    <p style="position:absolute; top:70px;">Si desea calificar a '. $nombre .', rellene los siguientes campos:</p>
                     <p style="position:absolute; top:130px;">Título</p>
                     <input type="text" name ="titulo" style="position:absolute; top:150px; left: 150px; width:200px;">
                     <p style="position:absolute; top:160px;">Descripción</p>
@@ -189,16 +196,32 @@
 
     <a href="#">
     <?php
+        /*If que hace la diferencia entre las sentencias SQL, si espersona fisica se elegiran sus correspondientes
+         y si es persona juridica se eligen las sentencias equivalente para persona juridica*/
+        if($persona == 'personaFisica'){
+            $sumaCalificacion = "begin :result:= estrellas.get_sumaCaliPersonaFisica(:pcedula);end;";
 
-        $hola = oci_parse($conn,"begin :result:= estrellas.get_sumaCaliPersonaFisica(:pcedulaFisica);end;");
-        oci_bind_by_name ($hola,':pcedulaFisica',$cedula);
-        oci_bind_by_name($hola,':result',$result2,20);
-        oci_execute($hola);
+            $totalUsuarios = "begin :result:=estrellas.get_totalUsuarioDePF(:pcedula); end;";
 
-        $total1 = oci_parse ($conn,"begin :result:=estrellas.get_totalUsuarioDePF(:pcedulaFisica); end;");
-        oci_bind_by_name ($total1,':pcedulaFisica',$cedula);
-        oci_bind_by_name($total1,':result',$result1,20);
-        oci_execute($total1);
+            $countPersona = "begin :result:=estrellas.get_countPersonaFisica(:c, :pcedula); end;";
+
+        } else if($persona == 'personaJuridica') {
+            $sumaCalificacion = "begin :result:= estrellas.get_sumaCaliEntidad(:pcedula);end;";
+
+            $totalUsuarios = "begin :result:=estrellas.get_totalUsuarioDeEntidad(:pcedula); end;";
+
+            $countPersona = "begin :result:=estrellas.get_countEntidad(:c, :pcedula); end;";
+        }
+
+        $query_sumaCalificacion = oci_parse($conn, $sumaCalificacion);
+        oci_bind_by_name ($query_sumaCalificacion,':pcedula',$cedula);
+        oci_bind_by_name($query_sumaCalificacion,':result',$result2,20);
+        oci_execute($query_sumaCalificacion);
+
+        $query_totalUsuarios = oci_parse ($conn, $totalUsuarios);
+        oci_bind_by_name ($query_totalUsuarios,':pcedula',$cedula);
+        oci_bind_by_name($query_totalUsuarios,':result',$result1,20);
+        oci_execute($query_totalUsuarios);
 
         if ($result1 == 0){
             $rating = 0;
@@ -222,11 +245,13 @@
             <div>
                 <?php
 
-
+                /*
                 $total1 = oci_parse ($conn,"begin :result:=estrellas.get_totalUsuarioDePF(:pcedulaFisica); end;");
                 oci_bind_by_name($total1,'pcedulaFisica',$cedula);
                 oci_bind_by_name($total1,':result',$result1,20);
                 oci_execute($total1);
+                */
+
                 if ($result1 == 0){
                     $rating =  0;
                 }else{
@@ -249,19 +274,20 @@
                     <?php
 
                         for ($i = 1; $i<=10; $i++){
-                            $count = oci_parse ($conn,"begin :result:=estrellas.get_countPersonaFisica(:c, :pcedulaFisica); end;");
+                            $count = oci_parse ($conn, $countPersona);
                             oci_bind_by_name($count,':c',$i);
-                            oci_bind_by_name($count,':pcedulaFisica',$cedula);
+                            oci_bind_by_name($count,':pcedula',$cedula);
                             oci_bind_by_name($count,':result',$resultado,20);
 
 
                             oci_execute($count);
-                            $total = oci_parse ($conn,"begin :result:=estrellas.get_totalUsuarioDePF(:pcedulaFisica); end;");
-                            oci_bind_by_name ($total,':pcedulaFisica',$cedula);
+                            $total = oci_parse ($conn, $totalUsuarios);
+                            oci_bind_by_name ($total,':pcedula',$cedula);
                             oci_bind_by_name($total,':result',$resultado3,20);
                             oci_execute($total);
 
-                            if ($resultado3 == 0){
+
+                            if ($result1 == 0){
                                 $porcentaje = 0;
                             }else{
                                 $porcentaje = ($resultado/$resultado3)*100;
@@ -276,7 +302,7 @@
                             echo "</svg>";
                             echo "</td>";
                             echo "<td>",$resultado,"</td>";
-                        echo "</tr>" ;
+                            echo "</tr>" ;
 
 
                         }
