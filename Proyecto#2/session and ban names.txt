@@ -2,6 +2,7 @@ $_SESSION['usuario']
 $_SESSION['password']
 $_SESSION['cedula'] 
 
+-2 -> deshabilitado
 -1 -> baneado
 1 -> no baneado
 
