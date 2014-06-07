@@ -7,8 +7,36 @@
        header("Location: ../index.php");
     }
     ?>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>DenunciARTE</title>
+
+    <script>
+        function ajax_post2(){
+                // Create our XMLHttpRequest object
+                var hr = new XMLHttpRequest();
+                // Create some variables we need to send to our PHP file
+                var url = "procesarBusquedaGeneral.php";
+
+                var busquedaGeneral = document.getElementById("busquedaGeneral").value;
+
+                var vars = '&busquedaGeneral=' + busquedaGeneral;
+
+                hr.open("POST", url, true);
+                // Set content type header information for sending url encoded variables in the request
+                hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                // Access the onreadystatechange event for the XMLHttpRequest object
+                hr.onreadystatechange = function() {
+                    if(hr.readyState == 4 && hr.status == 200) {
+                        var return_data = hr.responseText;
+                        document.getElementById("mostrar").innerHTML = return_data;
+                    }
+                }
+                // Send the data to PHP now... and wait for response to update the status div
+                hr.send(vars); // Actually execute the request
+                document.getElementById("mostrar").innerHTML = "Procesando...";
+            }
+
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>DenunciARTE</title>
     <link rel="stylesheet" href="../Estilo/Estilo.css" />
 
     <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
@@ -20,23 +48,48 @@
 <body style="width:700px;">
 
 <!-- Menú vertical -->
-<section id="CuadroGris" style="position:absolute; top:150px; left:20px; width:300px; height:250px;">
-<h2 style="font-size:24px; left:100px; top:10px;">Mostrar</h2>
-<button type="submit" style="position:absolute; top:80px; left:50px; font-size:18px; width:200px;">Calificaciones</button>
-<button type="submit" style="position:absolute; top:130px;left:50px; font-size:18px; width:200px;">Reportes</button>
-</section>
 
-<section style="position:absolute; left:350px; top:100px; width:630px; height:400px;">
-    <div id="mostrar" style="overflow-y:scroll;">
-        <h1 style="position:absolute; left:150px;"> Nombre: </h1>
-        <a style="position:absolute; top:160px; left:70px;">Apellidos:</a>
-        <a style="position:absolute; top:200px; left:70px;">Edad:</a>
-        <a style="position:absolute; top:240px; left:70px;">Género:</a>
-        <a style="position:absolute; top:270px; left:70px;">Fecha de nacimiento:</a>
-        <a style="position:absolute; top:310px; left:70px;">Usuario:</a>
-        <a style="position:absolute; top:350px; left:70px;"></a>
-    </div>
-</section>
+<?php
+    include("../conection.php");
+	$conn = OCILogon($user, $pass, $db);
+
+    $query_procedimiento = ociparse($conn, "BEGIN :cursor := busquedas.usuarioPorCedula(:cedula); END;");
+    //Genera el cursor donde la informacion sera guardada
+	$cursor = oci_new_cursor($conn);
+
+	//Se le pasa el parametro de busqueda
+	oci_bind_by_name($query_procedimiento, ':cedula', $_SESSION['cedula']);
+	oci_bind_by_name($query_procedimiento, ':cursor', $cursor , -1, OCI_B_CURSOR);
+
+	ociexecute($query_procedimiento);
+	oci_execute($cursor, OCI_DEFAULT);
+	oci_fetch_all($cursor, $array, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
+	$datos = '';
+
+	foreach($array as $fila){
+            if($fila['GENERO'] == 'F') {
+                $genero = 'Femenino';
+            } else {
+                $genero = 'Masculino';
+            }
+	    echo $fila['FECHANACIMIENTO'].'------F-';
+        echo date('d-m-y').'-------';
+        echo date('dd-mm-yy') - $fila['FECHANACIMIENTO'];
+        $datos =  "<section id='mostrar' style='position:absolute; left:200px; top:100px; width:630px; height:400px;'>
+					<div style='width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;'>
+            <h1 style='position:absolute; top:50px; left:200px;'> Nombre: ". $fila['NOMBRE'] ."  </h1>
+            <a style='position:absolute; top:200px; left:200px;'>Apellidos: ". $fila['PRIMERAPELLIDO'] . " ". $fila['SEGUNDOAPELLIDO'] ."</a>
+            <a style='position:absolute; top:250px; left:200px;'>Edad: ". $fila['NOMBRE'] ."</a>
+            <a style='position:absolute; top:300px; left:200px;'>Género: " . $genero ."</a>
+            <a style='position:absolute; top:350px; left:200px;'>Fecha de nacimiento:</a>
+            <a style='position:absolute; top:400px; left:200px;'>Usuario: " . $fila['USUARIO'] . "</a>
+            <a style='position:absolute; top:450px; left:200px;'></a>
+        </div>
+        </section>";
+        echo $datos;
+    }
+?>
+
 
 <!-- Pie de página -->
 <section id="CuadroGris" style=" top:810px; position:absolute; left:20px; width:960px; height:90px">
@@ -52,32 +105,33 @@
 
 <!-- Encabezado-->
 <section id="CuadroGris" style="position:absolute; left:20px; height:90px; width:960px;">
-<img src="../Imagenes/Denunciarteicono.jpg" style="position:absolute; left:0px;" />
-<input type=search results=5 placeholder='Buscar entidad, persona.'  name=busqueda style="position:absolute; left:95px; top:30px; width:300px;">
-<button type="submit" style="position:absolute; top:20px; left:400px;">Buscar</button>
-<section style="position:absolute; left:560px;">
-<nav align="center" >
-<ul id="menu">
-	 <li><a title="Perfil" href="MiPerfil.php">Usuario</a></li>
-    <li><a title="Inicio" href="busquedaAvanzada.php">Inicio</a></li>
+    <img src="../Imagenes/Denunciarteicono.jpg" style="position:absolute; left:0px;" />
+    <input type=search results=5 placeholder='Buscar entidad, persona.'  name=busquedaGeneral id='busquedaGeneral' style="position:absolute; left:95px; top:30px; width:300px;">
+    <button type="submit" onclick='ajax_post2()' style="position:absolute; top:20px; left:400px;">Buscar</button>
 
- 	<li><a title="Privacidad"> <img src="../Imagenes/candado.png" /></a>
- 	<ul>
-     <li style="font-size:16px; width:150px;"><a href="UpdatePerfil.php">Configuración</a></li>
-  </ul>
- </li>
-    <li style="width:60px; height:60px;"><img src="../Imagenes/flechafinal.png" style="position:absolute; top:40px;" />
-    	<ul>
-        	<li style="font-size:16px; width:150px;"><a href="crearEntidad.php">Crear una entidad</a></li>
-            <li style="font-size:16px; width:150px;"><a href="crearPersonaFisica.php">Crear una persona</a></li>
-     		<li style="font-size:16px; width:150px;"><a href="logout.php">Cerrar sesión</a></li>
-    		<li style="font-size:16px; width:150px;"><a href="">Ayuda</a></li>
-  		</ul>
-  </li>
-    <li>
-</ul>
-</nav>
-</section>
+    <section style="position:absolute; left:560px;">
+        <nav align="center" >
+        <ul id="menu">
+            <li><a title="Perfil" href="MiPerfil.php">Usuario</a></li>
+            <li><a title="Inicio" href="busquedaAvanzada.php">Inicio</a></li>
+
+            <li><a title="Privacidad"> <img src="../Imagenes/candado.png" /></a>
+                <ul>
+                    <li style="font-size:16px; width:150px;"><a href="UpdatePerfil.php">Configuración</a></li>
+                </ul>
+            </li>
+            <li style="width:60px; height:60px;"><img src="../Imagenes/flechafinal.png" style="position:absolute; top:40px;" />
+                <ul>
+                    <li style="font-size:16px; width:150px;"><a href="crearEntidad.php">Crear una entidad</a></li>
+                    <li style="font-size:16px; width:150px;"><a href="crearPersonaFisica.php">Crear una persona</a></li>
+                    <li style="font-size:16px; width:150px;"><a href="logout.php">Cerrar sesión</a></li>
+                    <li style="font-size:16px; width:150px;"><a href="">Ayuda</a></li>
+                </ul>
+            </li>
+            <li>
+        </ul>
+        </nav>
+    </section>
 </section>
 
 </body>
