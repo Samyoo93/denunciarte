@@ -71,19 +71,19 @@
 			oci_fetch_all($cursor, $array, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
 			$datos = '';
 			foreach($array as $fila){
-				/*$query_procedimiento = ociparse($conn, "BEGIN :edad := get_edadPersona(:fechaNacimiento); END;");
+				$query_procedimiento = ociparse($conn, "BEGIN :edad := get_edadPersona(:cedula); END;");
 				$edad = 0;
-				oci_bind_by_name($query_procedimiento, ':fechaNacimiento', $fila['PERSONA_ID']);
+				oci_bind_by_name($query_procedimiento, ':cedula', $fila['PERSONA_ID']);
 				oci_bind_by_name($query_procedimiento, ':edad', $edad);
 				ociexecute($query_procedimiento);
 
-				oci_execute($cursor, OCI_DEFAULT);*/
+				oci_execute($cursor, OCI_DEFAULT);
                 $nombre = $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'];
 				$datos = $datos . '<h1 style="position:absolute; left:150px;"> Persona Física</h1>
-				<a style="position:absolute; top:150px; left:70px;">Nombre Completo:'. $nombre .'</a>
-				<a style="position:absolute; top:180px; left:70px;">Cédula:'. $fila['CEDULAFISICA_ID'] .'</a>
-				<a style="position:absolute; top:210px; left:70px;">Edad:'. $fila['FECHANACIMIENTO'] .'</a>
-				<a style="position:absolute; top:240px; left:70px;">Género:'. $fila['GENERO'] .'</a>
+				<a style="position:absolute; top:150px; left:70px;">Nombre Completo: '. $nombre .'</a>
+				<a style="position:absolute; top:180px; left:70px;">Cédula: '. $fila['CEDULAFISICA_ID'] .'</a>
+				<a style="position:absolute; top:210px; left:70px;">Edad: '. $edad .'</a>
+				<a style="position:absolute; top:240px; left:70px;">Género: '. $fila['GENERO'] .'</a>
 
 				<h2 style="position:absolute; top:240px; left:70px;">Trabajo </h2>
 				<a style="position:absolute; top:280px; left:70px;">_________</a>

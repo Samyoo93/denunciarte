@@ -9,7 +9,7 @@
 
 
     session_start();
-    $cedula = 152346325;//$_SESSION['cedula'];
+    $cedula = $_SESSION['cedula'];
 
     //crear variables ligadas a la pg con html
 
@@ -30,7 +30,7 @@
         $priv = 0;
         $privacidad = "privado";
     }
-
+    echo 'lalalla';
 
 	if($password != null and $nombre != null and $primerApellido != null and $segundoApellido != null
       and $fechaNacimiento != null and $privacidad != null) {
@@ -66,7 +66,8 @@
                     ocibindbyname($query_modprivacidad, ":cedula", $cedula);
                     ocibindbyname($query_modprivacidad, ":privacidad", $priv);
                     ociexecute($query_modprivacidad);
-
+                    OCICommit($conn);
+                    echo '\ndone';
 
                 } else {
 
@@ -95,5 +96,6 @@
             </section>";
 
 	}
+
 
 ?>
