@@ -10,18 +10,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>DenunciARTE</title>
     <link rel="stylesheet" href="../Estilo/Estilo.css" />
-    <link href="../libs/jquery.qtip.custom/jquery.qtip.css" rel="stylesheet">
-    <link href="../Estilo/estilohover.css" rel="stylesheet">
-    <link rel="stylesheet" href="../rateit/src/rateit.css">
+
     <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="../libs/jquery.qtip.custom/jquery.qtip.js"></script>
-    <script src="../rateit/src/jquery.rateit.js" type="text/javascript"></script>
-    <script src="script.js" type="text/javascript"></script>
+
 </head>
 
-<body style="width:700px;" onload="Abrir_ventana('http://URL/ejemplo-popup.html')">
+<body style="width:700px;">
 
 <!-- Menú vertical -->
 <section id="CuadroGris" style="position:absolute; top:150px; left:20px; width:300px; height:250px;">
@@ -68,7 +64,6 @@
  	<li><a title="Privacidad"> <img src="../Imagenes/candado.png" /></a>
  	<ul>
      <li style="font-size:16px; width:150px;"><a href="UpdatePerfil.php">Configuración</a></li>
-    <li style="font-size:16px; width:150px;"><a href="privacidad.php">Privacidad</a></li>
   </ul>
  </li>
     <li style="width:60px; height:60px;"><img src="../Imagenes/flechafinal.png" style="position:absolute; top:40px;" />

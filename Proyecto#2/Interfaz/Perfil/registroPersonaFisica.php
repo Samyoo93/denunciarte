@@ -33,7 +33,7 @@
 
                     $cedula = intval($cedula);
                     //Revisa si la cedula existe*********************************************************************
-                    $check_ced =  "SELECT COUNT(*) AS NUM_ROWS FROM personafisica WHERE cedulafisica_id=:ced";
+                    $check_ced =  "SELECT COUNT(1) AS NUM_ROWS FROM personafisica WHERE cedulafisica_id=:ced";
                     $query_check_ced = ociparse($conn, $check_ced);
                     ocibindbyname($query_check_ced, ":ced", $cedula);
                     $rows = 0;
@@ -55,7 +55,7 @@
                             $descripcion = 'DI esta';//$_POST['descripcion'];
                             $categoria = $categoria2;
 
-                            $check_existe_cat = "SELECT COUNT(*) AS NUM_ROWS FROM categoria WHERE nombre=:categoria and tipo = 'F'";
+                            $check_existe_cat = "SELECT COUNT(1) AS NUM_ROWS FROM categoria WHERE nombre=:categoria and tipo = 'F'";
                             $query_check_existe_cat = ociparse($conn, $check_existe_cat);
                             ocibindbyname($query_check_existe_cat, ":categoria", $categoria);
                             $existe_cat = 0;

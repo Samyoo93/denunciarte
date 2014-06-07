@@ -30,7 +30,7 @@
             if(is_numeric($cedJuridica)) {
 
                 //Revisa si la cedula juridica existe ********************************************************
-                $check_ced =  "SELECT COUNT(*) AS NUM_ROWS FROM entidad WHERE cedulajuridica=:cedJuridica";
+                $check_ced =  "SELECT COUNT(1) AS NUM_ROWS FROM entidad WHERE cedulajuridica=:cedJuridica";
                 $query_check_ced = ociparse($conn, $check_ced);
                 ocibindbyname($query_check_ced, ":cedJuridica", $cedJuridica);
                 $rows = 0;
@@ -52,7 +52,7 @@
                         $descripcion = $_POST['descripcion'];
                         $categoria = $categoria2;
 
-                        $check_existe_cat = "SELECT COUNT(*) AS NUM_ROWS FROM categoria WHERE nombre=:categoria and tipo = 'E'";
+                        $check_existe_cat = "SELECT COUNT(1) AS NUM_ROWS FROM categoria WHERE nombre=:categoria and tipo = 'E'";
                         $query_check_existe_cat = ociparse($conn, $check_existe_cat);
                         ocibindbyname($query_check_existe_cat, ":categoria", $categoria);
                         $existe_cat = 0;

@@ -4,7 +4,7 @@
 
     session_start();
     $priv = $_POST['priv'];
-    if($priv == 'publico') {
+    if($priv == 'public') {
         $priv = 1;
         $privacidad = "público";
     } else {
@@ -18,6 +18,6 @@
     ocibindbyname($query_modprivacidad, ":privacidad", $priv);
 
     ociexecute($query_modprivacidad);
-    echo "<a style='position:absolute; top:280px; left:480px; color:#21A33A'>Su perfil se cambió exitosamente a $privacidad.</a>";
+    echo "<a style='position:absolute; top:300px; left:400px; color:#21A33A'>Su perfil se cambió exitosamente a $privacidad.</a>";
 
 ?>
