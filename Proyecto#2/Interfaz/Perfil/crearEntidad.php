@@ -107,7 +107,7 @@
 <body style="width:700px;">
 
 
-<section name="mostrar" id="mostrar" style="position:absolute; left:50px; top:100px; width:900px; height:550px;">
+<section style="position:absolute; left:50px; top:100px; width:900px; height:550px;">
     <div id="mostrar" style="overflow-y:scroll;">
     <h1 style="position:absolute; left:150px;"> Crear Entidad </h1>
     <a style="position:absolute; top:150px; left:70px;">Nombre</a>

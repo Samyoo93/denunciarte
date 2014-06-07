@@ -83,21 +83,27 @@
 			oci_fetch_all($cursor, $array, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
 			$datos = '';
 			foreach($array as $fila){
-				/*$query_procedimiento = ociparse($conn, "BEGIN :edad := get_edadPersona(:fechaNacimiento); END;");
-				$edad = 0;
-				oci_bind_by_name($query_procedimiento, ':fechaNacimiento', $fila['PERSONA_ID']);
-				oci_bind_by_name($query_procedimiento, ':edad', $edad);
-				ociexecute($query_procedimiento);
+                if($fila['GENERO'] == 'F') {
+                    $genero = 'Femenino';
+                } else {
+                    $genero = 'Masculino';
+                }
+                //Calcula la edad de nacimiento
+	            $fechaNacimiento = new DateTime($fila['FECHANACIMIENTO']);
+                $fechaActual = new DateTime('today');
+                $edad = $fechaNacimiento->diff($fechaActual)->y;
 
-				oci_execute($cursor, OCI_DEFAULT);*/
+
                 $nombre = $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'];
+                //Variable también utilizada para sacar las calificaciones de la persona
                 $cedula = $fila['CEDULAFISICA_ID'];
-				$_SESSION['cedulaTemporal'] = $cedula;
+				//Guarda variables necesaria para procesos como calificar que se procesa en pasarValorALaBase
+                $_SESSION['cedulaTemporal'] = $cedula;
                 $datos = $datos . '<h1 style="position:absolute; left:150px;"> Persona Física</h1>
-				<a style="position:absolute; top:150px; left:70px;">Nombre Completo:'. $nombre .'</a>
-				<a style="position:absolute; top:180px; left:70px;">Cédula:'. $fila['CEDULAFISICA_ID'] .'</a>
-				<a style="position:absolute; top:210px; left:70px;">Edad:'. $fila['FECHANACIMIENTO'] .'</a>
-				<a style="position:absolute; top:240px; left:70px;">Género:'. $fila['GENERO'] .'</a>
+				<a style="position:absolute; top:150px; left:70px;">Nombre Completo: '. $nombre .'</a>
+				<a style="position:absolute; top:180px; left:70px;">Cédula: '. $fila['CEDULAFISICA_ID'] .'</a>
+				<a style="position:absolute; top:210px; left:70px;">Edad: '. $edad .'</a>
+				<a style="position:absolute; top:240px; left:70px;">Género: '. $genero .'</a>
 
 				<h2 style="position:absolute; top:240px; left:70px;">Trabajo </h2>
 				<a style="position:absolute; top:280px; left:70px;">_________</a>
@@ -125,7 +131,9 @@
 			$datos = '';
 			foreach($array as $fila){
                 $nombre = $fila[0];
+                //Variable también utilizada para sacar las calificaciones de la persona
                 $cedula = $fila[1];
+                //Guarda variables necesaria para procesos como calificar que se procesa en pasarValorALaBase
 				$_SESSION['cedulaTemporal'] = $cedula;
                 $datos = $datos . '
 				<h1 style="position:absolute; left:150px;"> Persona Jurídica</h1>

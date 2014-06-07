@@ -68,21 +68,27 @@
 	$datos = '';
 
 	foreach($array as $fila){
-            if($fila['GENERO'] == 'F') {
-                $genero = 'Femenino';
-            } else {
-                $genero = 'Masculino';
-            }
-	    echo $fila['FECHANACIMIENTO'].'------F-';
-        echo date('d-m-y').'-------';
-        echo date('dd-mm-yy') - $fila['FECHANACIMIENTO'];
+        //Para poner la palabra completa Masculino o Femenino
+        if($fila['GENERO'] == 'F') {
+            $genero = 'Femenino';
+        } else {
+            $genero = 'Masculino';
+        }
+        //Calcula la edad de nacimiento
+	    $fechaNacimiento = new DateTime($fila['FECHANACIMIENTO']);
+        $fechaActual = new DateTime('today');
+        $edad = $fechaNacimiento->diff($fechaActual)->y;
+
+        //echo $fila['FECHANACIMIENTO'].'------F-';
+        //echo date('d-m-y').'-------';
+        //echo date('dd-mm-yy') - $fila['FECHANACIMIENTO'];
         $datos =  "<section id='mostrar' style='position:absolute; left:200px; top:100px; width:630px; height:400px;'>
 					<div style='width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;'>
             <h1 style='position:absolute; top:50px; left:200px;'> Nombre: ". $fila['NOMBRE'] ."  </h1>
             <a style='position:absolute; top:200px; left:200px;'>Apellidos: ". $fila['PRIMERAPELLIDO'] . " ". $fila['SEGUNDOAPELLIDO'] ."</a>
             <a style='position:absolute; top:250px; left:200px;'>Edad: ". $fila['NOMBRE'] ."</a>
             <a style='position:absolute; top:300px; left:200px;'>Género: " . $genero ."</a>
-            <a style='position:absolute; top:350px; left:200px;'>Fecha de nacimiento:</a>
+            <a style='position:absolute; top:350px; left:200px;'>Fecha de nacimiento: ". $edad ."</a>
             <a style='position:absolute; top:400px; left:200px;'>Usuario: " . $fila['USUARIO'] . "</a>
             <a style='position:absolute; top:450px; left:200px;'></a>
         </div>
