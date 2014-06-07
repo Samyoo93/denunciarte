@@ -56,6 +56,7 @@
 	<!-- Menú vertical, lo coloco aquí porque cada vez que se hace la busqueda elimina esta parte y la volverá a poner cuando carge la
 	pagina de nuevo-->
 	<?php
+        error_reporting(E_ERROR | E_PARSE);
         //Carga todos los datos que provienen del id obtenido del url
         include("../conection.php");
 		$conn = OCILogon($user, $pass, $db);
@@ -114,6 +115,33 @@
 				<a style="position:absolute; top:440px; left:70px;">Promedio: </a>';
 
 			}
+            //Carga los review que sele hicieron a la persona
+
+            //Se inicia el query con el procedimiento asignado
+		    $query_procedimiento = ociparse($conn, "BEGIN :cursor := busquedas.reviewPorCedulaPersona(:cedula); END;");
+            //Genera el cursor donde la informacion sera guardada
+		    $cursor = oci_new_cursor($conn);
+
+            //Se le pasa el parametro de la cedula
+		    oci_bind_by_name($query_procedimiento, ':cedula', $cedula);
+		    oci_bind_by_name($query_procedimiento, ':cursor', $cursor , -1, OCI_B_CURSOR);
+
+		    ociexecute($query_procedimiento);
+		    oci_execute($cursor, OCI_DEFAULT);
+		    oci_fetch_all($cursor, $array, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
+		    //<div style="width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;">
+            $reviews = '';
+            foreach($array as $fila){
+
+                $reviews = $reviews . '
+				<a style="position:absolute; left:70px;">'. $fila['NOTA'] .'</a><br>
+                <a>______________________________________________________________________________</a><br>
+                <textarea rows="4" cols="50">'. $fila['DESCRIPCION'] .'</textarea>
+				<a>------------------------------------------------------------------------------</a><br>
+                <a style="position:absolute; left:70px;">'. $fila['NOMBRE'] . ' ' . $fila['PRIMERAPELLIDO'] . ' ' . $fila['SEGUNDOAPELLIDO'] .'</a><br>
+                <hr size=1><br>';
+            }
+            $reviews = $reviews . '</div>';
 
 		} else if($persona == 'personaJuridica') {
 			//Se inicia el query con el procedimiento asignado
@@ -150,6 +178,7 @@
 			
 
 		}
+
         //El unico objetivo de esto es para cargar el nombre en la ventana emergente de clasificacion
         $menuVertical = 
             '<section id="CuadroGris" style="position:absolute; top:150px; left:700px; width:270px; height:150px;">
@@ -161,16 +190,14 @@
 		<a href="#openReport" style="color: #CFCFCF;
 			font: small-caps 100%/200% serif;
 			background-color:#914998;
-			font-size: 16px;">Reportar</a>
+			font-size: 16px;">Ver Calificaciones</a>
 		</button>
 		<div id="openReport" class="modalDialog">
-			<div>
-				<a href="#close" title="Close" class="close">X</a>
-				<h2>Reportar a esta persona</h2>
-				<p style="position:absolute; top:70px;">Si desea reportar a , indique el motivo por el cual desea reportarlo.</p>
-				<p style="position:absolute; top:130px;">Motivo</p>
-				<textarea style="position:absolute; top:150px; left: 150px; width:350px; height:150px;"></textarea>
-				<button type="submit" style="position:absolute; top: 320px; left:150px; width:100px;">Reportar</button>
+
+            <div>
+                <a href="#close" title="Close" class="close">X</a>
+                <h2>Reviews</h2>'.
+                $reviews .'
 			</div>
 		</div>
 
@@ -192,6 +219,7 @@
                     </div>
 
                     <button type="submit" style="position:absolute; top: 350px; left:150px; width:100px;">Calificar</button>
+
                 </form>
             </div>
 		</div>
