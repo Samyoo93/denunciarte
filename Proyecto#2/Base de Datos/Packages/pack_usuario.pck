@@ -4,7 +4,7 @@ CREATE OR REPLACE PACKAGE pack_usuario IS
      FUNCTION get_usuario(cedulaUsuario NUMBER)RETURN VARCHAR2;
 
      --Funcion que retorna la cedula por medio del nickname.
-     FUNCTION get_cedula(usuario VARCHAR2) RETURN NUMBER;
+     FUNCTION get_cedula(usuario_in VARCHAR2) RETURN NUMBER;
 
      --Procedimiento para llenar la tabla de usuario
      PROCEDURE set_usuario(cedulaUsuario NUMBER, usuario VARCHAR2, contrasena VARCHAR2, privacidad NUMBER, estado NUMBER);
@@ -13,12 +13,15 @@ CREATE OR REPLACE PACKAGE pack_usuario IS
      PROCEDURE del_usuario(cedulaUsuario NUMBER);
 
      --Procedimiento para modificar el contenido de la tabla usuario
-     PROCEDURE mod_usuario(cedulaUsuario NUMBER, usuario VARCHAR2, contrasena VARCHAR2, privacidad NUMBER);
+     PROCEDURE mod_usuario(ced_id number, password varchar2);
+     
+     PROCEDURE mod_privacidad(ced_id NUMBER, privacidad_in NUMBER);
      
      --Funcion para confirmacion del password
      FUNCTION confirmarPassword (Pcontrasena VARCHAR2, pusuario VARCHAR2)
        RETURN NUMBER;
-       
+     FUNCTION getNumRep(cedula_in NUMBER, max_rep NUMBER)
+       RETURN NUMBER;
 END pack_usuario;
 /
 CREATE OR REPLACE PACKAGE BODY pack_usuario AS
@@ -42,7 +45,7 @@ CREATE OR REPLACE PACKAGE BODY pack_usuario AS
      END;
 
      -- funcion get cedula
-     FUNCTION get_cedula(usuario VARCHAR2)
+     FUNCTION get_cedula(usuario_in VARCHAR2)
           RETURN NUMBER
           IS
                usuarioId NUMBER(9);
@@ -51,8 +54,8 @@ CREATE OR REPLACE PACKAGE BODY pack_usuario AS
                SELECT cedulaUsuario_id
                INTO usuarioId
                FROM usuario
-               WHERE usuario.usuario = usuario;
-
+               WHERE usuario = usuario_in;
+               RETURN(usuarioId);
                EXCEPTION
                     WHEN NO_DATA_FOUND THEN
                          DBMS_OUTPUT.put_line('El nickName es inválido');
@@ -82,14 +85,25 @@ CREATE OR REPLACE PACKAGE BODY pack_usuario AS
      END;
 
      --Procedimiento para modificar personas
-     PROCEDURE mod_usuario(cedulaUsuario NUMBER, usuario VARCHAR2, contrasena VARCHAR2, privacidad NUMBER)
+     PROCEDURE mod_usuario(ced_id number, password varchar2)
           IS
+               
           BEGIN
                UPDATE usuario
-               SET (cedulaUsuario_id, usuario, contrasena, privacidad) = (SELECT cedulaUsuario, usuario, contrasena, privacidad FROM DUAL)
-               WHERE usuario.cedulausuario_id = cedulaUsuario;
-	       COMMIT;
+               SET usuario.contrasena = password
+               WHERE usuario.cedulausuario_id = ced_id;
+          COMMIT;
      END;
+     
+     PROCEDURE mod_privacidad(ced_id NUMBER, privacidad_in NUMBER)
+       IS
+       BEGIN
+         UPDATE usuario
+         set usuario.privacidad = privacidad_in
+         where usuario.cedulausuario_id = ced_id;
+       COMMIT;
+     END;
+         
      
       FUNCTION confirmarPassword (Pcontrasena VARCHAR2, pusuario VARCHAR2)
         RETURN NUMBER
@@ -109,6 +123,21 @@ CREATE OR REPLACE PACKAGE BODY pack_usuario AS
             RETURN 0;
           end if;
       end;
-
+      
+      FUNCTION getNumRep(cedula_in NUMBER, max_rep NUMBER)
+        RETURN NUMBER
+        IS currNumRep NUMBER;
+        BEGIN
+          SELECT NUMREPORTES
+          INTO currNumRep
+          From usuario
+          where CEDULAUSUARIO_ID = cedula_in;
+        IF max_rep = currNumRep THEN
+          RETURN 1;
+        ELSE
+          RETURN 0;
+        END IF;
+      END;
+        
 END pack_usuario;
 /
