@@ -7,6 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>DenunciARTE</title>
     <link rel="stylesheet" href="../Estilo/Estilo.css" />
+    <link href="../Imagenes/favicon.ico" type="image/x-icon" rel="shortcut icon" />
     <link href="../hovercard/libs/jquery.qtip.custom/jquery.qtip.css" rel="stylesheet">
     <link href="../hovercard/estilohover.css" rel="stylesheet">
     <link rel="stylesheet" href="../hovercard/rateit/src/rateit.css">

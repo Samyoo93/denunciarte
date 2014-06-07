@@ -41,6 +41,7 @@
 <title>DenunciARTE</title>
 <link rel="stylesheet" href="../Estilo/Estilo.css" />
 <link href="../Imagenes/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+<link href="../Imagenes/favicon.ico" type="image/x-icon" rel="shortcut icon" />
 </head>
 
 <body style="width:700px;">
