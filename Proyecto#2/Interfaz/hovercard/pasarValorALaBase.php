@@ -72,7 +72,7 @@
 
         }
     }
-
+    //Es para cargar el id de la persona que seintento califica
     if($_SESSION['tipoPersona'] == 'personaFisica') {
         $query_getid = ociparse($conn, "begin :personaId := pack_personaFisica.get_personaId(:cedula); end;");
         ocibindbyname($query_getid, ":cedula", $cedula);
@@ -91,6 +91,7 @@
 
     oci_close($conn);
 
+    //El id es usado para que cuandose recargue mostrarDato puedav volver a cargar los datos actualizados
     header($linkRetorno);
 ?>
 
