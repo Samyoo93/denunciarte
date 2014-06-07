@@ -40,6 +40,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>DenunciARTE</title>
 <link rel="stylesheet" href="../Estilo/Estilo.css" />
+<link href="../Imagenes/favicon.ico" type="image/x-icon" rel="shortcut icon" />
 </head>
 
 <body style="width:700px;">

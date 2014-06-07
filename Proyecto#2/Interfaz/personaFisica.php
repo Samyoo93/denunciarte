@@ -4,6 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Denunciarte</title>
 <link rel="stylesheet" href="Estilo/Estilo.css" />
+<link href="Imagenes/favicon.ico" type="image/x-icon" rel="shortcut icon" />
 <script type="text/javascript">
 function registrar(){
     // Create our XMLHttpRequest object
