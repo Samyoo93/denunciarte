@@ -51,8 +51,8 @@
                     } else {
 
                         if($categoria == 'otra') {
-                            $categoria2 = 'categoriaNewss';//$_POST['categoria2'];
-                            $descripcion = 'DI esta';//$_POST['descripcion'];
+                            $categoria2 = $_POST['categoria2'];
+                            $descripcion = $_POST['descripcion'];
                             $categoria = $categoria2;
 
                             $check_existe_cat = "SELECT COUNT(1) AS NUM_ROWS FROM categoria WHERE nombre=:categoria and tipo = 'F'";
