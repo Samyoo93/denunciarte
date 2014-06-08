@@ -81,11 +81,11 @@
 
         $datos =  "<section id='mostrar' style='position:absolute; left:100px; top:100px; width:630px; height:400px;'>
 					<div style='width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;'>
-            <h1 style='position:absolute; top:50px; left:200px;'> Nombre: ". $fila['NOMBRE'] ."  </h1>
+            <h1 style='position:absolute; top:50px; left:200px;'> Nombre: ". $fila['NOMBRE'] ."</h1>
             <a style='position:absolute; top:200px; left:200px;'>Apellidos: ". $fila['PRIMERAPELLIDO'] . " ". $fila['SEGUNDOAPELLIDO'] ."</a>
-            <a style='position:absolute; top:250px; left:200px;'>Edad: ". $fila['NOMBRE'] ."</a>
-            <a style='position:absolute; top:300px; left:200px;'>Género: " . $genero ."</a>
-            <a style='position:absolute; top:350px; left:200px;'>Fecha de nacimiento: ". $edad ."</a>
+            <a style='position:absolute; top:250px; left:200px;'>Edad: ". $edad ."</a>
+            <a style='position:absolute; top:300px; left:200px;'>Fecha de nacimiento: ". $fila['FECHANACIMIENTO'] ."</a>
+            <a style='position:absolute; top:350px; left:200px;'>Género: ". $genero ."</a>
             <a style='position:absolute; top:400px; left:200px;'>Usuario: " . $fila['USUARIO'] . "</a>
             <a style='position:absolute; top:450px; left:200px;'></a>
         </div>
@@ -114,6 +114,7 @@
                 <a style="position:absolute;">Descripción:</a><br>
                 <p1 rows="4" cols="50" disabled>"'. $fila['DESCRIPCION'] .'"</p1><br>
                 <a style="position:absolute;">Hecho a: '. $fila['NOMBRE'] .'</a><br>
+                <button type="submit"  style="position:absolute; left:500px; margin-top:-50px;">eliminar</button>
                 <hr size=5></div>';
     }
     //Saca todos los reviews que ha hecho el usuario a personas fisicas
@@ -135,7 +136,7 @@
                 <a style="position:absolute;">Descripción:</a><br>
                 <p1 rows="4" cols="50" disabled>"'. $fila['DESCRIPCION'] .'"</p1><br>
                 <a href"" style="position:absolute;">Hecho a: '. $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'] .'</a><br>
-                <button type="submit"  style="position:absolute; top:50px; left:500px;">eliminar</button>
+                <button type="submit"  style="position:absolute; left:500px; margin-top:-50px;">eliminar</button>
 
                 <hr size=5></div>';
     }
