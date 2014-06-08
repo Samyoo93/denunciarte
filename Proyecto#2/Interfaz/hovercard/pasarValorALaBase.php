@@ -5,7 +5,7 @@
     $conn =  OCILogon ($user,$pass,$db);
     session_start();
 
-
+    $url = "url";
 
     $nota = $_POST["titulo"];
     echo "nota=". $nota;
@@ -32,13 +32,14 @@
             echo 'cantidadReviews:' . $cantidadReviews;
             //Revisa la cantidad obtenida y si no hay nada retorna cero
             if ($cantidadReviews == 0){
-                $calificar = oci_parse ($conn,'begin estrellas.calificarEntidad (:pnota, :pdescripcion,:pcedulaUsuario_id, :pcalificacion, :pcedulaEntidad); end;');
+                $calificar = oci_parse ($conn,'begin estrellas.calificarEntidad (:pnota, :pdescripcion,:pcedulaUsuario_id, :pcalificacion, :pcedulaEntidad, :url); end;');
                 //Agrega el review
                 oci_bind_by_name( $calificar,':pnota',$nota);
                 oci_bind_by_name ($calificar,':pdescripcion',$descripcion);
                 oci_bind_by_name($calificar,':pcedulaUsuario_id',$cedulaUsuario);
                 oci_bind_by_name ($calificar,':pcalificacion',$calificacion);
                 oci_bind_by_name ($calificar,':pcedulaEntidad', $cedula);
+                oci_bind_by_name ($calificar,':url', $url);
                 oci_execute ($calificar);
 
             }else{
@@ -49,7 +50,7 @@
         }else if ($_SESSION['tipoPersona'] == 'personaFisica'){
 
             //Funcion que cuenta cuantas calificaciones se le ha hecho a una persona fisica
-            $verSiPuedeOno = oci_parse ($conn,'BEGIN :result :=estrellas.has_ratedPersonaFisica(:pcedulaUsuario,:pcedulaJuridica, :url); END;');
+            $verSiPuedeOno = oci_parse ($conn,'BEGIN :result :=estrellas.has_ratedPersonaFisica(:pcedulaUsuario,:pcedulaJuridica); END;');
             oci_bind_by_name ($verSiPuedeOno,':pcedulaUsuario',$cedulaUsuario);
             oci_bind_by_name ($verSiPuedeOno,':pcedulaJuridica',$cedula);
             oci_bind_by_name ($verSiPuedeOno, ':result',$cantidadReviews);
@@ -59,12 +60,13 @@
             //Revisa la cantidad obtenida y si no hay nada retorna cero
             if($cantidadReviews == 0){
 
-                $calificar = oci_parse ($conn,'begin estrellas.calificarPersonaFisica (:pnota, :pdescripcion,:pcedulaUsuario_id, :pcalificacion, :pcedulaFisica); end;');
+                $calificar = oci_parse ($conn,'begin estrellas.calificarPersonaFisica (:pnota, :pdescripcion,:pcedulaUsuario_id, :pcalificacion, :pcedulaFisica, :url); end;');
                 oci_bind_by_name( $calificar,':pnota',$nota);
                 oci_bind_by_name ($calificar,':pdescripcion',$descripcion);
                 oci_bind_by_name($calificar,':pcedulaUsuario_id',$cedulaUsuario);
                 oci_bind_by_name ($calificar,':pcalificacion',$calificacion);
                 oci_bind_by_name ($calificar,':pcedulaFisica', $cedula);
+                oci_bind_by_name ($calificar,':url', $url);
                 oci_execute ($calificar);
 
             } else {
