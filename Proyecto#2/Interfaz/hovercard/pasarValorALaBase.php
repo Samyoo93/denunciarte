@@ -47,8 +47,6 @@
                 $Message = 'Ya califico anteriormente a esta persona.';
                 $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
 
-                $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
-                header($linkRetorno);
             }
 
         //Persona Fisica
@@ -78,8 +76,7 @@
                 $Message = 'Ya califico anteriormente a esta persona.';
                 $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
 
-                $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
-                header($linkRetorno);
+
             }
 
         }
@@ -87,8 +84,7 @@
         $Message = 'No se puede calificar a usted mismo.';
         $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
 
-        $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
-        header($linkRetorno);
+
     }
 
 

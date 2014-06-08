@@ -185,8 +185,7 @@
             </select>";
         ?>
 
-    <button type="submit" style="position:absolute; top:620px; left:130px; width:150px;">Cancelar</button>
-    <button type="submit" onClick='crear()' style="position:absolute; top:620px; left:310px; width:150px;">Crear</button>
+        <button type="submit" onClick='crear()' style="position:absolute; top:620px; left:250px; width:150px;">Registrar</button>
     </div>
 </section>
 

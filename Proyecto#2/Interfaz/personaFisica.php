@@ -11,18 +11,22 @@ function registrar(){
     var hr = new XMLHttpRequest();
     // Create some variables we need to send to our PHP file
     var url = "perfil/registroPersonaFisica.php";
-    var nombre = document.getElementById("nombre").value;
-    var primerApellido = document.getElementById("primerApellido").value;
-    var segundoApellido = document.getElementById("segundoApellido").value;
-    var cedula1= document.getElementById("cedula1").value;
-	var cedula2=document.getElementById("cedula2").value;
-	var cedula3= document.getElementById("cedula3").value;
-    var genero = document.getElementById("genero").value;
-    var fecNac = document.getElementById("fecNac").value;
-    var lugartrabajo = document.getElementById("lugartrabajo").value;
-    var cargo = document.getElementById("cargo").value;
-    var vars = 'nombre='+nombre+'&primerApellido='+primerApellido+'&segundoApellido='+segundoApellido+'&cedula1='+cedula1
-    +'&cedula2='+cedula2+'&cedula3='+cedula3+'&genero='+genero+'&fecNac='+fecNac+'&lugartrabajo='+lugartrabajo+'&cargo='+cargo;
+    var nombre = document.getElementById('nombre').value;
+    var primerApellido = document.getElementById('primerApellido').value;
+    var segundoApellido = document.getElementById('segundoApellido').value;
+    var cedula1 = document.getElementById('cedula1').value;
+    var cedula2 = document.getElementById('cedula2').value;
+    var cedula3 = document.getElementById('cedula3').value;
+    var genero = document.getElementById('genero').value;
+    var fecNac = document.getElementById('fecNac').value;
+    var lugartrabajo = document.getElementById('lugartrabajo').value;
+    var cargo = document.getElementById('cargo').value;
+    var categoria = document.getElementById('categoria').value;
+    var categoria2 = document.getElementById('categoria2').value;
+    var descripcion = document.getElementById('descripcion').value;
+
+
+    var vars =  'nombre='+nombre+'&primerApellido='+primerApellido+'&segundoApellido='+segundoApellido+'&cedula1='+cedula1+'&cedula2='+cedula2+'&cedula3='+cedula3+'&genero='+genero+'&fecNac='+fecNac+'&lugartrabajo='+lugartrabajo+'&cargo='+cargo+'&categoria='+categoria+'&categoria2='+categoria2+'&descripcion='+descripcion;
     hr.open("POST", url, true);
     // Set content type header information for sending url encoded variables in the request
     hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -108,9 +112,39 @@ function registrar(){
 <input type="text" id="lugartrabajo"  placeholder="Lugar de trabajo."style="position:absolute; top: 330px; left:130px; width:300px;" />
 <a style="position:absolute; top:370px; left:60px;">Cargo</a>
 <input type="text" id="cargo" placeholder="Cargo que desempeña" style="position:absolute; top: 390px; left:130px; width:300px;" />
-    <button type="submit" onclick='registrar()' style="position:absolute; top:460px; left:60px; width:200px;">Registrar</button>
+<h2 style="position:absolute; top:400px; left:60px;">Categoría</h2>
+<a style="position:absolute; top:440px; left:60px;">_______________</a>
+<a style="position:absolute; top:470px; left:60px;">Nombre</a>
+<?php
+    include('conection.php');
+    $conn = oci_connect($user, $pass, $db);
+    $sql = "SELECT nombre FROM categoria where tipo = 'F'";
+    $stmt = oci_parse($conn, $sql);
+    ociexecute($stmt);
+    echo "<select name='tipoCategoria' required id='categoria' style='position:absolute;
+    top:470px; text-align:center; left:130px; width:300px;'>";
+    echo "<option value=''>Seleccione uno</option>";
+    while ( $row = oci_fetch_assoc($stmt) ) {
+
+        echo "<option value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
+
+    }
+    echo "<option value='otra'>Otra</option>
+    </select>";
+?>
+<button type="submit" onclick='registrar()' style="position:absolute; top:520px; left:60px; width:200px;">Registrar</button>
+
 </section>
 
+<section style="position:absolute; top:400px; left:720px; width:400px;">
+<a style="color:#FF33D7; left:10px;">_____________________________________</a>
+<h2 style="position:absolute; top:10px; left:10px;">Nueva Categoría</h2>
+<a style="position:absolute; left:10px; top:80px;">Nombre</a>
+<a style="position:absolute; left:10px; top:115px;">Descripción</a>
+<textarea style="position:absolute; left:80px; top:135px; height:65px;" id='descripcion'></textarea>
+<input type="text" id="categoria2"  style="position:absolute; top:80px; left:80px;" />
+<a style="color:#FF33D7; position:absolute; left:10px; top:200px;">_____________________________________</a>
+</section>
 
 <!-- Pie de página -->
 <section id="CuadroGris" style=" top:865px; position:absolute; left:20px; width:960px; height:90px">
