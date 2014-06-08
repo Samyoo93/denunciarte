@@ -4,8 +4,8 @@
     <?php
         session_start();
         if (!isset($_SESSION['usuario'])) {
-            header("Location: ../index.php");
-        }
+        $Message = 'Sesión no iniciada.';
+        header('Location: ../index.php?Message=' . urlencode($Message));        }
     ?>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>DenunciARTE</title>

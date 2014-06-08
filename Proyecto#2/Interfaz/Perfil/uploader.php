@@ -1,8 +1,6 @@
 <?php
     include("../conection.php");
     $conn = OCILogon($user, $pass, $db);
-    header('Location: mostrarDatos.php');
-    $descripcion = $_POST['descripcion'];
 
      //EXISTE REPORTE i := pack_reporte.has_reported(cedulaReportado => , cedulaReportando => )
 
@@ -26,24 +24,12 @@
 
                 /*aqui se guarda en la base*/
                 $url = "C:/xampp/htdocs/Github/Proyecto#2/Interfaz/UploadedImgs/".$random."$filename";
-
-                $setReporte = oci_parse($conn, "begin pack_reporte.set_reporte(:descripcion, :cedulaReportador, :urlFile); end;");
-                oci_bind_by_name($setReporte,':descripcion',$descripcion);
-                oci_bind_by_name($setReporte,':urlFile',$url);
-                oci_bind_by_name($setReporte,':cedulaReportador', $cedulaReportador);
-                oci_execute($setReporte);
-                $cedulaReportado =  199384812;
-                $setReporteUsuario = oci_parse($conn, "begin pack_reporte_usuario.set_reporte_usuario(:cedulaReportado); end;");
-                oci_bind_by_name($setReporteUsuario,':cedulaReportado', $cedulaReportado);
-                oci_execute($setReporteUsuario);
-
+                $_SESSION['file'] = $url;
                 echo "Archivo agregado con éxito";
             } else {
                 echo "Archivo inválido.";
             }
         }
-
-
 ?>
 
 

@@ -2,7 +2,7 @@ CREATE OR REPLACE PACKAGE pack_reporte IS
 
      FUNCTION get_id(descripcion VARCHAR2) RETURN NUMBER;
      --Procedimiento para llenar la tabla de preview
-     PROCEDURE set_reporte(descripcion_in VARCHAR2, cedulaUsuario NUMBER, url_in VARCHAR2);
+     PROCEDURE set_reporte(descripcion_in VARCHAR2, cedulaUsuario NUMBER);
      
      FUNCTION has_reported(cedulaReportado NUMBER, cedulaReportando NUMBER) RETURN NUMBER;
      
@@ -23,21 +23,21 @@ CREATE OR REPLACE PACKAGE BODY pack_reporte AS
 
                EXCEPTION
                     WHEN NO_DATA_FOUND THEN
-                         DBMS_OUTPUT.put_line('El nombre es inválido');
+                         DBMS_OUTPUT.put_line('El nombre es invï¿½lido');
 
                RETURN(reporteId);
 
      END;
 
      --Procedimiento para insertar categorias
-     PROCEDURE set_reporte(descripcion_in VARCHAR2, cedulaUsuario NUMBER, url_in VARCHAR2)
+     PROCEDURE set_reporte(descripcion_in VARCHAR2, cedulaUsuario NUMBER)
           IS
           
           BEGIN
                INSERT INTO reporte
-                    (reporte_id, descripcion, cedulaUsuario_id, fileurl)
+                    (reporte_id, descripcion, cedulaUsuario_id)
                VALUES
-                    (s_reporte.nextval, descripcion_in, cedulaUsuario, url_in);
+                    (s_reporte.nextval, descripcion_in, cedulaUsuario);
                
                COMMIT;
        

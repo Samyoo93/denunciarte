@@ -95,6 +95,6 @@
     oci_close($conn);
 
     //El id es usado para que cuandose recargue mostrarDato puedav volver a cargar los datos actualizados
-    //header($linkRetorno);
+    header($linkRetorno);
 ?>
 

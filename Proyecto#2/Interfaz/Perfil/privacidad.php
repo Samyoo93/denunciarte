@@ -4,8 +4,8 @@
     <?php
     session_start();
     if (!isset($_SESSION['usuario'])) {
-       header("Location: ../index.php");
-    }
+        $Message = 'Sesión no iniciada.';
+        header('Location: ../index.php?Message=' . urlencode($Message));    }
     ?>
 <script>
     function setPrivacidad(){

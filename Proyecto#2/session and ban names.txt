@@ -5,7 +5,7 @@ $_SESSION['cedula']
 -2 -> deshabilitado
 -1 -> baneado
 1 -> no baneado
-
+2 -> administrador
 privacidad:
     publico: 1
     privado: 0

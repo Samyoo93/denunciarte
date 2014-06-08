@@ -40,28 +40,29 @@
                 </section>";
 
             } else {
-                //valida si el password es correcto, y si lo es conecta al usuario
-                $canLogin = "begin :isValid := pack_usuario.confirmarPassword(:password, :usuario); end;";
-                $query_canLogin = ociparse($conn, $canLogin);
-                ocibindbyname($query_canLogin, ":password", $password);
-                ocibindbyname($query_canLogin, ":usuario", $usuario);
-                oci_bind_by_name($query_canLogin, ':isValid', $isValid, 100);
-                ociexecute($query_canLogin);
-                if ($isValid == 1) {
-                    //notifica al usuario la conexión exitosa
-                    $getid = "begin :ced := pack_usuario.get_cedula(:usuario); end;";
-                    $query_getid = ociparse($conn, $getid);
-                    ocibindbyname($query_getid, ":usuario", $usuario);
-                    ocibindbyname($query_getid, ":ced", $cedula, 100);
-                    ociexecute($query_getid);
 
-                    $banned = "begin :isBanned := pack_usuario.getNumRep(cedula_in => :cedula, max_rep => :max_rep); end;";
-                    $query_isBanned = ociparse($conn, $banned);
-                    ocibindbyname($query_isBanned, ":max_rep",$max_rep);
-                    ocibindbyname($query_isBanned, ":cedula", $cedula);
-                    ocibindbyname($query_isBanned, ":isBanned",$isBanned, 100);
-                    ociexecute($query_isBanned);
-                    if($isBanned == 0) {
+                //notifica al usuario la conexión exitosa
+                $getid = "begin :ced := pack_usuario.get_cedula(:usuario); end;";
+                $query_getid = ociparse($conn, $getid);
+                ocibindbyname($query_getid, ":usuario", $usuario);
+                ocibindbyname($query_getid, ":ced", $cedula, 100);
+                ociexecute($query_getid);
+
+                $enabled = "begin :isEnabled := pack_usuario.getEstado(:cedula); end;";
+                $query_isEnabled = ociparse($conn, $enabled);
+                ocibindbyname($query_isEnabled, ":cedula", $cedula);
+                ocibindbyname($query_isEnabled, ":isEnabled", $isEnabled, 100);
+                ociexecute($query_isEnabled);
+
+                //valida si el password es correcto, y si lo es conecta al usuario
+              if($isEnabled == 1) {
+                    $canLogin = "begin :isValid := pack_usuario.confirmarPassword(:password, :usuario); end;";
+                    $query_canLogin = ociparse($conn, $canLogin);
+                    ocibindbyname($query_canLogin, ":password", $password);
+                    ocibindbyname($query_canLogin, ":usuario", $usuario);
+                    oci_bind_by_name($query_canLogin, ':isValid', $isValid, 100);
+                    ociexecute($query_canLogin);
+                    if($isValid) {
                         session_start(); //inicia la sesion
                         $_SESSION['usuario']= $usuario;
                         $_SESSION['password']= $password;
@@ -69,15 +70,17 @@
                         echo $button . $msgIng;
                     } else {
                         echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
-                        <a style='font-size:20px; color:#F00; font-size:16px;'>**El usuario " . $usuario . " se encuentra actualmente baneado.</a>
+                        <a style='font-size:20px; color:#F00; font-size:16px;'>**Contraseña invalida.</a>
                         </section>";
-
                     }
+                } else if($isEnabled == -2) {
+                    echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
+                    <a style='font-size:20px; color:#F00; font-size:16px;'>**El usuario " . $usuario . " se encuentra actualmente deshabilitado.</a>
+                    </section>";
 
                 } else {
-                    //mensaje de error
                     echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
-                    <a style='font-size:20px; color:#F00; font-size:16px;'>**Contraseña invalida.</a>
+                    <a style='font-size:20px; color:#F00; font-size:16px;'>**El usuario " . $usuario . " se encuentra actualmente baneado.</a>
                     </section>";
 
                 }

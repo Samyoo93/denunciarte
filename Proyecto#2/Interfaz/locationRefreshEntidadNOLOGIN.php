@@ -45,19 +45,19 @@
     echo $title;
     //Selecciona todos los paises
 	$sql = "SELECT nombre FROM pais";
-		$stmt = oci_parse($conn, $sql);
-		ociexecute($stmt);
-		echo "<select name='pais' required id='pais' onchange='refresh(1)'
-        style='position:absolute; top:250px; text-align:center; left:130px; width:300px;'>";
-        echo "<option value=''>Seleccione uno</option>";
-		while ( $row = oci_fetch_assoc($stmt) ) {
+    $stmt = oci_parse($conn, $sql);
+    ociexecute($stmt);
+    echo "<select name='pais' required id='pais' onchange='refresh(1)'
+    style='position:absolute; top:250px; text-align:center; left:130px; width:300px;'>";
+    echo "<option value=''>Seleccione uno</option>";
+    while ( $row = oci_fetch_assoc($stmt) ) {
 
-			if($row['NOMBRE']==$paisval) {
-				echo "<option selected value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
-			} else {
-				echo "<option value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
-			}
-		}
+        if($row['NOMBRE']==$paisval) {
+            echo "<option selected value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
+        } else {
+            echo "<option value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
+        }
+    }
 
 	echo "</select>";
 

@@ -39,7 +39,6 @@
 
             <form method="post" action='uploader.php' enctype="multipart/form-data">
                 File name:<input type="file" id='imgfile' name="imgfile"><br>
-                <input type="text" id="descripcion" name='descripcion' required placeholder="descripcion">
                 <input type="submit" name="submit" value="upload">
             </form>
     </body>

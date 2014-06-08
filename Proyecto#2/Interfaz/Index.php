@@ -5,6 +5,9 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
+    if (isset($_GET['Message'])) {
+        print '<script type="text/javascript">alert("' . $_GET['Message'] . '");</script>';
+    }
     ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Denunciarte</title>
