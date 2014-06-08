@@ -46,6 +46,7 @@
             }else{
                 $Message = 'Ya califico anteriormente a esta persona.';
                 $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
+                header($linkRetorno);
             }
 
         //Persona Fisica
@@ -74,12 +75,14 @@
             } else {
                 $Message = 'Ya califico anteriormente a esta persona.';
                 $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
+                header($linkRetorno);
             }
 
         }
     } else {
         $Message = 'No se puede calificar a usted mismo.';
         $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
+        header($linkRetorno);
     }
 
 
@@ -97,6 +100,6 @@
     oci_close($conn);
 
     //El id es usado para que cuandose recargue mostrarDato puedav volver a cargar los datos actualizados
-    header($linkRetorno);
+    //header($linkRetorno);
 ?>
 

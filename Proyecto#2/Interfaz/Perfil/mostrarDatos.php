@@ -150,10 +150,9 @@
                 $reviews = $reviews . '
 				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a>
 
-                <a>________________________________________</a><br>
-                <a style="position:absolute;">Descripción:</a><br>
-                <textarea rows="4" cols="50" disabled>'. $fila['DESCRIPCION'] .'</textarea><br>
-                <a style="position:absolute;">'. $fila['NOMBRE'] . ' ' . $fila['PRIMERAPELLIDO'] . ' ' . $fila['SEGUNDOAPELLIDO'] .'</a><br>
+                <h2 style="position:absolute;">Descripción:</h2><br>
+                <p2 rows="4" cols="50">"'. $fila['DESCRIPCION'] .'"</p2><br>
+                <a href"" style="position:absolute;">-'. $fila['NOMBRE'] . ' ' . $fila['PRIMERAPELLIDO'] . ' ' . $fila['SEGUNDOAPELLIDO'] .'</a><br>
                 <hr size=5>';
             }
             $reviews = $reviews . '</div>';
@@ -211,12 +210,10 @@
             foreach($array as $fila){
 
                 $reviews = $reviews . '
-				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a>
-
-                <a>________________________________________</a><br>
+				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a><br>
                 <a style="position:absolute;">Descripción:</a><br>
-                <textarea rows="4" cols="50" disabled>'. $fila['DESCRIPCION'] .'</textarea><br>
-                <a style="position:absolute;">'. $fila['NOMBRE'] .' '. $fila['NOMBRE'] .' '. $fila['NOMBRE'] .'</a><br>
+                <p1 rows="4" cols="50" disabled>"'. $fila['DESCRIPCION'] .'"</p1><br>
+                <a href"" style="position:absolute;">-'. $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'] .'</a><br>
                 <hr size=5>';
             }
             $reviews = $reviews . '</div>';
@@ -324,13 +321,6 @@
         <div class="review">
             <div>
                 <?php
-
-                /*
-                $total1 = oci_parse ($conn,"begin :result:=estrellas.get_totalUsuarioDePF(:pcedulaFisica); end;");
-                oci_bind_by_name($total1,'pcedulaFisica',$cedula);
-                oci_bind_by_name($total1,':result',$result1,20);
-                oci_execute($total1);
-                */
 
                 if ($result1 == 0){
                     $rating =  0;
