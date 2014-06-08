@@ -182,10 +182,13 @@
                 $datos = $datos . '
 				<h1 style="position:absolute; left:150px;"> Persona Jurídica</h1>
 				<a style="position:absolute; top:170px; left:70px;">Nombre:'. $nombre .'</a>
-				<a style="position:absolute; top:250px; left:70px;">Cédula:'. $fila[1] .'</a>
-				<a style="position:absolute; top:300px; left:70px;">Dirección Exacta:'. $fila[2] . $fila[3] . $fila[4] . $fila[5] . $fila[6] .'</a>
-				<a style="position:absolute; top:320px; left:70px;">País:'. $fila[7] .'</a>
-
+				<a style="position:absolute; top:200px; left:70px;">Cédula:'. $fila[1] .'</a>
+				<a style="position:absolute; top:230px; left:70px;">Dirección Exacta: '. $fila[2] . '</a>
+				<a style="position:absolute; top:260px; left:70px;">Barrio: '. $fila[3] . '</a>
+				<a style="position:absolute; top:285px; left:70px;">Distrito: '. $fila[4] . '</a>
+				<a style="position:absolute; top:313px; left:70px;">Cantón: '. $fila[5] . '</a>
+				<a style="position:absolute; top:340px; left:70px;">Provincia: '. $fila[6] . '</a>
+				<a style="position:absolute; top:370px; left:70px;">País: '. $fila[7] .'</a>
 				<h2 style="position:absolute; top:370px; left:70px;">Calificaciones </h2>
 				<a style="position:absolute; top:410px; left:70px;">_______________</a>
 				<a style="position:absolute; top:440px; left:70px;">Promedio: </a>';
