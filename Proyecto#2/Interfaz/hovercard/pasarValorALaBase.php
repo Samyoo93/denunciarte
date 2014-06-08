@@ -5,7 +5,6 @@
     $conn =  OCILogon ($user,$pass,$db);
     session_start();
 
-    $url = "url";
 
     $nota = $_POST["titulo"];
     echo "nota=". $nota;
@@ -57,11 +56,34 @@
             oci_bind_by_name ($verSiPuedeOno,':pcedulaUsuario',$cedulaUsuario);
             oci_bind_by_name ($verSiPuedeOno,':pcedulaJuridica',$cedula);
             oci_bind_by_name ($verSiPuedeOno, ':result',$cantidadReviews);
-            oci_bind_by_name ($verSiPuedeOno, ':result',$cantidadReviews);
             oci_execute ($verSiPuedeOno);
             echo 'cantidadReviews:' . $cantidadReviews;
             //Revisa la cantidad obtenida y si no hay nada retorna cero
             if($cantidadReviews == 0){
+
+                $filename = $_FILES["imgfile"]["name"];
+                if ((($_FILES["imgfile"]["type"] == "image/gif")
+                       || ($_FILES["imgfile"]["type"] == "image/jpeg")
+                        || ($_FILES["imgfile"]["type"] == "image/png")
+                        || ($_FILES["imgfile"]["type"] == "image/pjpeg"))
+                        || ($_FILES["imgfile"]["type"] == "application/pdf")
+                        || ($_FILES["imgfile"]["type"] == "text/plain")
+                        || ($_FILES["imgfile"]["type"] == "application/msword")
+                        || ($_FILES["imgfile"]["type"] == "application/vnd.oasis.opendocument.text")
+                        && ($_FILES["imgfile"]["size"] < 200000)) {
+                    $random = rand(0,100);
+                    move_uploaded_file($_FILES["imgfile"]["tmp_name"],
+                                               "C:/xampp/htdocs/Github/Proyecto#2/Interfaz/UploadedImgs/".$random."$filename");
+                    $cedulaReportador = $_SESSION['cedula'];
+
+                    /*aqui se guarda en la base*/
+                    $url = "C:/xampp/htdocs/Github/Proyecto#2/Interfaz/UploadedImgs/".$random."$filename";
+                    $_SESSION['file'] = $url;
+                    echo "Archivo agregado con éxito";
+                } else {
+                    echo "Archivo inválido.";
+                }
+
 
                 $calificar = oci_parse ($conn,'begin estrellas.calificarPersonaFisica (:pnota, :pdescripcion,:pcedulaUsuario_id, :pcalificacion, :pcedulaFisica, :url); end;');
                 oci_bind_by_name( $calificar,':pnota',$nota);
@@ -71,6 +93,7 @@
                 oci_bind_by_name ($calificar,':pcedulaFisica', $cedula);
                 oci_bind_by_name ($calificar,':url', $url);
                 oci_execute ($calificar);
+
 
             } else {
                 $Message = 'Ya califico anteriormente a esta persona.';
@@ -103,6 +126,6 @@
 
     //El id es usado para que cuandose recargue mostrarDato puedav volver a cargar los datos actualizados
     //xheader($linkRetorno);
-    header($linkRetorno);
+    //header($linkRetorno);
 ?>
 
