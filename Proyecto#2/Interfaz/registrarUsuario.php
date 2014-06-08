@@ -51,7 +51,7 @@
                             //Revisa si el usuario existe ********************************************************
                             $check_user =  "SELECT COUNT(1) AS NUM_ROWS FROM usuario WHERE usuario=:usuario";
                             $query_check_user = ociparse($conn, $check_user);
-                            ocibindbyname($query_check_user, ":usuario", $usuario);
+                            oci_bind_by_name($query_check_user, ":usuario", $usuario);
                             $rows = 0;
                             oci_define_by_name($query_check_user, "NUM_ROWS", $rows);
                             ociexecute($query_check_user);
@@ -67,7 +67,7 @@
                                 //Revisa si la cedula existe*********************************************************************
                                 $check_ced =  "SELECT COUNT(1) AS NUM_ROWS FROM usuario WHERE cedulausuario_id=:ced";
                                 $query_check_ced = ociparse($conn, $check_ced);
-                                ocibindbyname($query_check_ced, ":ced", $cedula);
+                                oci_bind_by_name($query_check_ced, ":ced", $cedula);
                                 $rows = 0;
                                 oci_define_by_name($query_check_ced, "NUM_ROWS", $rows);
                                 ociexecute($query_check_ced);
@@ -80,38 +80,55 @@
                                     </section>";
 
                                 } else {
+                                    $check_PF =  "SELECT COUNT(1) AS NUM_ROWS FROM personafisica WHERE cedulafisica_id = :cedula";
+                                    $query_check_PF = ociparse($conn, $check_PF);
+                                    oci_bind_by_name($query_check_PF, ":cedula", $cedula);
 
-                                    //print 'window.location.href="RegistroUsuarios.php";</script>';
-                                    //location.reload();
-                                    //luego de validar todo agrega a la persona a la base de datos
-                                    $getnombre = "begin pack_persona.set_persona_usuario(:nombre, :primerApellido, :segundoApellido, :genero,
-                                    to_date(:fechaNacimiento, 'yyyy-mm-dd'),
-                                    :usuario, :password, :cedula, :privacidad); end;";
-                                    $query_getnombre = ociparse($conn, $getnombre);
-                                    ocibindbyname($query_getnombre, ":nombre", $nombre);
-                                    ocibindbyname($query_getnombre, ":primerApellido", $primerApellido);
-                                    ocibindbyname($query_getnombre, ":segundoApellido", $segundoApellido);
-                                    ocibindbyname($query_getnombre, ":genero", $genero);
-                                    ocibindbyname($query_getnombre, ":fechaNacimiento", $fechaNacimiento);
-                                    ocibindbyname($query_getnombre, ":usuario", $usuario);
-                                    ocibindbyname($query_getnombre, ":password", $password);
-                                    ocibindbyname($query_getnombre, ":cedula", $cedula);
-                                    ocibindbyname($query_getnombre, ":privacidad", $privacidad);
-                                    ociexecute($query_getnombre);
-                                    session_start(); //inicia la sesion
-                                    $_SESSION['usuario']= $usuario;
-                                    $_SESSION['password']= $password;
-                                    $getid = "begin :ced := pack_usuario.get_cedula(:usuario); end;";
-                                    $query_getid = ociparse($conn, $getid);
-                                    ocibindbyname($query_getid, ":usuario", $usuario);
-                                    ocibindbyname($query_getid, ":ced", $ced, 100);
-                                    ociexecute($query_getid);
+                                    oci_define_by_name($query_check_PF, "NUM_ROWS", $rows);
+                                    ociexecute($query_check_PF);
+                                    ocifetch($query_check_PF);
 
-                                    $_SESSION['cedula'] = $ced;
-                                    echo $button;
-                                    echo $msgIng;
-                                    OCICommit($conn);
+                                    if($rows == 0) {
+                                        //print 'window.location.href="RegistroUsuarios.php";</script>';
+                                        //location.reload();
+                                        //luego de validar todo agrega a la persona a la base de datos
+                                        $getnombre = "begin pack_persona.set_persona_usuario(:nombre, :primerApellido, :segundoApellido, :genero,
+                                        to_date(:fechaNacimiento, 'yyyy-mm-dd'),
+                                        :usuario, :password, :cedula, :privacidad); end;";
+                                        $query_getnombre = ociparse($conn, $getnombre);
+                                        oci_bind_by_name($query_getnombre, ":nombre", $nombre);
+                                        oci_bind_by_name($query_getnombre, ":primerApellido", $primerApellido);
+                                        oci_bind_by_name($query_getnombre, ":segundoApellido", $segundoApellido);
+                                        oci_bind_by_name($query_getnombre, ":genero", $genero);
+                                        oci_bind_by_name($query_getnombre, ":fechaNacimiento", $fechaNacimiento);
+                                        oci_bind_by_name($query_getnombre, ":usuario", $usuario);
+                                        oci_bind_by_name($query_getnombre, ":password", $password);
+                                        oci_bind_by_name($query_getnombre, ":cedula", $cedula);
+                                        oci_bind_by_name($query_getnombre, ":privacidad", $privacidad);
+                                        ociexecute($query_getnombre);
+                                        session_start(); //inicia la sesion
+                                        $_SESSION['usuario']= $usuario;
+                                        $_SESSION['password']= $password;
+                                        $getid = "begin :ced := pack_usuario.get_cedula(:usuario); end;";
+                                        $query_getid = ociparse($conn, $getid);
+                                        oci_bind_by_name($query_getid, ":usuario", $usuario);
+                                        oci_bind_by_name($query_getid, ":ced", $ced, 100);
+                                        ociexecute($query_getid);
 
+                                        $_SESSION['cedula'] = $ced;
+                                        echo $button;
+                                        echo $msgIng;
+                                        OCICommit($conn);
+                                    } else {
+                                        $insertarByPF = " begin pack_usuario.set_usuario_by_personafisica(:cedula, :usuario, :password, :privacidad); end;";
+                                        $query_insertarByPF = ociparse($conn, $insertarByPF);
+                                        oci_bind_by_name($query_insertarByPF, ":cedula", $cedula);
+                                        oci_bind_by_name($query_insertarByPF, ":usuario", $usuario);
+                                        oci_bind_by_name($query_insertarByPF, ":password", $password);
+                                        oci_bind_by_name($query_insertarByPF, ":privacidad", $privacidad);
+                                        ociexecute($query_insertarByPF);
+
+                                    }
                                 }
                             }
                         } else {
@@ -152,5 +169,9 @@
                 <a style='font-size:20px; color:#F00; font-size:16px;'>**Debe de aceptar los terminos y condiciones de uso.</a>
                 </section>";
     }
+
+
+
+
     OCILogOff($conn);
 ?>

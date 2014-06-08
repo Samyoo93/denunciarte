@@ -32,7 +32,8 @@
                 // Send the data to PHP now... and wait for response to update the status div
                 hr.send(vars); // Actually execute the request
                 document.getElementById("mostrar").innerHTML = "Procesando...";
-            }
+        }
+
 
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -109,7 +110,7 @@
 	oci_execute($cursor, OCI_DEFAULT);
 	oci_fetch_all($cursor, $array, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
 
-    $reviews = '<div style="margin-top:50px;">';
+    $reviews = '<div style="margin-top:20px;">';
     foreach($array as $fila){
         $reviews = $reviews . '<div>
 				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a><br>
@@ -138,7 +139,7 @@
                 <a style="position:absolute;">Descripción:</a><br>
                 <p1 rows="4" cols="50" disabled>"'. $fila['DESCRIPCION'] .'"</p1><br>
                 <a href"" style="position:absolute;">Hecho a: '. $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'] .'</a><br>
-                <button type="submit" name="eliminarReview" value="'. $fila['REVIEW_ID'] .'"style="position:absolute; left:500px; margin-top:-50px;">eliminar</button>
+                <button type="submit" name="eliminarReview" value="'. $fila['REVIEW_ID'] .'" id="'. $fila['REVIEW_ID'] .'" style="position:absolute; left:500px; margin-top:-50px;">eliminar</button>
 
                 <hr size=5></div>';
     }
@@ -170,6 +171,9 @@
     </section>';//Este es el section que cierra toda el area que se refresca
     echo $datos;
     echo $menuVertical;
+
+
+
 ?>
 
 
