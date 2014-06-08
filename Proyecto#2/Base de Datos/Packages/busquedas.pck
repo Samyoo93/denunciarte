@@ -270,7 +270,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
           AS l_cursor TYPES.ref_c;
           BEGIN
                OPEN l_cursor FOR
-               SELECT r.nota, r.descripcion, r.calificacion, e.nombre
+               SELECT r.nota, r.descripcion, r.calificacion, e.nombre, r.review_id
                FROM entidad e, review_entidad re, review r, usuario u
                WHERE u.cedulausuario_id = cedula and u.cedulausuario_id = r.cedulausuario_id 
                      and r.review_id = re.review_id and re.entidad_id = e.entidad_id;
@@ -283,7 +283,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
           BEGIN
                OPEN l_cursor FOR
                SELECT r.nota, r.descripcion, r.calificacion, p.nombre, p.primerapellido,
-                      p.segundoapellido
+                      p.segundoapellido, r.review_id
                FROM personaFisica pf, review_personaFisica rpf, review r, usuario u, persona p
                WHERE u.cedulausuario_id = cedula and u.cedulausuario_id = r.cedulausuario_id 
                      and r.review_id = rpf.review_id and rpf.cedulafisica_id = 
