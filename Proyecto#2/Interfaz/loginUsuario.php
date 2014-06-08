@@ -55,7 +55,7 @@
                 ociexecute($query_isEnabled);
 
                 //valida si el password es correcto, y si lo es conecta al usuario
-              if($isEnabled == 1) {
+              if($isEnabled == 1 or $isEnabled == 2) {
                     $canLogin = "begin :isValid := pack_usuario.confirmarPassword(:password, :usuario); end;";
                     $query_canLogin = ociparse($conn, $canLogin);
                     ocibindbyname($query_canLogin, ":password", $password);

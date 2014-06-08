@@ -12,6 +12,7 @@
     $descripcion =$_POST ["descripcion"];
     echo "descripcion=". $descripcion;
     $cedulaUsuario =  $_SESSION['cedula'];
+    $id =  $_SESSION['id'];
     echo "cedulaUsuario=".$cedulaUsuario;
     $cedula = $_SESSION['cedulaTemporal'];
     echo "cedula=". $cedula;
@@ -43,7 +44,8 @@
                 oci_execute ($calificar);
 
             }else{
-                echo 'Ya calificó a esta persona anteriormente';
+                $Message = 'Ya califico anteriormente a esta persona.';
+                $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
             }
 
         //Persona Fisica
@@ -70,25 +72,25 @@
                 oci_execute ($calificar);
 
             } else {
-                echo 'Ya calificó a esta persona anteriormente';
+                $Message = 'Ya califico anteriormente a esta persona.';
+                $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
             }
 
         }
+    } else {
+        $Message = 'No se puede calificar a usted mismo.';
+        $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
     }
+
+
     //Es para cargar el id de la persona que seintento califica
     if($_SESSION['tipoPersona'] == 'personaFisica') {
-        $query_getid = ociparse($conn, "begin :personaId := pack_personaFisica.get_personaId(:cedula); end;");
-        ocibindbyname($query_getid, ":cedula", $cedula);
-        ocibindbyname($query_getid, ":personaId", $personaId, 100);
-        ociexecute($query_getid);
-        $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $personaId;
+
+        $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'];
 
     } else if($_SESSION['tipoPersona'] == 'personaJuridica'){
-        $query_getid = ociparse($conn, "begin :personaId := pack_entidad.get_idPorCedula(:cedula); end;");
-        ocibindbyname($query_getid, ":cedula", $cedula);
-        ocibindbyname($query_getid, ":personaId", $personaId, 100);
-        ociexecute($query_getid);
-        $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $personaId;
+
+        $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'];
 
     }
 

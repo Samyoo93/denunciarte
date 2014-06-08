@@ -7,6 +7,10 @@
         $Message = 'Sesión no iniciada.';
         header('Location: ../index.php?Message=' . urlencode($Message));
     }
+
+    if (isset($_GET['Message'])) {
+        print '<script type="text/javascript">alert("' . $_GET['Message'] . '");</script>';
+    }
     ?>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>DenunciARTE</title>

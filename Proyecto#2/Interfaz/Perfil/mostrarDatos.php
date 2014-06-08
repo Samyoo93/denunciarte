@@ -56,12 +56,26 @@
 	<!-- Menú vertical, lo coloco aquí porque cada vez que se hace la busqueda elimina esta parte y la volverá a poner cuando carge la
 	pagina de nuevo-->
 	<?php
-        error_reporting(E_ERROR | E_PARSE);
+
         //Carga todos los datos que provienen del id obtenido del url
         include("../conection.php");
 		$conn = OCILogon($user, $pass, $db);
         session_start();
 
+
+        if (!isset($_SESSION['usuario'])) {
+            $Message = 'Sesión no iniciada.';
+            header('Location: ../index.php?Message=' . urlencode($Message));
+        }
+
+        if(!isset($_GET['id'])){
+            $Message = 'No ha realizado una busqueda antes.';
+            header('Location: busquedaAvanzada.php?Message=' . urlencode($Message));
+        }
+
+        if (isset($_GET['Message'])) {
+            print '<script type="text/javascript">alert("' . $_GET['Message'] . '");</script>';
+        }
         //Hace la diferencia entre persona fisca y juridica
         $persona = $_GET['persona'];
         $_SESSION['tipoPersona'] = $persona;
@@ -93,7 +107,7 @@
 	            $fechaNacimiento = new DateTime($fila['FECHANACIMIENTO']);
                 $fechaActual = new DateTime('today');
                 $edad = $fechaNacimiento->diff($fechaActual)->y;
-
+                $_SESSION['id'] = $fila['PERSONA_ID'];
 
                 $nombre = $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'];
                 //Variable también utilizada para sacar las calificaciones de la persona
@@ -140,7 +154,7 @@
                 <a style="position:absolute;">Descripción:</a><br>
                 <textarea rows="4" cols="50" disabled>'. $fila['DESCRIPCION'] .'</textarea><br>
                 <a style="position:absolute;">'. $fila['NOMBRE'] . ' ' . $fila['PRIMERAPELLIDO'] . ' ' . $fila['SEGUNDOAPELLIDO'] .'</a><br>
-                <hr size=3>';
+                <hr size=5>';
             }
             $reviews = $reviews . '</div>';
 
@@ -164,6 +178,7 @@
                 $cedula = $fila[1];
                 //Guarda variables necesaria para procesos como calificar que se procesa en pasarValorALaBase
 				$_SESSION['cedulaTemporal'] = $cedula;
+                $_SESSION['id'] = $fila[8];
                 $datos = $datos . '
 				<h1 style="position:absolute; left:150px;"> Persona Jurídica</h1>
 				<a style="position:absolute; top:170px; left:70px;">Nombre:'. $nombre .'</a>
@@ -176,7 +191,35 @@
 				<a style="position:absolute; top:440px; left:70px;">Promedio: </a>';
 
 			}
-			
+
+			//Carga los review que sele hicieron a la persona
+
+            //Se inicia el query con el procedimiento asignado
+		    $query_procedimiento = ociparse($conn, "BEGIN :cursor := busquedas.reviewPorCedulaPersonaEntidad(:cedula); END;");
+            //Genera el cursor donde la informacion sera guardada
+		    $cursor = oci_new_cursor($conn);
+
+            //Se le pasa el parametro de la cedula
+		    oci_bind_by_name($query_procedimiento, ':cedula', $cedula);
+		    oci_bind_by_name($query_procedimiento, ':cursor', $cursor , -1, OCI_B_CURSOR);
+
+		    ociexecute($query_procedimiento);
+		    oci_execute($cursor, OCI_DEFAULT);
+		    oci_fetch_all($cursor, $array, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
+		    //<div style="width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;">
+            $reviews = '<div style="margin-top:50px;">';
+            foreach($array as $fila){
+
+                $reviews = $reviews . '
+				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a>
+
+                <a>________________________________________</a><br>
+                <a style="position:absolute;">Descripción:</a><br>
+                <textarea rows="4" cols="50" disabled>'. $fila['DESCRIPCION'] .'</textarea><br>
+                <a style="position:absolute;">'. $fila['NOMBRE'] .' '. $fila['NOMBRE'] .' '. $fila['NOMBRE'] .'</a><br>
+                <hr size=5>';
+            }
+            $reviews = $reviews . '</div>';
 
 		}
 
@@ -195,8 +238,8 @@
 		</button>
 		<div id="openReport" class="modalDialog">
 
-            <div>
-                <a href="#close" title="Close" class="close">X</a>
+            <div style="width:600px; height:400px;line-height:3em;overflow:auto;padding:5px;">
+                <a  style="left:0px; top:1px;" href="#close" title="Close" class="close">X</a>
                 <h2>Reviews</h2><br>'.
                 $reviews .'
 			</div>
@@ -211,8 +254,7 @@
                     <p style="position:absolute; top:130px;">Título</p>
                     <input type="text" name ="titulo" style="position:absolute; top:150px; left: 150px; width:200px;">
                     <p style="position:absolute; top:160px;">Descripción</p>
-                    <textarea type="text" name="descripcion" style="position:absolute; top:180px; left: 150px;width:300px; height:100px;">
-                    </textarea>
+                    <textarea type="text" name="descripcion" style="position:absolute; top:180px; left: 150px;width:300px; height:100px;"></textarea>
                     <p style="position:absolute; top:280px;">Calificación</p>
 
                     <div class="rateit" id="estrellas" data-rateit-max="10" data-rateit-step=1 data-rateit-value=1 data-rateit-resetable="false"  style="position:absolute; top:300px; left:150px;">
