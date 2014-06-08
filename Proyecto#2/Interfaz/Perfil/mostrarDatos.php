@@ -104,9 +104,13 @@
                     $genero = 'Masculino';
                 }
                 //Calcula la edad de nacimiento
-	            $fechaNacimiento = new DateTime($fila['FECHANACIMIENTO']);
-                $fechaActual = new DateTime('today');
-                $edad = $fechaNacimiento->diff($fechaActual)->y;
+                //try{
+                    $fechaNacimiento = new DateTime($fila['FECHANACIMIENTO']);
+                    $fechaActual = new DateTime('today');
+                    $edad = $fechaNacimiento->diff($fechaActual)->y;
+                /*} catch($FECHANACIMIENTO = new DateTime($fila['FECHANACIMIENTO'])){
+                    $edad = '';
+                }*/
                 $_SESSION['id'] = $fila['PERSONA_ID'];
 
                 $nombre = $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'];
@@ -153,7 +157,7 @@
                 <h2 style="position:absolute;">Descripción:</h2><br>
                 <p2 rows="4" cols="50">"'. $fila['DESCRIPCION'] .'"</p2><br>
 
-                <a href"" style="position:absolute;">-'. $fila['NOMBRE'] . ' ' . $fila['PRIMERAPELLIDO'] . ' ' . $fila['SEGUNDOAPELLIDO'] .'</a><br>
+                <a href="mostrarUsuarios.php?cedula='.$fila['CEDULAUSUARIO_ID'].'&privacidad='. $fila['PRIVACIDAD'] .'" style="position:absolute;">-'. $fila['NOMBRE'] . ' ' . $fila['PRIMERAPELLIDO'] . ' ' . $fila['SEGUNDOAPELLIDO'] .'</a><br>
                 <hr size=5>';
             }
             $reviews = $reviews . '</div>';
@@ -212,12 +216,12 @@
 		    //<div style="width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;">
             $reviews = '<div style="margin-top:50px;">';
             foreach($array as $fila){
-
+/*-href="mostrarDatos.php?persona=personaFisica&id='.$fila['PERSONA_ID'].'"--------------------------------------------------------------------------------------------------------------------*/
                 $reviews = $reviews . '
 				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a><br>
                 <a style="position:absolute;">Descripción:</a><br>
                 <p1 rows="4" cols="50" disabled>"'. $fila['DESCRIPCION'] .'"</p1><br>
-                <a href"" style="position:absolute;">-'. $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'] .'</a><br>
+                <a href="mostrarUsuarios.php?cedula='.$fila['CEDULAUSUARIO_ID'].'&privacidad='. $fila['PRIVACIDAD'] . '" style="position:absolute;">-'. $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'] .'</a><br>
                 <hr size=5>';
             }
             $reviews = $reviews . '</div>';

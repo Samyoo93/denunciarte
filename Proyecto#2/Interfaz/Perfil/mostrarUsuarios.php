@@ -54,12 +54,33 @@
     include("../conection.php");
 	$conn = OCILogon($user, $pass, $db);
 
+
+
+    $cedulaUsuario = $_GET['cedula'];
+    $privacidad = $_GET['privacidad'];
+
+    //Saca los datos del usuario que intenta ver el perfil ajeno, para saber si es administrador o no
     $query_procedimiento = ociparse($conn, "BEGIN :cursor := busquedas.usuarioPorCedula(:cedula); END;");
     //Genera el cursor donde la informacion sera guardada
 	$cursor = oci_new_cursor($conn);
 
 	//Se le pasa el parametro de busqueda
 	oci_bind_by_name($query_procedimiento, ':cedula', $_SESSION['cedula']);
+	oci_bind_by_name($query_procedimiento, ':cursor', $cursor , -1, OCI_B_CURSOR);
+
+	ociexecute($query_procedimiento);
+	oci_execute($cursor, OCI_DEFAULT);
+	oci_fetch_all($cursor, $array, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
+    foreach($array as $fila){
+        $estado = $fila['ESTADO'];
+    }
+
+    $query_procedimiento = ociparse($conn, "BEGIN :cursor := busquedas.usuarioPorCedula(:cedula); END;");
+    //Genera el cursor donde la informacion sera guardada
+	$cursor = oci_new_cursor($conn);
+
+	//Se le pasa el parametro de busqueda que se obtiene del url
+	oci_bind_by_name($query_procedimiento, ':cedula', $cedulaUsuario);
 	oci_bind_by_name($query_procedimiento, ':cursor', $cursor , -1, OCI_B_CURSOR);
 
 	ociexecute($query_procedimiento);
@@ -75,25 +96,59 @@
             $genero = 'Masculino';
         }
         //Calcula la edad de nacimiento
+        /*
 	    $fechaNacimiento = new DateTime($fila['FECHANACIMIENTO']);
         $fechaActual = new DateTime('today');
         $edad = $fechaNacimiento->diff($fechaActual)->y;
-
-        //echo $fila['FECHANACIMIENTO'].'------F-';
-        //echo date('d-m-y').'-------';
-        //echo date('dd-mm-yy') - $fila['FECHANACIMIENTO'];
+*/
+        //Variable guardada para mostrarla en la ventana de reportar
+        $nombre = $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'];
         $datos =  "<section id='mostrar' style='position:absolute; left:200px; top:100px; width:630px; height:400px;'>
 					<div style='width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;'>
             <h1 style='position:absolute; top:50px; left:200px;'> Nombre: ". $fila['NOMBRE'] ."  </h1>
             <a style='position:absolute; top:200px; left:200px;'>Apellidos: ". $fila['PRIMERAPELLIDO'] . " ". $fila['SEGUNDOAPELLIDO'] ."</a>
-            <a style='position:absolute; top:250px; left:200px;'>Edad: ". $fila['NOMBRE'] ."</a>
+            <a style='position:absolute; top:250px; left:200px;'>Cédula: ". $fila['CEDULAUSUARIO_ID'] ."</a>
             <a style='position:absolute; top:300px; left:200px;'>Género: " . $genero ."</a>
-            <a style='position:absolute; top:350px; left:200px;'>Fecha de nacimiento: ". $edad ."</a>
+            <a style='position:absolute; top:350px; left:200px;'>Fecha de nacimiento: "./* $edad .*/"</a>
             <a style='position:absolute; top:400px; left:200px;'>Usuario: " . $fila['USUARIO'] . "</a>
             <a style='position:absolute; top:450px; left:200px;'></a>
-        </div>
-        </section>";
+        </div>";
+
+    }
+    //Se encarga de reportar
+     $menuVertical =
+            '<section id="CuadroGris" style="position:absolute; top:100px; left:-80px; width:240px; height:80px;">
+
+		<button type="submit" style="position:absolute; top:20px;left:18px; font-size:18px; width:200px;" >
+		<a href="#openReport" style="color: #CFCFCF;
+			font: small-caps 100%/200% serif;
+			background-color:#914998;
+			font-size: 16px;">Reportar a</a>
+		</button>
+		<div id="openReport" class="modalDialog">
+
+            <div style="width:650px; height:400px;line-height:3em; overflow:auto; padding:5px;">
+                <form action="../hovercard/pasarValorALaBase.php" method="post" enctype="multipart/form-data">
+                    <a href="#close" title="Close" class="close">X</a>
+                    <h2>Reportar a esta persona</h2>
+                    <p style="position:absolute; width:600px; top:70px; ">Si desea reportar a '. $nombre .', rellene el siguiente campo:</p>
+                    <p style="position:absolute; top:160px; left:70px;">Razón</p>
+                    <textarea type="text" name="descripcion" style="position:absolute; top:180px; left: 150px;width:300px; height:100px;"></textarea>
+
+                    <button type="submit" style="position:absolute; top: 300px; left:150px; width:100px;">Calificar</button>
+
+                </form>
+			</div>
+		</div>
+
+
+	</section>
+    </section>';
+    if($privacidad == 1 or $estado == 2){
         echo $datos;
+        echo $menuVertical;
+    } else {
+        echo '<a style="color:#F00; margin-top:400px; margin-top:500px;">El perfil es privado<a>';
     }
 ?>
 
