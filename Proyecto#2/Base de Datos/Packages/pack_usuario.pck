@@ -22,6 +22,8 @@ CREATE OR REPLACE PACKAGE pack_usuario IS
        RETURN NUMBER;
      FUNCTION getNumRep(cedula_in NUMBER, max_rep NUMBER)
        RETURN NUMBER;
+     FUNCTION getEstado(cedula_in NUMBER)
+       RETURN NUMBER;
 END pack_usuario;
 /
 CREATE OR REPLACE PACKAGE BODY pack_usuario AS
@@ -79,8 +81,9 @@ CREATE OR REPLACE PACKAGE BODY pack_usuario AS
      PROCEDURE del_usuario(cedulaUsuario NUMBER)
           IS
           BEGIN
-               DELETE FROM usuario
-               WHERE usuario.cedulausuario_id = cedulaUsuario;
+               update usuario
+               set estado = -2
+               where cedulausuario_id = cedulaUsuario;
 	       COMMIT;
      END;
 
@@ -116,7 +119,7 @@ CREATE OR REPLACE PACKAGE BODY pack_usuario AS
 
           IF contra = Pcontrasena THEN
              update usuario
-             set estado = 2
+             set estado = 1
              where usuario = pusuario;
              return 1;
           else
@@ -138,6 +141,16 @@ CREATE OR REPLACE PACKAGE BODY pack_usuario AS
           RETURN 0;
         END IF;
       END;
-        
+      
+      FUNCTION getEstado(cedula_in NUMBER)
+        RETURN NUMBER
+        IS state NUMBER;
+        BEGIN
+          SELECT estado
+          INTO state
+          FROM usuario
+          WHERE CEDULAUSUARIO_ID = cedula_in;
+          RETURN state;
+      END;
 END pack_usuario;
 /
