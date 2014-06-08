@@ -33,7 +33,7 @@
             echo 'cantidadReviews:' . $cantidadReviews;
             //Revisa la cantidad obtenida y si no hay nada retorna cero
             if ($cantidadReviews == 0){
-                $calificar = oci_parse ($conn,'begin estrellas.calificarEntidad (:pnota, :pdescripcion,:pcedulaUsuario_id, :pcalificacion, :pcedulaEntidad, :url); end;');
+                $calificar = oci_parse ($conn,'begin estrellas.calificarEntidad(:pnota, :pdescripcion,:pcedulaUsuario_id, :pcalificacion, :pcedulaEntidad, :url); end;');
                 //Agrega el review
                 oci_bind_by_name( $calificar,':pnota',$nota);
                 oci_bind_by_name ($calificar,':pdescripcion',$descripcion);
@@ -45,7 +45,7 @@
 
             }else{
                 $Message = 'Ya califico anteriormente a esta persona.';
-                $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
+                $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
             }
 
         //Persona Fisica
@@ -73,30 +73,30 @@
 
             } else {
                 $Message = 'Ya califico anteriormente a esta persona.';
-                $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
+                $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
             }
 
         }
     } else {
         $Message = 'No se puede calificar a usted mismo.';
-        $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
+        $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
     }
 
 
     //Es para cargar el id de la persona que seintento califica
     if($_SESSION['tipoPersona'] == 'personaFisica') {
 
-        $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'];
+        $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'];
 
     } else if($_SESSION['tipoPersona'] == 'personaJuridica'){
 
-        $linkRetorno = "location:http://localhost/github/Proyecto%232/Interfaz/perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'];
+        $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'];
 
     }
 
     oci_close($conn);
 
     //El id es usado para que cuandose recargue mostrarDato puedav volver a cargar los datos actualizados
-    header($linkRetorno);
+    //xheader($linkRetorno);
 ?>
 
