@@ -137,7 +137,7 @@
                 <a style="position:absolute;">Descripción:</a><br>
                 <p1 rows="4" cols="50" disabled>"'. $fila['DESCRIPCION'] .'"</p1><br>
                 <a href"" style="position:absolute;">Hecho a: '. $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'] .'</a><br>
-                <button type="submit" name="eliminarReview" value="'. $fila['REVIEW_ID'] .'"style="position:absolute; left:500px; margin-top:-50px;">eliminar</button>
+                <button type="submit" name="eliminarReview" value="'. $fila['REVIEW_ID'] .'" id="'. $fila['REVIEW_ID'] .'" style="position:absolute; left:500px; margin-top:-50px;">eliminar</button>
 
                 <hr size=5></div>';
     }
