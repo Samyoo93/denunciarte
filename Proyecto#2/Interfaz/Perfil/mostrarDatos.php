@@ -257,7 +257,7 @@
                     <p style="position:absolute; top:160px;">Descripción</p>
                     <textarea type="text" name="descripcion" style="position:absolute; top:180px; left: 150px;width:300px; height:100px;"></textarea>
                     <p style="position:absolute; top:280px;">Calificación</p>
-                    <a>File name:</a> <input type="file" id="imgfile" "position:absolute; top:200px; left:130px;" name="imgfile"><br>
+                    <a>File name:</a> <input type="file" required id="imgfile" "position:absolute; top:200px; left:130px;" name="imgfile"><br>
 
                     <div class="rateit" id="estrellas" data-rateit-max="10" data-rateit-step=1 data-rateit-value=1 data-rateit-resetable="false"  style="position:absolute; top:300px; left:150px;">
                         <input type="number" class="numCalf" name="estrellotas">

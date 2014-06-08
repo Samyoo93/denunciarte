@@ -44,7 +44,8 @@
 
             }else{
                 $Message = 'Ya califico anteriormente a esta persona.';
-                $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
+                $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". urlencode($_SESSION['tipoPersona']) . "&id=". urlencode($_SESSION['id']) .
+                "&Message=" . urlencode($Message);
 
             }
 
@@ -59,7 +60,7 @@
             oci_execute ($verSiPuedeOno);
             echo 'cantidadReviews:' . $cantidadReviews;
             //Revisa la cantidad obtenida y si no hay nada retorna cero
-            if($cantidadReviews == 0){
+            if($cantidadReviews == 0) {
 
                 $filename = $_FILES["imgfile"]["name"];
                 if ((($_FILES["imgfile"]["type"] == "image/gif")
@@ -93,39 +94,41 @@
                 oci_bind_by_name ($calificar,':pcedulaFisica', $cedula);
                 oci_bind_by_name ($calificar,':url', $url);
                 oci_execute ($calificar);
+                //Es para cargar el id de la persona que seintento califica
+                $Message = 'Calificación con éxito.';
+                if($_SESSION['tipoPersona'] == 'personaFisica') {
 
+                    $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". urlencode($_SESSION['tipoPersona']) . "&id=". urlencode($_SESSION['id']) .
+                    "&Message=" . urlencode($Message);
+
+                } else if($_SESSION['tipoPersona'] == 'personaJuridica'){
+
+
+                    $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". urlencode($_SESSION['tipoPersona']) . "&id=". urlencode($_SESSION['id']) .
+                    "&Message=" . urlencode($Message);
+                }
 
             } else {
-                $Message = 'Ya califico anteriormente a esta persona.';
-                $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
-
+                $Message = 'Ya califico anteriormente a esta persona/entidad.';
+                $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". urlencode($_SESSION['tipoPersona']) . "&id=". urlencode($_SESSION['id']) .
+                "&Message=" . urlencode($Message);
 
             }
 
         }
     } else {
         $Message = 'No se puede calificar a usted mismo.';
-        $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'] . urlencode($Message);
-
-
+        $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". urlencode($_SESSION['tipoPersona']) . "&id=" . urlencode($_SESSION['id'])
+                                                                      . '&Message=' . urlencode($Message);
     }
 
 
-    //Es para cargar el id de la persona que seintento califica
-    if($_SESSION['tipoPersona'] == 'personaFisica') {
 
-        $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'];
-
-    } else if($_SESSION['tipoPersona'] == 'personaJuridica'){
-
-        $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=". $_SESSION['id'];
-
-    }
 
     oci_close($conn);
 
     //El id es usado para que cuandose recargue mostrarDato puedav volver a cargar los datos actualizados
-    //xheader($linkRetorno);
-    //header($linkRetorno);
-?>
+    header($linkRetorno);
 
+
+?>
