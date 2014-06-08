@@ -18,7 +18,7 @@
     $calificacion = $_POST["estrellotas"];
     echo "calificacion=".$calificacion;
 
-    //Para que una persona no se pueda calificar a ella misma
+    //ara que una persona no se pueda calificar a ella misma
     if($cedulaUsuario != $cedula) {
         //El tipo de persona hace la diferencia a la hora de insertar en la tabla
         //Persona Juridica
@@ -49,9 +49,10 @@
         }else if ($_SESSION['tipoPersona'] == 'personaFisica'){
 
             //Funcion que cuenta cuantas calificaciones se le ha hecho a una persona fisica
-            $verSiPuedeOno = oci_parse ($conn,'BEGIN :result :=estrellas.has_ratedPersonaFisica(:pcedulaUsuario,:pcedulaJuridica); END;');
+            $verSiPuedeOno = oci_parse ($conn,'BEGIN :result :=estrellas.has_ratedPersonaFisica(:pcedulaUsuario,:pcedulaJuridica, :url); END;');
             oci_bind_by_name ($verSiPuedeOno,':pcedulaUsuario',$cedulaUsuario);
             oci_bind_by_name ($verSiPuedeOno,':pcedulaJuridica',$cedula);
+            oci_bind_by_name ($verSiPuedeOno, ':result',$cantidadReviews);
             oci_bind_by_name ($verSiPuedeOno, ':result',$cantidadReviews);
             oci_execute ($verSiPuedeOno);
             echo 'cantidadReviews:' . $cantidadReviews;
@@ -92,6 +93,6 @@
     oci_close($conn);
 
     //El id es usado para que cuandose recargue mostrarDato puedav volver a cargar los datos actualizados
-    header($linkRetorno);
+    //header($linkRetorno);
 ?>
 
