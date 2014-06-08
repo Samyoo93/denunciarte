@@ -130,16 +130,17 @@
 		    oci_execute($cursor, OCI_DEFAULT);
 		    oci_fetch_all($cursor, $array, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
 		    //<div style="width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;">
-            $reviews = '';
+            $reviews = '<div style="margin-top:50px;">';
             foreach($array as $fila){
 
                 $reviews = $reviews . '
-				<a style="position:absolute; left:70px;">'. $fila['NOTA'] .'</a><br>
-                <a>______________________________________________________________________________</a><br>
-                <textarea rows="4" cols="50">'. $fila['DESCRIPCION'] .'</textarea>
-				<a>------------------------------------------------------------------------------</a><br>
-                <a style="position:absolute; left:70px;">'. $fila['NOMBRE'] . ' ' . $fila['PRIMERAPELLIDO'] . ' ' . $fila['SEGUNDOAPELLIDO'] .'</a><br>
-                <hr size=1><br>';
+				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a>
+
+                <a>________________________________________</a><br>
+                <a style="position:absolute;">Descripción:</a><br>
+                <textarea rows="4" cols="50" disabled>'. $fila['DESCRIPCION'] .'</textarea><br>
+                <a style="position:absolute;">'. $fila['NOMBRE'] . ' ' . $fila['PRIMERAPELLIDO'] . ' ' . $fila['SEGUNDOAPELLIDO'] .'</a><br>
+                <hr size=3>';
             }
             $reviews = $reviews . '</div>';
 
@@ -196,7 +197,7 @@
 
             <div>
                 <a href="#close" title="Close" class="close">X</a>
-                <h2>Reviews</h2>'.
+                <h2>Reviews</h2><br>'.
                 $reviews .'
 			</div>
 		</div>
