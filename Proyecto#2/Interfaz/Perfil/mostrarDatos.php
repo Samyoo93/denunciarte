@@ -152,6 +152,7 @@
 
                 <h2 style="position:absolute;">Descripción:</h2><br>
                 <p2 rows="4" cols="50">"'. $fila['DESCRIPCION'] .'"</p2><br>
+
                 <a href"" style="position:absolute;">-'. $fila['NOMBRE'] . ' ' . $fila['PRIMERAPELLIDO'] . ' ' . $fila['SEGUNDOAPELLIDO'] .'</a><br>
                 <hr size=5>';
             }
@@ -247,7 +248,7 @@
 
 		<div id="openRate" class="modalDialog">
 				   <div>
-                <form action="../hovercard/pasarValorALaBase.php" method="post">
+                <form action="../hovercard/pasarValorALaBase.php" method="post" enctype="multipart/form-data">
                     <a href="#close" title="Close" class="close">X</a>
                     <h2>Calificar a esta persona</h2>
                     <p style="position:absolute; top:70px;">Si desea calificar a '. $nombre .', rellene los siguientes campos:</p>
@@ -256,6 +257,7 @@
                     <p style="position:absolute; top:160px;">Descripción</p>
                     <textarea type="text" name="descripcion" style="position:absolute; top:180px; left: 150px;width:300px; height:100px;"></textarea>
                     <p style="position:absolute; top:280px;">Calificación</p>
+                    <a>File name:</a> <input type="file" id="imgfile" "position:absolute; top:200px; left:130px;" name="imgfile"><br>
 
                     <div class="rateit" id="estrellas" data-rateit-max="10" data-rateit-step=1 data-rateit-value=1 data-rateit-resetable="false"  style="position:absolute; top:300px; left:150px;">
                         <input type="number" class="numCalf" name="estrellotas">
@@ -414,8 +416,7 @@
 
 				<li><a title="Privacidad"> <img src="../Imagenes/candado.png" /></a>
 					<ul>
-					<li style="font-size:16px; width:150px;"><a href="UpdatePerfil">Configuración</a></li>
-					<li style="font-size:16px; width:150px;"><a href="privacidad.php">Privacidad</a></li>
+					<li style="font-size:16px; width:150px;"><a href="UpdatePerfil.php">Configuración</a></li>
 					</ul>
 				</li>
 				<li style="width:60px; height:60px;"><img src="../Imagenes/flechafinal.png" style="position:absolute; top:40px;" />

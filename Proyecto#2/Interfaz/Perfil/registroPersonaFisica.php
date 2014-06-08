@@ -19,11 +19,13 @@
     $cedula = $cedula1 . $cedula2 . $cedula3;
     $categoria = $_POST['categoria'];
     $existe_cat = 1;
+    $categoria2 = $_POST['categoria2'];
+    $descripcion = $_POST['descripcion'];
 
 
 
-	if($nombre != null and $primerApellido != null and $segundoApellido != null
-      and $fechaNacimiento != null and $cedula != null) {
+	if($nombre != null and $primerApellido != null and $segundoApellido != null and $fechaNacimiento != null
+       and $cedula != null and (($categoria2 != null and $descripcion != null and $categoria == 'otra') or $categoria != '' and $categoria != 'otra')) {
         //verifica que se llenen todos los campos
         if(strlen($nombre) < 26 and strlen($primerApellido) < 26 and strlen($segundoApellido) < 26) {
             //verifica que los campos tengan un largo permitido
@@ -51,8 +53,7 @@
                     } else {
 
                         if($categoria == 'otra') {
-                            $categoria2 = $_POST['categoria2'];
-                            $descripcion = $_POST['descripcion'];
+
                             $categoria = $categoria2;
 
                             $check_existe_cat = "SELECT COUNT(1) AS NUM_ROWS FROM categoria WHERE nombre=:categoria and tipo = 'F'";

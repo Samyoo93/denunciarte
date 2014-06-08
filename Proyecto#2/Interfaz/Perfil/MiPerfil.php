@@ -84,10 +84,16 @@
             <h1 style='position:absolute; top:50px; left:200px;'> Nombre: ". $fila['NOMBRE'] ."</h1>
             <a style='position:absolute; top:200px; left:200px;'>Apellidos: ". $fila['PRIMERAPELLIDO'] . " ". $fila['SEGUNDOAPELLIDO'] ."</a>
             <a style='position:absolute; top:250px; left:200px;'>Edad: ". $edad ."</a>
+<<<<<<< HEAD
             <a style='position:absolute; top:300px; left:200px;'>Fecha de nacimiento: ". $fila['FECHANACIMIENTO'] ."</a>
             <a style='position:absolute; top:350px; left:200px;'>Género: ". $genero ."</a>
             <a style='position:absolute; top:400px; left:200px;'>Usuario: " . $fila['USUARIO'] . "</a>
             <a style='position:absolute; top:450px; left:200px;'></a>
+=======
+            <a style='position:absolute; top:300px; left:200px;'>Género: " . $genero ."</a>
+            <a style='position:absolute; top:350px; left:200px;'>Usuario: " . $fila['USUARIO'] . "</a>
+            <a style='position:absolute; top:400px; left:200px;'></a>
+>>>>>>> origin/master
         </div>
         ";
 

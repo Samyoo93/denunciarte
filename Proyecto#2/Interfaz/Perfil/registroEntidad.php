@@ -21,9 +21,13 @@
     $existe_cat = 1;
 
 
+    $categoria2 = $_POST['categoria2'];
+    $descripcion = $_POST['descripcion'];
 
 
-    if ($barrio != null and $direccionExacta != null and $cedJuridica != null) {
+
+
+    if ($barrio != null and $categoria != null and (($categoria2 != null and $descripcion != null and $categoria == 'otra') or $categoria != '' and $categoria != 'otra') and $direccionExacta != null and $cedJuridica != null) {
         //revisa que los campos se llenen
         if(strlen($nombre) < 26 and strlen($cedJuridica) < 10 and strlen($direccionExacta) < 51) {
             //verifica que los cambos tengan un largo correcto
@@ -48,8 +52,6 @@
 
 
                     if($categoria == 'otra') {
-                        $categoria2 = $_POST['categoria2'];
-                        $descripcion = $_POST['descripcion'];
                         $categoria = $categoria2;
 
                         $check_existe_cat = "SELECT COUNT(1) AS NUM_ROWS FROM categoria WHERE nombre=:categoria and tipo = 'E'";
@@ -103,7 +105,6 @@
                         ocibindbyname($query_setcat, ":categoria", $categoria);
                         ocibindbyname($query_setcat, ":cedJuridica", $cedJuridica);
                         ociexecute($query_setcat);
-                        echo "entro al final";
 
                         //registra la direccion de la entidad nueva
                         $setdireccion = "begin pack_direccion_entidad.set_direccion_entidad(:direccionExacta, :barrio); end;";

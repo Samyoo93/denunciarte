@@ -17,7 +17,7 @@
             // Create our XMLHttpRequest object
             var hr = new XMLHttpRequest();
             // Create some variables we need to send to our PHP file
-            var url = "registroPersonaFisica.php";
+            var url = "perfil/registroPersonaFisica.php";
             var nombre = document.getElementById('nombre').value;
             var primerApellido = document.getElementById('primerApellido').value;
             var segundoApellido = document.getElementById('segundoApellido').value;
@@ -168,7 +168,7 @@
         <input type="text" id='categoria2'  style="position:absolute; top:80px; left:80px;" />
         <a style="color:#FF33D7; position:absolute; left:10px; top:200px;">_____________________________________</a>
         </section>
-        <button type="submit" onclick='crear()' style="position:absolute; top:580px; left:60px; width:200px;">Registrar</button>
+        <button type="submit" onclick='crear()' style="position:absolute; top:580px; left:60px; width:150px;">Registrar</button>
     </div>
     <div id='crearPerFis'>
         </div>
