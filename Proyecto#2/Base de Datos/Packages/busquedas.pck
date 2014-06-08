@@ -27,6 +27,8 @@ CREATE OR REPLACE PACKAGE busquedas IS
     --Busquedas de reviews
     FUNCTION reviewPorCedulaPersona(cedula NUMBER)RETURN TYPES.ref_c;
     FUNCTION reviewPorCedulaPersonaEntidad(cedula NUMBER)RETURN TYPES.ref_c;
+    FUNCTION reviewEntidadPorUsuario(cedula NUMBER)RETURN TYPES.ref_c;
+    FUNCTION reviewPersonaFPorUsuario(cedula NUMBER)RETURN TYPES.ref_c;
 END busquedas;
 /
 CREATE OR REPLACE PACKAGE BODY busquedas IS
@@ -240,7 +242,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
           BEGIN
                OPEN l_cursor FOR
                SELECT r.nota, r.descripcion, r.calificacion, p.nombre, p.primerapellido, 
-                      p.segundoapellido 
+                      p.segundoapellido, u.cedulausuario_id
                FROM personaFisica pf, review_personaFisica rpf, review r, usuario u, persona p
                WHERE pf.cedulafisica_id = cedula and pf.cedulafisica_id = rpf.cedulafisica_id and
                      rpf.review_id = r.review_id and r.cedulausuario_id = u.cedulausuario_id and
@@ -255,11 +257,37 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
           BEGIN
                OPEN l_cursor FOR
                SELECT r.nota, r.descripcion, r.calificacion, p.nombre, p.primerapellido, 
-                      p.segundoapellido 
+                      p.segundoapellido, u.cedulausuario_id
                FROM entidad e, review_entidad re, review r, usuario u, persona p
                WHERE e.cedulajuridica = cedula and e.entidad_id = re.entidad_id and 
                      re.review_id = r.review_id and r.cedulausuario_id = u.cedulausuario_id and 
                      u.persona_id = p.persona_id;
+               RETURN l_cursor;
+     END;
+     
+     FUNCTION reviewEntidadPorUsuario(cedula NUMBER)
+          RETURN TYPES.ref_c
+          AS l_cursor TYPES.ref_c;
+          BEGIN
+               OPEN l_cursor FOR
+               SELECT r.nota, r.descripcion, r.calificacion, e.nombre
+               FROM entidad e, review_entidad re, review r, usuario u
+               WHERE u.cedulausuario_id = cedula and u.cedulausuario_id = r.cedulausuario_id 
+                     and r.review_id = re.review_id and re.entidad_id = e.entidad_id;
+               RETURN l_cursor;
+     END;
+     
+    FUNCTION reviewPersonaFPorUsuario(cedula NUMBER)
+          RETURN TYPES.ref_c
+          AS l_cursor TYPES.ref_c;
+          BEGIN
+               OPEN l_cursor FOR
+               SELECT r.nota, r.descripcion, r.calificacion, p.nombre, p.primerapellido,
+                      p.segundoapellido
+               FROM personaFisica pf, review_personaFisica rpf, review r, usuario u, persona p
+               WHERE u.cedulausuario_id = cedula and u.cedulausuario_id = r.cedulausuario_id 
+                     and r.review_id = rpf.review_id and rpf.cedulafisica_id = 
+                     pf.cedulafisica_id and pf.persona_id = p.persona_id;
                RETURN l_cursor;
      END;
      
