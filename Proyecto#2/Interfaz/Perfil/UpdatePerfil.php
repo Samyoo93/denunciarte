@@ -57,7 +57,7 @@
 
 			var busquedaGeneral = document.getElementById("busquedaGeneral").value;
 
-			var vars = '&busquedaGeneral=' + busquedaGeneral;
+			var vars = 'busquedaGeneral=' + busquedaGeneral;
 
 			hr.open("POST", url, true);
 			// Set content type header information for sending url encoded variables in the request
@@ -73,6 +73,31 @@
 			hr.send(vars); // Actually execute the request
 			document.getElementById("mostrar").innerHTML = "Procesando...";
 		}
+        function deleteP() {
+            // Create our XMLHttpRequest object
+            var hr = new XMLHttpRequest();
+            // Create some variables we need to send to our PHP file
+            var url = "procesarBusquedaGeneral.php";
+
+            var x = 'x';
+
+            var vars = 'x=' + x;
+
+            hr.open("POST", url, true);
+            // Set content type header information for sending url encoded variables in the request
+            hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            // Access the onreadystatechange event for the XMLHttpRequest object
+            hr.onreadystatechange = function() {
+                if(hr.readyState == 4 && hr.status == 200) {
+                    var return_data = hr.responseText;
+                    document.getElementById("delete").innerHTML = return_data;
+                }
+            }
+            // Send the data to PHP now... and wait for response to update the status div
+            hr.send(vars); // Actually execute the request
+            document.getElementById("delete").innerHTML = "Procesando...";
+
+        }
 	</script>
 </head>
 
@@ -102,9 +127,13 @@
 <input type = "radio" name = "priv" id = "private" value = "private" style="position:absolute; top:370px; left:300px;">
     <a for = "Femenino" style="position:absolute; top:370px; left:325px;">Privado</a>
 
-<button type="submit" onClick='registrar()' style="position:absolute; top:420px; left:200px; width:200px;">Actualizar</button>
+<button type="submit" onClick='registrar()' style="position:absolute; top:420px; left:170px; width:150px;">Actualizar</button>
+<button type='submit' name='eliminarPerfil' id='deleteP()' style='position:absolute; top:420px; width:150px; left:370px;'>Eliminar</button>
+
 </div>
 </section>
+<div id='delete'>
+</div>
 
 <!-- Pie de página -->
 <section id="CuadroGris" style=" top:810px; position:absolute; left:20px; width:960px; height:90px">

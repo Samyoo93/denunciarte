@@ -32,7 +32,8 @@
                 // Send the data to PHP now... and wait for response to update the status div
                 hr.send(vars); // Actually execute the request
                 document.getElementById("mostrar").innerHTML = "Procesando...";
-            }
+        }
+
 
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -108,7 +109,7 @@
 	oci_execute($cursor, OCI_DEFAULT);
 	oci_fetch_all($cursor, $array, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
 
-    $reviews = '<div style="margin-top:50px;">';
+    $reviews = '<div style="margin-top:20px;">';
     foreach($array as $fila){
         $reviews = $reviews . '<div>
 				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a><br>
@@ -169,6 +170,9 @@
     </section>';
     echo $datos;
     echo $menuVertical;
+
+
+
 ?>
 
 
