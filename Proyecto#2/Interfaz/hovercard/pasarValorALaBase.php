@@ -18,7 +18,7 @@
     $calificacion = $_POST["estrellotas"];
     echo "calificacion=".$calificacion;
 
-    //ara que una persona no se pueda calificar a ella misma
+    //Para que una persona no se pueda calificar a ella misma
     if($cedulaUsuario != $cedula) {
         //El tipo de persona hace la diferencia a la hora de insertar en la tabla
         //Persona Juridica
