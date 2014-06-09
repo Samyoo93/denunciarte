@@ -6,6 +6,10 @@
     if (!isset($_SESSION['usuario'])) {
         $Message = 'Sesión no iniciada.';
         header('Location: ../index.php?Message=' . urlencode($Message));    }
+
+    if (isset($_GET['Message'])) {
+        print '<script type="text/javascript">alert("' . $_GET['Message'] . '");</script>';
+    }
     ?>
 
     <script>
@@ -58,6 +62,7 @@
 
     $cedulaUsuario = $_GET['cedula'];
     $privacidad = $_GET['privacidad'];
+    $_SESSION['privacidad'] = $privacidad;
     echo $privacidad;
 
     //Saca los datos del usuario que intenta ver el perfil ajeno, para saber si es administrador o no
@@ -75,7 +80,10 @@
     foreach($array as $fila){
         $estado = $fila['ESTADO'];
     }
-    echo $estado;
+
+
+
+    //Saca los datos del usuario que se quiere ver
     $query_procedimiento = ociparse($conn, "BEGIN :cursor := busquedas.usuarioPorCedula(:cedula); END;");
     //Genera el cursor donde la informacion sera guardada
 	$cursor = oci_new_cursor($conn);
@@ -103,6 +111,7 @@
         $edad = $fechaNacimiento->diff($fechaActual)->y;
 */
         //Variable guardada para mostrarla en la ventana de reportar
+        $_SESSION['cedulaReportado'] = $fila['CEDULAUSUARIO_ID'];
         $nombre = $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'];
         $datos =  "<section id='mostrar' style='position:absolute; left:200px; top:100px; width:630px; height:400px;'>
 					<div style='width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;'>
@@ -129,14 +138,14 @@
 		<div id="openReport" class="modalDialog">
 
             <div style="width:650px; height:400px;line-height:3em; overflow:auto; padding:5px;">
-                <form action="../hovercard/pasarValorALaBase.php" method="post" enctype="multipart/form-data">
+                <form action="reportarUsuario.php" method="post" enctype="multipart/form-data">
                     <a href="#close" title="Close" class="close">X</a>
                     <h2>Reportar a esta persona</h2>
                     <p style="position:absolute; width:600px; top:70px; ">Si desea reportar a '. $nombre .', rellene el siguiente campo:</p>
                     <p style="position:absolute; top:160px; left:70px;">Razón</p>
                     <textarea type="text" name="descripcion" style="position:absolute; top:180px; left: 150px;width:300px; height:100px;"></textarea>
 
-                    <button type="submit" style="position:absolute; top: 300px; left:150px; width:100px;">Calificar</button>
+                    <button type="submit" style="position:absolute; top: 300px; left:150px; width:100px;">Reportar</button>
 
                 </form>
 			</div>

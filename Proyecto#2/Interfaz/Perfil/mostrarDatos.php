@@ -148,16 +148,17 @@
 		    oci_execute($cursor, OCI_DEFAULT);
 		    oci_fetch_all($cursor, $array, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
 		    //<div style="width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;">
-            $reviews = '<div style="margin-top:50px;">';
+            $reviews = '<div style="margin-top:0px;">';
             foreach($array as $fila){
 
                 $reviews = $reviews . '
-				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a>
+				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a><br>
 
-                <h2 style="position:absolute;">Descripción:</h2><br>
-                <p2 rows="4" cols="50">"'. $fila['DESCRIPCION'] .'"</p2><br>
+                <a style="position:absolute; font-size:20px;">Descripción:</a><br>
+                <p1 rows="100" cols="0">"'. $fila['DESCRIPCION'] .'"</p1><br>
 
                 <a href="mostrarUsuarios.php?cedula='.$fila['CEDULAUSUARIO_ID'].'&privacidad='. $fila['PRIVACIDAD'] .'" style="position:absolute;">-'. $fila['NOMBRE'] . ' ' . $fila['PRIMERAPELLIDO'] . ' ' . $fila['SEGUNDOAPELLIDO'] .'</a><br>
+                 <button type="submit" name="eliminarReview" value= id= style="position:absolute; left:500px; margin-top:-50px;">Evidencia</button>
                 <hr size=5>';
             }
             $reviews = $reviews . '</div>';
@@ -214,14 +215,14 @@
 		    oci_execute($cursor, OCI_DEFAULT);
 		    oci_fetch_all($cursor, $array, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
 		    //<div style="width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;">
-            $reviews = '<div style="margin-top:50px;">';
+            $reviews = '<div style="margin-top:0px;">';
             foreach($array as $fila){
-/*-href="mostrarDatos.php?persona=personaFisica&id='.$fila['PERSONA_ID'].'"--------------------------------------------------------------------------------------------------------------------*/
                 $reviews = $reviews . '
 				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a><br>
-                <a style="position:absolute;">Descripción:</a><br>
+                <a style="position:absolute; font-size:20px;">Descripción:</a><br>
                 <p1 rows="4" cols="50" disabled>"'. $fila['DESCRIPCION'] .'"</p1><br>
                 <a href="mostrarUsuarios.php?cedula='.$fila['CEDULAUSUARIO_ID'].'&privacidad='. $fila['PRIVACIDAD'] . '" style="position:absolute;">-'. $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'] .'</a><br>
+                <button type="submit" name="eliminarReview" value= id= style="position:absolute; left:500px; margin-top:-50px;">Evidencia</button>
                 <hr size=5>';
             }
             $reviews = $reviews . '</div>';
