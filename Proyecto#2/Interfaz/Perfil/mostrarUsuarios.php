@@ -160,7 +160,9 @@
         echo $datos;
         echo $menuVertical;
     } else {
-        echo '<a style="color:#F00; margin-top:400px; margin-top:500px;">El perfil es privado<a>';
+        $Message = 'La privacidad no le permite observar el perfil.';
+        $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=" . $_SESSION['id'] . '&Message=' . $Message;
+        header($linkRetorno);
     }
 ?>
 
