@@ -154,8 +154,6 @@
 
 	</section>
     </section>';
-    echo $privacidad;
-    echo $estado;
     if($estado == 2 or $privacidad == 1){
         echo $datos;
         echo $menuVertical;
@@ -182,8 +180,8 @@
 <!-- Encabezado-->
 <section id="CuadroGris" style="position:absolute; left:20px; height:90px; width:960px;">
     <img src="../Imagenes/Denunciarteicono.jpg" style="position:absolute; left:0px;" />
-    <input type=search results=5 placeholder='Buscar entidad, persona.'  name=busquedaGeneral id='busquedaGeneral' style="position:absolute; left:95px; top:30px; width:300px;">
-    <button type="submit" onclick='ajax_post2()' style="position:absolute; top:20px; left:400px;">Buscar</button>
+    <input type=search results=5 placeholder='Buscar entidad, persona.'  name='busquedaGeneral' id='busquedaGeneral' style="position:absolute; left:95px; top:30px; width:300px;">
+    <button type='submit' onclick='ajax_post2()' style="position:absolute; top:20px; left:400px;" >Buscar</button>
 
     <section style="position:absolute; left:560px;">
         <nav align="center" >

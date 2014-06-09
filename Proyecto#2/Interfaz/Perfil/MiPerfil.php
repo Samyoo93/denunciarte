@@ -113,11 +113,13 @@
     $reviews = '<div style="margin-top:20px;">';
     foreach($array as $fila){
         $reviews = $reviews . '<div>
-				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a><br>
-                <a style="position:absolute;">Descripción:</a><br>
-                <p1 rows="4" cols="50" disabled>"'. $fila['DESCRIPCION'] .'"</p1><br>
+				<a style="position:absolute; font-size:20px;">Nota: </a><br>
+                <input name="nota" value="'. $fila['NOTA'] .'" left="50px"><br>
+                <a style="position:absolute; font-size:20px;">Descripción:</a><br>
+                <textarea rows="4" cols="50" name="descripcion">'. $fila['DESCRIPCION'] .'</textarea><br>
                 <a style="position:absolute;">Hecho a: '. $fila['NOMBRE'] .'</a><br>
-                <button type="submit" name="eliminarReview" value="'. $fila['REVIEW_ID'] .'"style="position:absolute; left:500px; margin-top:-50px;">eliminar</button>
+                <button type="submit" name="editarReview" value="'. $fila['REVIEW_ID'] .'"style="position:absolute; left:450px; margin-top:-100px;">Modificar</button>
+                <button type="submit" name="eliminarReview" value="'. $fila['REVIEW_ID'] .'"style="position:absolute; left:450px; margin-top:-50px;">Eliminar</button>
                 <hr size=5></div>';
     }
     //Saca todos los reviews que ha hecho el usuario a personas fisicas
@@ -135,11 +137,13 @@
 
     foreach($array as $fila){
         $reviews = $reviews . '<div>
-				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a><br>
-                <a style="position:absolute;">Descripción:</a><br>
-                <p1 rows="4" cols="50" disabled>"'. $fila['DESCRIPCION'] .'"</p1><br>
+				<a style="position:absolute; font-size:20px;">Nota: </a><br>
+                <input name="nota" value="'. $fila['NOTA'] .'" left="50px"><br>
+                <a style="position:absolute; font-size:20px;">Descripción:</a><br>
+                <textarea rows="4" cols="50" name="descripcion">'. $fila['DESCRIPCION'] .'</textarea><br>
                 <a href"" style="position:absolute;">Hecho a: '. $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'] .'</a><br>
-                <button type="submit" name="eliminarReview" value="'. $fila['REVIEW_ID'] .'" id="'. $fila['REVIEW_ID'] .'" style="position:absolute; left:500px; margin-top:-50px;">eliminar</button>
+                <button type="submit" name="editarReview" value="'. $fila['REVIEW_ID'] .'"style="position:absolute; left:450px; margin-top:-100px;">Modificar</button>
+                <button type="submit" name="eliminarReview" value="'. $fila['REVIEW_ID'] .'" id="'. $fila['REVIEW_ID'] .'" style="position:absolute; left:450px; margin-top:-50px;">Eliminar</button>
 
                 <hr size=5></div>';
     }
@@ -158,8 +162,8 @@
 		<div id="openReport" class="modalDialog">
 
             <div style="width:600px; height:400px;line-height:3em;overflow:auto;padding:5px;">
+                <a  style="left:0px; top:1px;" href="#close" title="Close" class="close">X</a>
                 <form action="eliminarReview.php" method="post" enctype="multipart/form-data">
-                    <a  style="left:0px; top:1px;" href="#close" title="Close" class="close">X</a>
                     <h2>Reviews</h2><br>
                     '. $reviews .'
                 </form>
