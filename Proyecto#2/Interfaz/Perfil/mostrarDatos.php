@@ -158,7 +158,7 @@
                 <p1 rows="100" cols="0">"'. $fila['DESCRIPCION'] .'"</p1><br>
 
                 <a href="mostrarUsuarios.php?cedula='.$fila['CEDULAUSUARIO_ID'].'&privacidad='. $fila['PRIVACIDAD'] .'" style="position:absolute;">-'. $fila['NOMBRE'] . ' ' . $fila['PRIMERAPELLIDO'] . ' ' . $fila['SEGUNDOAPELLIDO'] .'</a><br>
-                 <button type="submit" name="eliminarReview" value= id= style="position:absolute; left:500px; margin-top:-50px;">Evidencia</button>
+                 <button type="submit" name="evidencia" value="'. substr($fila['URL_FILE'], 56) .'"  style="position:absolute; left:500px; margin-top:-50px;">Evidencia</button>
                 <hr size=5>';
             }
             $reviews = $reviews . '</div>';
@@ -222,7 +222,7 @@
                 <a style="position:absolute; font-size:20px;">Descripción:</a><br>
                 <p1 rows="4" cols="50" disabled>"'. $fila['DESCRIPCION'] .'"</p1><br>
                 <a href="mostrarUsuarios.php?cedula='.$fila['CEDULAUSUARIO_ID'].'&privacidad='. $fila['PRIVACIDAD'] . '" style="position:absolute;">-'. $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'] .'</a><br>
-                <button type="submit" name="eliminarReview" value= id= style="position:absolute; left:500px; margin-top:-50px;">Evidencia</button>
+                <button type="submit" name="evidencia" value="'. substr($fila['URL_FILE'], 56) .'"  style="position:absolute; left:500px; margin-top:-50px;">Evidencia</button>
                 <hr size=5>';
             }
             $reviews = $reviews . '</div>';
