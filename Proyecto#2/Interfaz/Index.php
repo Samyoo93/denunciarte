@@ -139,13 +139,57 @@ function registrar(){
     <a for = "Masculino" style="position:absolute; top:470px; left:270px;">Masculino</a>
 
     <input type="checkbox" id='checka' style="position:absolute; top:510px; left:60px;" />
-    <a style="position:absolute; left:80px; top:510px;"> Aceptas las </a> <a href="#openContract" style="position:absolute; top:510px; left:170px;"> Condiciones de uso </a><a style="position:absolute; top:510px; left:315px"> y que has leído la </a> <a href="" style="position:absolute; top:530px; left:80px;">Política de uso de datos.</a>
+    <a style="position:absolute; left:80px; top:510px;"> Aceptas las </a> <a href="#openContract" style="position:absolute; top:510px; left:170px;"> Condiciones de uso </a><a style="position:absolute; top:510px; left:315px"> y que has leído la </a> <a href="#openPolicy" style="position:absolute; top:530px; left:80px;">Política de uso de datos.</a>
 
 
     <button type="submit" onclick='registrar()' style="position:absolute; top:560px; left:60px; width:200px;">Registrarse</button>
 </section>
     <div id="registro">
     </div>
+<!-- Contrato de política de uso de datos-->
+<div id="openPolicy" class="modalDialog">
+    <div style="width:800px; height:500px;">
+        <a  style="left:775px; top:5px;" href="#close" title="Close" class="close">X</a>
+        <h2>POLÍTICA DE USO DE DATOS</h2>
+        <div style="position:absolute; top:100px; left:50px; width:750px; height:350px;  background-color: #fff; overflow:auto;" overflow-y: scroll;>
+            <h3>POLÍTICA DE USO DE DATOS</h3>
+            <h3>Información que recibimos sobre ti</h3>
+            <p>Recibimos diferentes tipos de información sobre ti, como:</p>
+            <h3>Tu información</h3>
+            <p>Se trata de la información necesaria para registrarte en el sitio. </p>
+            <h3>a)	Información de registro:</h3>
+            <p>Cuando te registras en DenunciARTE, te pedimos que introduzcas ciertos datos como, por               ejemplo, tu nombre, cédula, fecha de nacimiento y género. </p>
+            <h3>b)	Información que decides publicar:</h3>
+            <p>Tu información también incluye todo aquello que compartes en DenunciARTE, como los                   reviews que realizas acerca de otras personas.</p>
+            <h3>Información que otras personas comentan sobre ti</h3>
+            <p>Recibimos información sobre ti de los usuarios que se encuentran registrados, por                     ejemplo, cuando realizan reviews sobre ti, publican un reporte con una evidencia.</p>
+            <p>Cuando la gente usa DenunciARTE, puede almacenar y compartir información sobre ti.</p>
+            <h3>Información pública</h3>
+            <p>Cuando usamos el término "información pública" (al que en ocasiones nos referimos como               "información que se comparte con todos"), estamos hablando de la información que decides                  hacer pública.</p>
+            <h3>Información que siempre es pública</h3>
+            <p>Los tipos de información que se enumeran a continuación son siempre públicos y se tratan             como la información que hayas decidido hacer pública:</p>
+            <h3>a.	Nombre de una persona física o entidad:</h3>
+            <p>Ayuda a todos los usuarios a encontrarte. </p>
+            <p>Si alguien tiene tu nombre de usuario o identificador de usuario puede utilizarlo para               acceder a información sobre ti a través del sitio web DenunciARTE.com. En concreto, tendrá               acceso a tu información pública.</p>
+            <h3>Cómo utilizamos la información que recibimos</h3>
+            <p>Utilizamos la información que recibimos sobre ti en relación con los servicios y las                 funciones que te ofrecemos a ti y a otros usuarios. Por ejemplo, además de ayudar a otras               personas a ver y encontrar cosas que haces, podemos utilizar la información que recibimos               sobre ti:</p>
+            <p>*	como parte de nuestro esfuerzo para mantener la seguridad de las integraciones, los             servicios y los productos de DenunciARTE;</p>
+            <p>*	para proteger los derechos o la propiedad de DenunciARTE o de otros;</p>
+            <p>*	para operaciones internas, incluidos la solución de problemas, el análisis de datos,             la investigación, el desarrollo y la mejora del servicio.</p>
+            <p>Concedernos este permiso para utilizar tu información no solo nos permite ofrecer el                 DenunciARTE que conoces, sino que también nos permitirá ofrecerte en el futuro funciones y               servicios que utilizarán la información que recibimos sobre ti de forma innovadora.</p>
+            <p>Aunque nos permites utilizar la información que recibimos acerca de ti, tú eres en todo               momento su propietario. Tu confianza es importante para nosotros y por ello no compartimos               esta información con otros a menos que:</p>
+            <p>*	nos hayas dado tu permiso;</p>
+            <p>*	te hayamos advertido, como informándote de ello en esta política, o</p>
+            <p>*	hayamos eliminado tu nombre y cualquier otro dato por el que se te pueda                         identificar.</p>
+            <p>Obviamente, en el caso de la información que otras personas comparten sobre ti, dichas               personas son quienes controlan cómo la comparten.</p>
+            <p>Almacenamos los datos durante el tiempo necesario para facilitarte productos y servicios,             a ti y otros usuarios, incluidos los descritos anteriormente. Normalmente, la información               asociada con tu cuenta se conserva hasta que elimines la cuenta. En el caso de determinados             tipos de datos también tenemos prácticas específicas de conservación de datos. </p>
+            <h3>Desactivación de tu cuenta</h3>
+            <p>Si quieres dejar de usar tu cuenta, la puedes desactivar o eliminar.</p>
+            <h3>a)Desactivar</h3>
+            <p>Una cuenta desactivada queda en espera. No eliminaremos tu información. Al desactivar una             cuenta nos estás pidiendo que no eliminemos la información porque piensas volver a activar               la cuenta más adelante. Puedes desactivar tu cuenta en la página de configuración de tu                 cuenta.</p>
+        </div>
+
+</div>
 <!-- Contrato de privacidad-->
 <div id="openContract" class="modalDialog">
     <div style="width:800px; height:500px;">
@@ -155,7 +199,7 @@ function registrar(){
             <h3>CONTRATO DE CONDICIONES DE USO</h3>
             <p>En vigor a partir de 11 de junio del 2014.</p>
             <p>POR FAVOR, LEA DETENIDAMENTE EL SIGUIENTE CONTRATO DE CONDICIONES DE USO.
-                EL USO POR SU PARTE DE LA PÁGINA WEB DENUNCIARTE Y DE CUALQUIER SUBPÁGINA, SERVICIO O                   ELEMENTOS RELACIONADOS CON LA MISMA (EN ADELANTE LA “PÁGINA”) CONSTITUYE SU ACEPTACIÓN                   DE ESTAS CONDICIONES, ACUERDOS, POLÍTICAS Y NOTIFICACIONES (EN ADELANTE LAS                             “CONDICIONES”). SI ES MENOR DE EDAD SEGÚN LA LEY DE SU PAÍS, DEBERÁ ASEGURARSE DE QUE                   SUS PADRES O SU TUTOR DAN SU CONSENTIMIENTO AL PRESENTE CONTRATO EN SU NOMBRE ANTES DE                   QUE PUEDA USAR LA PÁGINA. IMPRIMA UNA COPIA DE ESTE CONTRATO PARA TENER CONSTANCIA. SI                   NO ESTÁ DE ACUERDO CON TODAS LAS CONDICIONES CONTRACTUALES, NO SE LE PERMITIRÁ EL USO DE                 LA PÁGINA.</p>
+                EL USO POR SU PARTE DE LA PÁGINA WEB DENUNCIARTE Y DE CUALQUIER SUBPÁGINA, SERVICIO O                   ELEMENTOS RELACIONADOS CON LA MISMA (EN ADELANTE LA “PÁGINA”) CONSTITUYE SU ACEPTACIÓN                   DE ESTAS CONDICIONES, ACUERDOS, POLÍTICAS Y NOTIFICACIONES (EN ADELANTE LAS                             “CONDICIONES”). SI ES MENOR DE EDAD, DEBERÁ ASEGURARSE DE QUE SUS PADRES O SU TUTOR DAN                 SU CONSENTIMIENTO AL PRESENTE CONTRATO EN SU NOMBRE ANTES DE QUE PUEDA USAR LA PÁGINA.                   IMPRIMA UNA COPIA DE ESTE CONTRATO PARA TENER CONSTANCIA. SI NO ESTÁ DE ACUERDO CON                     TODAS LAS CONDICIONES CONTRACTUALES, NO SE LE PERMITIRÁ EL USO DE LA PÁGINA.</p>
             <p>DenunciARTE. (“DenunciARTE”) ofrece ciertos contenidos, imágenes, textos, y/o servicios a              través de la Página, a los que puede accederse desde el registro de una cuenta gratuita de              DenunciARTE (la “Cuenta”). </p>
             <p>El uso por su parte de la Página y la Cuenta está sujeto a estas Condiciones de Uso y a                la Política de uso de datos de DenunciARTE, aquí referenciadas e incorporadas al presente                Contrato. Debe aceptar el Contrato de Licencia de Usuario Final correspondiente, la                      Política de uso de datos y el presente Contrato de Condiciones de Uso (conjuntamente                    denominados los “Contratos”) antes de empezar a utilizar los servicios suministrados por la              página. El coste de la conexión a Internet por el uso de la Página, de su Cuenta, y/o del                Servicio correrá por su cuenta.</p>
             <p>Se prohíbe expresamente el uso, reproducción, modificación, distribución o comunicación                pública de la Página, o del Servicio que no estén explícitamente autorizados en las                      condiciones de los Contratos.
