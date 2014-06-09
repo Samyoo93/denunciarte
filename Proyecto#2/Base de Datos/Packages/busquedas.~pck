@@ -183,7 +183,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
         BEGIN
             OPEN l_cursor FOR
             SELECT p.persona_id, p.nombre,p.primerapellido, p.segundoapellido, p.genero,
-                   p.fechanacimiento, u.usuario, u.cedulausuario_id 
+                   p.fechanacimiento, u.usuario, u.cedulausuario_id, u.privacidad, u.estado
             from persona p, usuario u
             where u.cedulausuario_id = pcedula and p.persona_id = u.persona_id;
             return l_cursor;
@@ -242,7 +242,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
           BEGIN
                OPEN l_cursor FOR
                SELECT r.nota, r.descripcion, r.calificacion, p.nombre, p.primerapellido, 
-                      p.segundoapellido, u.cedulausuario_id
+                      p.segundoapellido, u.cedulausuario_id, u.privacidad
                FROM personaFisica pf, review_personaFisica rpf, review r, usuario u, persona p
                WHERE pf.cedulafisica_id = cedula and pf.cedulafisica_id = rpf.cedulafisica_id and
                      rpf.review_id = r.review_id and r.cedulausuario_id = u.cedulausuario_id and
@@ -257,7 +257,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
           BEGIN
                OPEN l_cursor FOR
                SELECT r.nota, r.descripcion, r.calificacion, p.nombre, p.primerapellido, 
-                      p.segundoapellido, u.cedulausuario_id
+                      p.segundoapellido, u.cedulausuario_id, u.privacidad
                FROM entidad e, review_entidad re, review r, usuario u, persona p
                WHERE e.cedulajuridica = cedula and e.entidad_id = re.entidad_id and 
                      re.review_id = r.review_id and r.cedulausuario_id = u.cedulausuario_id and 

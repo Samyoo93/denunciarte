@@ -63,7 +63,7 @@
     $cedulaUsuario = $_GET['cedula'];
     $privacidad = $_GET['privacidad'];
     $_SESSION['privacidad'] = $privacidad;
-    echo $privacidad;
+
 
     //Saca los datos del usuario que intenta ver el perfil ajeno, para saber si es administrador o no
     $query_procedimiento = ociparse($conn, "BEGIN :cursor := busquedas.usuarioPorCedula(:cedula); END;");
@@ -154,6 +154,8 @@
 
 	</section>
     </section>';
+    echo $privacidad;
+    echo $estado;
     if($estado == 2 or $privacidad == 1){
         echo $datos;
         echo $menuVertical;
