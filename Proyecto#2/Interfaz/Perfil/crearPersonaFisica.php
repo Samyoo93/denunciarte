@@ -13,11 +13,11 @@
 <link href="../Imagenes/favicon.ico" type="image/x-icon" rel="shortcut icon" />
     <script>
 
-        function crear(){
+        function crear() {
             // Create our XMLHttpRequest object
             var hr = new XMLHttpRequest();
             // Create some variables we need to send to our PHP file
-            var url = "perfil/registroPersonaFisica.php";
+            var url = "registroPersonaFisica.php";
             var nombre = document.getElementById('nombre').value;
             var primerApellido = document.getElementById('primerApellido').value;
             var segundoApellido = document.getElementById('segundoApellido').value;
@@ -34,7 +34,6 @@
 
 
             var vars =  'nombre='+nombre+'&primerApellido='+primerApellido+'&segundoApellido='+segundoApellido+'&cedula1='+cedula1+'&cedula2='+cedula2+'&cedula3='+cedula3+'&genero='+genero+'&fecNac='+fecNac+'&lugartrabajo='+lugartrabajo+'&cargo='+cargo+'&categoria='+categoria+'&categoria2='+categoria2+'&descripcion='+descripcion;
-
             hr.open("POST", url, true);
             // Set content type header information for sending url encoded variables in the request
             hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -48,7 +47,7 @@
             // Send the data to PHP now... and wait for response to update the status div
             hr.send(vars); // Actually execute the request
             document.getElementById("crearPerFis").innerHTML = "procesando...";
-        }
+	   }
         function refresh(changed){
             // Create our XMLHttpRequest object
             var hr = new XMLHttpRequest();
