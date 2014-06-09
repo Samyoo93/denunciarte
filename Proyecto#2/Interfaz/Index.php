@@ -188,7 +188,7 @@ function registrar(){
             <h3>a)Desactivar</h3>
             <p>Una cuenta desactivada queda en espera. No eliminaremos tu información. Al desactivar una             cuenta nos estás pidiendo que no eliminemos la información porque piensas volver a activar               la cuenta más adelante. Puedes desactivar tu cuenta en la página de configuración de tu                 cuenta.</p>
         </div>
-
+    </div>
 </div>
 <!-- Contrato de privacidad-->
 <div id="openContract" class="modalDialog">
