@@ -20,6 +20,11 @@
         ocibindbyname($query_eliminarReviewE, ":cedulaReportado", $_SESSION['cedulaReportado']);
 
         ociexecute($query_eliminarReviewE);
+
+        $query_addBan = ociparse($conn, "begin pack_reporte.Banear(:cedula); end;");
+        ocibindbyname($query_addBan, ":cedula", $_SESSION['cedulaReportado']);
+        ociexecute($query_addBan);
+
         header('Location: mostrarUsuarios.php?cedula='. $_SESSION['cedulaReportado'] .'&privacidad='.$_SESSION['privacidad']);
     } else {
         $message = 'Ya ha reportado anteriormente a este usuario';
