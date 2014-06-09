@@ -42,7 +42,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
                    pf.cedulafisica_id, pf.lugartrabajo
             from persona p, personafisica pf
             where p.nombre LIKE '%' || pnombre || '%' and p.persona_id = pf.persona_id
-            order by p.nombre;
+            order by p.nombre, p.primerapellido, p.segundoapellido;
             return l_cursor;
     END;
     
@@ -54,7 +54,8 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
             SELECT p.persona_id,p.nombre,p.primerapellido,p.segundoapellido,
                    p.genero,p.fechanacimiento, pf.cedulafisica_id, pf.lugartrabajo
             from persona p, personafisica pf
-            where p.primerapellido like '%' || pprimerApellido || '%' and p.persona_id = pf.persona_id;
+            where p.primerapellido like '%' || pprimerApellido || '%' and p.persona_id = pf.persona_id
+            order by p.nombre, p.primerapellido, p.segundoapellido;
             return l_cursor;
     END;
     
@@ -66,7 +67,8 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
             SELECT p.persona_id,p.nombre,p.primerapellido,p.segundoapellido,
                    p.genero, p.fechanacimiento, pf.cedulafisica_id, pf.lugartrabajo
             from persona p, personafisica pf
-            where p.segundoapellido LIKE '%' || psegundoApellido || '%' and p.persona_id = pf.persona_id;
+            where p.segundoapellido LIKE '%' || psegundoApellido || '%' and p.persona_id = pf.persona_id
+            order by p.nombre, p.primerapellido, p.segundoapellido;
             return l_cursor;
     END;
     
@@ -79,7 +81,8 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
             SELECT p.persona_id, p.nombre,p.primerapellido, p.segundoapellido, p.genero,
                    p.fechanacimiento, pf.cedulafisica_id, pf.lugartrabajo
             from persona p, personafisica pf
-            where pf.cedulafisica_id = pcedula and p.persona_id = pf.persona_id;
+            where pf.cedulafisica_id = pcedula and p.persona_id = pf.persona_id
+            order by p.nombre, p.primerapellido, p.segundoapellido;
             return l_cursor;
     END;
     
@@ -92,7 +95,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
                    pf.cedulafisica_id, pf.lugartrabajo, pf.cargo
             from persona p, personafisica pf
             where p.persona_id = personaId and p.persona_id = pf.persona_id
-            order by p.nombre;
+            order by p.nombre, p.primerapellido, p.segundoapellido;
             return l_cursor;
     END;
 
@@ -106,7 +109,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
             FROM persona p, personafisica pf, categoria_personafisica cp, categoria c
             WHERE c.nombre like '%' || pcategoria || '%' and c.categoria_id = cp.categoria_id and
                   cp.cedulaFisica_id = pf.cedulafisica_id and pf.persona_id = p.persona_id
-             ORDER BY p.nombre;
+            ORDER BY p.nombre, p.primerapellido, p.segundoapellido;
             RETURN l_cursor;
     END;
 
@@ -122,7 +125,8 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
             WHERE e.nombre like '%' || pEntidad || '%' and e.entidad_id = dn.entidad_id and 
                   dn.barrio_id = b.barrio_id and b.distrito_id = d.distrito_id and 
                   d.canton_id = c.canton_id and c.provincia_id = p.provincia_id and
-                  p.pais_id = pais.pais_id;
+                  p.pais_id = pais.pais_id
+            ORDER BY e.nombre;
             RETURN l_cursor;
     END;
     
@@ -139,7 +143,8 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
             WHERE e.cedulajuridica = cedula and e.entidad_id = dn.entidad_id and 
                   dn.barrio_id = b.barrio_id and b.distrito_id = d.distrito_id and 
                   d.canton_id = c.canton_id and c.provincia_id = p.provincia_id and
-                  p.pais_id = pais.pais_id;
+                  p.pais_id = pais.pais_id
+            ORDER BY e.nombre;
             RETURN l_cursor;
     END;
     
@@ -156,8 +161,8 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
                   ce.entidad_id = e.entidad_id and e.entidad_id = de.entidad_id and
                   de.barrio_id = b.barrio_id and b.distrito_id = d.distrito_id and 
                   d.canton_id = c.canton_id and c.provincia_id = p.provincia_id and
-                  p.pais_id = pais.pais_id;
-
+                  p.pais_id = pais.pais_id
+            ORDER BY e.nombre;
             RETURN l_cursor;
     END;
     
@@ -173,7 +178,8 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
           WHERE e.entidad_id = entidadId and e.entidad_id = dn.entidad_id and 
                  dn.barrio_id = b.barrio_id and b.distrito_id = d.distrito_id and 
                  d.canton_id = c.canton_id and c.provincia_id = p.provincia_id and
-                 p.pais_id = pais.pais_id;
+                 p.pais_id = pais.pais_id
+          ORDER BY e.nombre;
           RETURN l_cursor;
     END;
     
@@ -241,7 +247,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
           AS l_cursor TYPES.ref_c;
           BEGIN
                OPEN l_cursor FOR
-               SELECT r.nota, r.descripcion, r.calificacion, p.nombre, p.primerapellido, 
+               SELECT r.nota, r.descripcion, r.calificacion, r.url_file, p.nombre, p.primerapellido, 
                       p.segundoapellido, u.cedulausuario_id, u.privacidad
                FROM personaFisica pf, review_personaFisica rpf, review r, usuario u, persona p
                WHERE pf.cedulafisica_id = cedula and pf.cedulafisica_id = rpf.cedulafisica_id and
@@ -256,7 +262,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
           AS l_cursor TYPES.ref_c;
           BEGIN
                OPEN l_cursor FOR
-               SELECT r.nota, r.descripcion, r.calificacion, p.nombre, p.primerapellido, 
+               SELECT r.nota, r.descripcion, r.calificacion, r.url_file, p.nombre, p.primerapellido, 
                       p.segundoapellido, u.cedulausuario_id, u.privacidad
                FROM entidad e, review_entidad re, review r, usuario u, persona p
                WHERE e.cedulajuridica = cedula and e.entidad_id = re.entidad_id and 
