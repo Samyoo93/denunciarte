@@ -113,22 +113,22 @@ function registrar(){
 <h2 style="position:absolute; left:30px;">Regístrate</h2>
 <a style="position:absolute; left:30px; top:50px;">________________________________________</a>
 <a style="position:absolute; top:90px; left:60px;">Nombre</a>
-<input type="text" id="nombre" placeholder="Nombre" style="position:absolute; top: 90px; left:130px; width:80px;" />
-<input type="text" id="primerApellido" placeholder="PrimerApellido" style="position:absolute; top: 90px; left:220px; width:100px;" />
-<input type="text" id="segundoApellido" placeholder="SegundoApellido" style="position:absolute; top: 90px; left:330px; width:100px;" />
+<input type="text" id="nombre" placeholder="Nombre" style="position:absolute; top: 90px; left:130px; width:80px;" maxlength="25" />
+<input type="text" id="primerApellido" placeholder="PrimerApellido" style="position:absolute; top: 90px; left:220px; width:100px;" maxlength="25" />
+<input type="text" id="segundoApellido" placeholder="SegundoApellido" style="position:absolute; top: 90px; left:330px; width:100px;" maxlength="25" />
 <a style="position:absolute; top:130px; left:60px;">Cédula</a>
-<input type="text" id="cedula1" align="center" placeholder="1" style="position:absolute; top: 150px; left:130px; width:20px;" />
+<input type="text" id="cedula1" align="center" placeholder="1" style="position:absolute; top: 150px; left:130px; width:20px;" maxlength="1" />
 <label style="position:absolute; top:155px; left:165px;">-</label>
-<input type="text" id="cedula2" align='center' placeholder="1111" style="position:absolute; top: 150px; left:190px; width:100px;" />
+<input type="text" id="cedula2" align='center' placeholder="1111" style="position:absolute; top: 150px; left:190px; width:100px;" maxlength="4"/>
 <label style="position:absolute; top:155px; left:310px;">-</label>
-<input type="text" id="cedula3" align="center" placeholder="1111" style="position:absolute; top: 150px; left:330px; width:100px;" />
+<input type="text" id="cedula3" align="center" placeholder="1111" style="position:absolute; top: 150px; left:330px; width:100px;" maxlength="4" />
 <a style="position:absolute; top:190px; left:60px;">Usuario</a>
 <a style="position:absolute; top:210px; left:60px;">(Nombre que lo identificará al realizar un comentario.)</a>
-<input type="text" id="usuario" placeholder="Álias para reportes" align="center" style="position:absolute; top: 250px; left:130px; width:300px;" />
+<input type="text" id="usuario" placeholder="Álias para reportes" align="center" style="position:absolute; top: 250px; left:130px; width:300px;" maxlength="25" />
 <a style="position:absolute; top:290px; left:60px;">Contraseña</a>
-<input type="password" id="contrasena"  placeholder="De 1-15 carácteres."style="position:absolute; top: 310px; left:130px; width:300px;" />
+<input type="password" id="contrasena"  placeholder="De 1-15 carácteres."style="position:absolute; top: 310px; left:130px; width:300px;" maxlength="15" />
 <a style="position:absolute; top:350px; left:60px;">Confirmar la contraseña</a>
-<input type="password" id="contrasena2" placeholder="Verifique las contraseñas" style="position:absolute; top: 370px; left:130px; width:300px;" />
+<input type="password" id="contrasena2" placeholder="Verifique las contraseñas" style="position:absolute; top: 370px; left:130px; width:300px;" maxlength="15" />
 <a style="position:absolute; top:410px; left:60px;">Fecha de nacimiento</a>
 <input type="date" id="fecNac"style="position:absolute; top: 430px; left:130px; width:300px;" />
 <a style="position: absolute; left: 60px; top: 470px;">Género</a>
