@@ -8,7 +8,10 @@ CREATE OR REPLACE PACKAGE pack_usuario IS
 
      --Procedimiento para llenar la tabla de usuario
      PROCEDURE set_usuario(cedulaUsuario NUMBER, usuario VARCHAR2, contrasena VARCHAR2, privacidad NUMBER, estado NUMBER);
-
+     
+     --Procedimiento para agregar usuario que ya tiene una persona fisica asociada
+     PROCEDURE set_usuario_by_personafisica(cedula_in NUMBER, usuario_in VARCHAR2, password_in VARCHAR2, privacidad_in NUMBER);
+     
      --Procedimiento para eliminar el contenido de la tabla usuario
      PROCEDURE del_usuario(cedulaUsuario NUMBER);
 
@@ -77,6 +80,21 @@ CREATE OR REPLACE PACKAGE BODY pack_usuario AS
   	       COMMIT;
      END;
 
+     PROCEDURE set_usuario_by_personafisica(cedula_in NUMBER, usuario_in VARCHAR2, password_in VARCHAR2, privacidad_in NUMBER)
+          IS
+             personaId NUMBER;
+          BEGIN
+             select persona_id 
+             into personaId 
+             from personafisica
+             where cedulafisica_id = cedula_in;
+             INSERT INTO usuario 
+                    (cedulausuario_id, usuario, contrasena, privacidad, estado, persona_id, numbans, numreportes)
+             VALUES
+                    (cedula_in, usuario_in, password_in, privacidad_in, 1, personaId, 0, 0);
+             COMMIT;
+     END;
+     
      --Procedimiento para eliminar personas
      PROCEDURE del_usuario(cedulaUsuario NUMBER)
           IS
@@ -118,9 +136,6 @@ CREATE OR REPLACE PACKAGE BODY pack_usuario AS
           where usuario.Usuario = pusuario;
 
           IF contra = Pcontrasena THEN
-             update usuario
-             set estado = 1
-             where usuario = pusuario;
              return 1;
           else
             RETURN 0;
