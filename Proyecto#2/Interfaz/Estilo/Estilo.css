@@ -10,6 +10,20 @@ body{
 	border:#914998;
 }
 
+p{
+    alignment-adjust:auto;
+    font-size: 14px;
+    color: #000;
+
+}
+h3{
+    alignment-adjust:auto;
+    font: small-caps 100%/200% serif;
+    font-style: oblique;
+    font-size: 14px;
+    color: #000;
+
+}
 h1{
 	position: absolute;
 	font: small-caps 100%/200% serif;
