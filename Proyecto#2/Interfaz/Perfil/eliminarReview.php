@@ -5,7 +5,7 @@
 
 
     if (isset($_POST['eliminarReview'])) {
-        echo $_POST['reportar'];
+        echo $_POST['eliminarReview'];
         $reviewId = $_POST['eliminarReview'];
 
 
@@ -32,5 +32,5 @@
 
     }
 
-    header('Location: MiPerfil.php')
+    //header('Location: MiPerfil.php')
 ?>

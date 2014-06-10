@@ -237,10 +237,11 @@
 			background-color:#914998;
 			font-size: 16px;">Calificar</a></button>
 		<button type="submit" style="position:absolute; top:70px;left:30px; font-size:18px; width:200px;" >
-		<a href="#openReport" style="color: #CFCFCF;
-			font: small-caps 100%/200% serif;
-			background-color:#914998;
-			font-size: 16px;">Ver Calificaciones</a>
+            <a href="#openReport" style="color: #CFCFCF;
+                font: small-caps 100%/200% serif;
+                background-color:#914998;
+                font-size: 16px;">Ver Calificaciones
+            </a>
 		</button>
 		<div id="openReport" class="modalDialog">
 
