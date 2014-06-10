@@ -19,9 +19,9 @@
 	$genero = $_POST['genero'];
 	$fechaNacimiento = $_POST['fecNac'];
 	$privacidad = 1;
-    $year = preg_replace("/[^0-9]/","", $fechaNacimiento);
+    $year = preg_replace("/[^0-9]/","-", $fechaNacimiento);
 	$year = (string)$year;
-	$year = substr($year, 0, 4);
+	$year = substr($year, 0);
 	$year = intval($year);
     $cedula1 = $_POST["cedula1"];
 	$cedula2 = $_POST["cedula2"];

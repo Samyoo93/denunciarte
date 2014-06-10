@@ -45,12 +45,35 @@
 			hr.send(vars); // Actually execute the request
 			document.getElementById("mostrar").innerHTML = "Procesando...";
 		}
-	</script>
+        function toPrueba(img) {
+            //Create our XMLHttpRequest object
+            var hr = new XMLHttpRequest();
+            // Create some variables we need to send to our PHP file
+            var url = "../UploadedImgs/prueba.php";
+
+            var file = img;
+
+            var vars = 'file=' + file;
+
+            hr.open("POST", url, true);
+            // Set content type header information for sending url encoded variables in the request
+            hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            // Access the onreadystatechange event for the XMLHttpRequest object
+            hr.onreadystatechange = function() {
+                if(hr.readyState == 4 && hr.status == 200) {
+                    var return_data = hr.responseText;
+                    document.getElementById("preview").innerHTML = return_data;
+                }
+            }
+            // Send the data to PHP now... and wait for response to update the status div
+            hr.send(vars); // Actually execute the request
+            document.getElementById("preview").innerHTML = "Procesando...";
+        }
+        </script>
 </head>
+<div id='preview'>
 
-<body style="width:700px;" onload="Abrir_ventana('http://URL/ejemplo-popup.html')">
-
-
+</div>
 
 <section id="mostrar" style="position:absolute; left:20px; top:100px; width:630px; height:400px;">
 	<!-- Menú vertical, lo coloco aquí porque cada vez que se hace la busqueda elimina esta parte y la volverá a poner cuando carge la
@@ -150,7 +173,7 @@
 		    //<div style="width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;">
             $reviews = '<div style="margin-top:0px;">';
             foreach($array as $fila){
-
+                $url = substr($fila['URL_FILE'], 56);
                 $reviews = $reviews . '
 				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a><br>
 
@@ -158,7 +181,7 @@
                 <p1 rows="100" cols="0">"'. $fila['DESCRIPCION'] .'"</p1><br>
 
                 <a href="mostrarUsuarios.php?cedula='.$fila['CEDULAUSUARIO_ID'].'&privacidad='. $fila['PRIVACIDAD'] .'" style="position:absolute;">-'. $fila['NOMBRE'] . ' ' . $fila['PRIMERAPELLIDO'] . ' ' . $fila['SEGUNDOAPELLIDO'] .'</a><br>
-                 <button type="submit" name="evidencia" value="'. substr($fila['URL_FILE'], 56) .'"  style="position:absolute; left:500px; margin-top:-50px;">Evidencia</button>
+                <button type="submit" name="evidencia" id="evidencia" onClick=toPrueba("'.$url.'") value="evidencia" style="position:absolute; left:500px; margin-top:-50px;">Preview</button>
                 <hr size=5>';
             }
             $reviews = $reviews . '</div>';
@@ -217,13 +240,15 @@
 		    //<div style="width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;">
             $reviews = '<div style="margin-top:0px;">';
             foreach($array as $fila){
+                $url = substr($fila['URL_FILE'], 56);
                 $reviews = $reviews . '
 				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a><br>
                 <a style="position:absolute; font-size:20px;">Descripción:</a><br>
                 <p1 rows="4" cols="50" disabled>"'. $fila['DESCRIPCION'] .'"</p1><br>
                 <a href="mostrarUsuarios.php?cedula='.$fila['CEDULAUSUARIO_ID'].'&privacidad='. $fila['PRIVACIDAD'] . '" style="position:absolute;">-'. $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'] .'</a><br>
-                <button type="submit" name="evidencia" value="'. substr($fila['URL_FILE'], 56) .'"  style="position:absolute; left:500px; margin-top:-50px;">Evidencia</button>
+                <button type="submit" name="evidencia" id="evidencia" value="evidencia" onClick=toPrueba("' .$url. '") style="position:absolute; left:500px; margin-top:-50px;">Preview</button>
                 <hr size=5>';
+
             }
             $reviews = $reviews . '</div>';
 
@@ -237,11 +262,18 @@
 			background-color:#914998;
 			font-size: 16px;">Calificar</a></button>
 		<button type="submit" style="position:absolute; top:70px;left:30px; font-size:18px; width:200px;" >
+<<<<<<< HEAD
             <a href="#openReport" style="color: #CFCFCF;
                 font: small-caps 100%/200% serif;
                 background-color:#914998;
                 font-size: 16px;">Ver Calificaciones
             </a>
+=======
+        <a href="#openReport" style="color: #CFCFCF;
+			font: small-caps 100%/200% serif;
+			background-color:#914998;
+			font-size: 16px;">Ver Calificaciones</a>
+>>>>>>> origin/master
 		</button>
 		<div id="openReport" class="modalDialog">
 
@@ -257,12 +289,12 @@
                 <form action="../hovercard/pasarValorALaBase.php" method="post" enctype="multipart/form-data">
                     <a href="#close" title="Close" class="close">X</a>
                     <h2>Calificar a esta persona</h2>
-                    <p style="position:absolute; top:60px;">Si desea calificar a '. $nombre .', rellene los siguientes campos:</p>
-                    <p style="position:absolute; top:130px;">Título</p>
+                    <a style="position:absolute; top:60px;">Si desea calificar a '. $nombre .', rellene los siguientes campos:</a>
+                    <a style="position:absolute; top:150px;">Título</a>
                     <input type="text" name ="titulo" style="position:absolute; top:150px; left: 150px; width:200px;">
-                    <p style="position:absolute; top:160px;">Descripción</p>
+                    <a style="position:absolute; top:180px;">Descripción</a>
                     <textarea type="text" name="descripcion" style="position:absolute; top:180px; left: 150px;width:300px; height:100px;"></textarea>
-                    <p style="position:absolute; top:280px;">Calificación</p>
+                    <a style="position:absolute; top:300px;">Calificación</a>
                     <a style="position:absolute; top:115px;">Archivo:</a> <input type="file" required id="imgfile" style="position:absolute; top:115px; left:145px;" name="imgfile"><br>
 
                     <div class="rateit" id="estrellas" data-rateit-max="10" data-rateit-step=1 data-rateit-value=1 data-rateit-resetable="false"  style="position:absolute; top:300px; left:150px;">

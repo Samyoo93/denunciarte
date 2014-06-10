@@ -18,9 +18,9 @@
 	$primerApellido = $_POST['primerApellido'];
 	$segundoApellido = $_POST['segundoApellido'];
 	$fechaNacimiento = $_POST['fecNac'];
-    $year = preg_replace("/[^0-9]/","", $fechaNacimiento);
+    $year = preg_replace("/[^0-9]/","-", $fechaNacimiento);
 	$year = (string)$year;
-	$year = substr($year, 0, 4);
+	$year = substr($year, 0);
 	$year = intval($year);
     $priv = $_POST['priv'];
     if($priv == 'public') {
@@ -30,7 +30,6 @@
         $priv = 0;
         $privacidad = "privado";
     }
-    echo 'lalalla';
 
 	if($password != null and $nombre != null and $primerApellido != null and $segundoApellido != null
       and $fechaNacimiento != null and $privacidad != null) {
@@ -67,8 +66,10 @@
                     ocibindbyname($query_modprivacidad, ":privacidad", $priv);
                     ociexecute($query_modprivacidad);
                     OCICommit($conn);
-                    echo '\ndone';
 
+                    echo "<section id='error' style='position:absolute; top:130px; left:420px;'>
+                    <a style='font-size:20px; color:#21A33A; font-size:16px;'>**Año inválido .</a>
+                    </section>";
                 } else {
 
                     echo "<section id='error' style='position:absolute; top:130px; left:420px;'>

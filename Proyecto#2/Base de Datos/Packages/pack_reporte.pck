@@ -2,10 +2,12 @@ CREATE OR REPLACE PACKAGE pack_reporte IS
 
      FUNCTION get_id(descripcion VARCHAR2) RETURN NUMBER;
      --Procedimiento para llenar la tabla de preview
-     PROCEDURE set_reporte(descripcion_in VARCHAR2, cedulaUsuario NUMBER, cedulaReportado NUMBER);
-
+     PROCEDURE set_reporte(descripcion_in VARCHAR2, cedulaUsuario NUMBER);
+     
+     PROCEDURE Banear (pcedulausuario_id NUMBER);
+     
      FUNCTION has_reported(cedulaReportado NUMBER, cedulaReportando NUMBER) RETURN NUMBER;
-
+     
 END pack_reporte;
 /
 CREATE OR REPLACE PACKAGE BODY pack_reporte AS
@@ -30,25 +32,56 @@ CREATE OR REPLACE PACKAGE BODY pack_reporte AS
      END;
 
      --Procedimiento para insertar categorias
-     PROCEDURE set_reporte(descripcion_in VARCHAR2, cedulaUsuario NUMBER, cedulaReportado NUMBER)
+     PROCEDURE set_reporte(descripcion_in VARCHAR2, cedulaUsuario NUMBER)
           IS
-
+          
           BEGIN
                INSERT INTO reporte
                     (reporte_id, descripcion, cedulaUsuario_id)
                VALUES
                     (s_reporte.nextval, descripcion_in, cedulaUsuario);
-               INSERT INTO reporte_usuario
-                    (reporte_usuario_id, cedulaUsuario_id, reporte_id)
-               VALUES
-                    (s_reporte_usuario.nextval, cedulaReportado, s_reporte.currval);
-
+               
                COMMIT;
+       
+     END;
+     
+     PROCEDURE Banear (pcedulausuario_id NUMBER) 
+            IS 
+               numeroReportes number; numeroBans number;
+            BEGIN
+                select u.numreportes
+                into numeroReportes
+                from usuario u
+                where pcedulausuario_id = u.cedulausuario_id;
+                select u.numBans
+                into numeroBans
+                from usuario u
+                where pcedulausuario_id = u.cedulausuario_id;
+                
+                if (numeroBans = 2 and numeroReportes = 9) then
+                  update usuario
+                  set estado = -2,
+                      numbans = 3,
+                      numreportes = 0
+                      where pcedulausuario_id = cedulaUsuario_id;
 
+                elsif ( numeroBans!=2 and numeroReportes = 9) then
+                  update usuario
+                  set  numBans = numbans + 1,
+                       estado = -1,
+                       numreportes = 0
+                       where pcedulausuario_id = cedulaUsuario_id;
+                
+                else
+                  update usuario
+                  set numreportes = numreportes + 1
+                  where pcedulausuario_id = cedulaUsuario_id;
+                end if;
      END;
 
-     FUNCTION has_reported(cedulaReportado NUMBER, cedulaReportando NUMBER)
-
+     
+     FUNCTION has_reported(cedulaReportado NUMBER, cedulaReportando NUMBER) 
+         
         return NUMBER
         is countCed NUMBER;
         BEGIN

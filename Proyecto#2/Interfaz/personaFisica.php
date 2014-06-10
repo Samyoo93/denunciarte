@@ -132,11 +132,13 @@ function registrar(){
     echo "<option value='otra'>Otra</option>
     </select>";
 ?>
+<button type="submit" onclick="document.getElementById('nuevaCategoria').style.display='block';this.focus(); return false;" style="position:absolute; top:470px; left:440px;">+</button>
 <button type="submit" onclick='registrar()' style="position:absolute; top:520px; left:60px; width:200px;">Registrar</button>
 
 </section>
 
-<section style="position:absolute; top:400px; left:720px; width:400px;">
+<div id="nuevaCategoria" style="position:absolute; top:630px; left:720px; width:400px; display:None;" >
+<button type="submit" onclick="document.getElementById('nuevaCategoria').style.display='none';return false;" style="position:absolute; top:15px; left:380px;">X</button>
 <a style="color:#FF33D7; left:10px;">_____________________________________</a>
 <h2 style="position:absolute; top:10px; left:10px;">Nueva Categoría</h2>
 <a style="position:absolute; left:10px; top:80px;">Nombre</a>
@@ -144,7 +146,7 @@ function registrar(){
 <textarea style="position:absolute; left:80px; top:135px; height:65px;" id='descripcion'></textarea>
 <input type="text" id="categoria2"  style="position:absolute; top:80px; left:80px;" />
 <a style="color:#FF33D7; position:absolute; left:10px; top:200px;">_____________________________________</a>
-</section>
+</div>
 
 <!-- Pie de página -->
 <section id="CuadroGris" style=" top:865px; position:absolute; left:20px; width:960px; height:90px">
