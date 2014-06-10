@@ -45,30 +45,7 @@
 			hr.send(vars); // Actually execute the request
 			document.getElementById("mostrar").innerHTML = "Procesando...";
 		}
-        function toPrueba(img) {
-            //Create our XMLHttpRequest object
-            var hr = new XMLHttpRequest();
-            // Create some variables we need to send to our PHP file
-            var url = "../UploadedImgs/prueba.php";
-
-            var file = img;
-
-            var vars = 'file=' + file;
-
-            hr.open("POST", url, true);
-            // Set content type header information for sending url encoded variables in the request
-            hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            // Access the onreadystatechange event for the XMLHttpRequest object
-            hr.onreadystatechange = function() {
-                if(hr.readyState == 4 && hr.status == 200) {
-                    var return_data = hr.responseText;
-                    document.getElementById("preview").innerHTML = return_data;
-                }
-            }
-            // Send the data to PHP now... and wait for response to update the status div
-            hr.send(vars); // Actually execute the request
-            document.getElementById("preview").innerHTML = "Procesando...";
-        }
+        
         </script>
 </head>
 <div id='preview'>
@@ -171,7 +148,8 @@
 		    oci_execute($cursor, OCI_DEFAULT);
 		    oci_fetch_all($cursor, $array, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
 		    //<div style="width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;">
-            $reviews = '<div style="margin-top:0px;">';
+            $reviews = '<div style="margin-top:0px;">
+            <form target="_blank" action="../UploadedImgs/showImg.php" method="post" enctype="multipart/form-data">';
             foreach($array as $fila){
                 $url = substr($fila['URL_FILE'], 56);
                 $reviews = $reviews . '
@@ -181,10 +159,13 @@
                 <p1 rows="100" cols="0">"'. $fila['DESCRIPCION'] .'"</p1><br>
 
                 <a href="mostrarUsuarios.php?cedula='.$fila['CEDULAUSUARIO_ID'].'&privacidad='. $fila['PRIVACIDAD'] .'" style="position:absolute;">-'. $fila['NOMBRE'] . ' ' . $fila['PRIMERAPELLIDO'] . ' ' . $fila['SEGUNDOAPELLIDO'] .'</a><br>
-                <button type="submit" name="evidencia" id="evidencia" onClick=toPrueba("'.$url.'") value="evidencia" style="position:absolute; left:500px; margin-top:-50px;">Preview</button>
+                
+                <button type="submit" name="evidencia"  value="'.$url.'" style="position:absolute; left:500px; margin-top:-50px;">Evidencia
+                </button>
+               
                 <hr size=5>';
             }
-            $reviews = $reviews . '</div>';
+            $reviews = $reviews . '</form></div>';
 
 		} else if($persona == 'personaJuridica') {
 			//Se inicia el query con el procedimiento asignado
@@ -238,19 +219,22 @@
 		    oci_execute($cursor, OCI_DEFAULT);
 		    oci_fetch_all($cursor, $array, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
 		    //<div style="width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;">
-            $reviews = '<div style="margin-top:0px;">';
+            $reviews = '<div style="margin-top:0px;">
+            <form target="_blank" action="../UploadedImgs/showImg.php" method="post" enctype="multipart/form-data">';
             foreach($array as $fila){
                 $url = substr($fila['URL_FILE'], 56);
+                $_SESSION['url'] = $url;
                 $reviews = $reviews . '
 				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a><br>
                 <a style="position:absolute; font-size:20px;">Descripción:</a><br>
                 <p1 rows="4" cols="50" disabled>"'. $fila['DESCRIPCION'] .'"</p1><br>
                 <a href="mostrarUsuarios.php?cedula='.$fila['CEDULAUSUARIO_ID'].'&privacidad='. $fila['PRIVACIDAD'] . '" style="position:absolute;">-'. $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'] .'</a><br>
-                <button type="submit" name="evidencia" id="evidencia" value="evidencia" onClick=toPrueba("' .$url. '") style="position:absolute; left:500px; margin-top:-50px;">Preview</button>
+                <button type="submit" name="evidencia" id="evidencia" value="'.$url.'" style="position:absolute; left:500px; margin-top:-50px;">Evidencia
+                </button>
                 <hr size=5>';
 
             }
-            $reviews = $reviews . '</div>';
+            $reviews = $reviews . '</form></div>';
 
 		}
 
@@ -262,18 +246,11 @@
 			background-color:#914998;
 			font-size: 16px;">Calificar</a></button>
 		<button type="submit" style="position:absolute; top:70px;left:30px; font-size:18px; width:200px;" >
-<<<<<<< HEAD
             <a href="#openReport" style="color: #CFCFCF;
                 font: small-caps 100%/200% serif;
                 background-color:#914998;
                 font-size: 16px;">Ver Calificaciones
             </a>
-=======
-        <a href="#openReport" style="color: #CFCFCF;
-			font: small-caps 100%/200% serif;
-			background-color:#914998;
-			font-size: 16px;">Ver Calificaciones</a>
->>>>>>> origin/master
 		</button>
 		<div id="openReport" class="modalDialog">
 
