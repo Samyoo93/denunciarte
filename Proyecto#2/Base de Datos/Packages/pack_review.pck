@@ -7,7 +7,7 @@ CREATE OR REPLACE PACKAGE pack_review IS
      PROCEDURE del_review(reviewId NUMBER);
 
      --Procedimiento para modificar el contenido de la tabla preview
-     PROCEDURE mod_review(reviewId NUMBER, nota VARCHAR2, descripcion VARCHAR2);
+     PROCEDURE mod_review(reviewId NUMBER, pnota VARCHAR2, pdescripcion VARCHAR2);
 
 END pack_review;
 /
@@ -33,11 +33,11 @@ CREATE OR REPLACE PACKAGE BODY pack_review AS
      END;
 
      --Procedimiento para modificar personas
-     PROCEDURE mod_review(reviewId NUMBER, nota VARCHAR2, descripcion VARCHAR2)
+     PROCEDURE mod_review(reviewId NUMBER, pnota VARCHAR2, pdescripcion VARCHAR2)
           IS
           BEGIN
                UPDATE review
-               SET (nota, descripcion) = (SELECT nota, descripcion FROM DUAL)
+               SET (nota, descripcion) = (SELECT pnota, pdescripcion FROM DUAL)
                WHERE review.review_id = reviewId;
 	       COMMIT;
      END;

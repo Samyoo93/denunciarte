@@ -12,7 +12,7 @@ PROCEDURE calificarPersonaFisica( pnota VARCHAR2, pdescripcion VARCHAR2,pcedulaU
 PROCEDURE calificarEntidad (pnota VARCHAR2, pdescripcion VARCHAR2,pcedulaUsuario_id NUMBER, pcalificacion NUMBER, pCedulaEntidad NUMBER, url VARCHAR2);
 
 FUNCTION  has_ratedPersonaFisica(pcedulaUsuario NUMBER, pcedulaFisica NUMBER)RETURN NUMBER;
-FUNCTION  has_ratedEntidad (pcedulaUsuario NUMBER, pcedulaJuridica NUMBER) RETURN NUMBER;
+FUNCTION  has_ratedEntidad (pcedulaUsuario NUMBER, entidadId NUMBER) RETURN NUMBER;
 END estrellas;
 /
 CREATE OR REPLACE PACKAGE BODY estrellas IS
@@ -120,7 +120,7 @@ FUNCTION has_ratedPersonaFisica(pcedulaUsuario NUMBER, pcedulaFisica NUMBER)
             return countCed;
     END;
     
-FUNCTION has_ratedEntidad(pcedulaUsuario NUMBER, pcedulaJuridica NUMBER) 
+FUNCTION has_ratedEntidad(pcedulaUsuario NUMBER, entidadId NUMBER) 
          
         return NUMBER
         is countCed NUMBER;
@@ -128,7 +128,8 @@ FUNCTION has_ratedEntidad(pcedulaUsuario NUMBER, pcedulaJuridica NUMBER)
             SELECT count(1) 
             into countCed     
             from review r, review_entidad r_e
-            where r.cedulausuario_id = pcedulaUsuario and r_e.entidad_id = pack_entidad.get_id(pcedulaJuridica) and r.review_id = r_e.review_id;
+            where r.cedulausuario_id = pcedulaUsuario and r_e.entidad_id = entidadId and 
+                  r.review_id = r_e.review_id;
             return countCed;
     END;    
 

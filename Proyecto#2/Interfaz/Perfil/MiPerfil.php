@@ -76,16 +76,16 @@
             $genero = 'Masculino';
         }
         //Calcula la edad de nacimiento
-        /*
-	    $fechaNacimiento = new DateTime(date('d/m/y', $fila['FECHANACIMIENTO']));
+        
+        $fechaNacimiento = new DateTime($fila['FECHANACIMIENTO']);
         $fechaActual = new DateTime('today');
         $edad = $fechaNacimiento->diff($fechaActual)->y;
-*/
+
         $datos =  "<section id='mostrar' style='position:absolute; left:100px; top:100px; width:630px; height:400px;'>
 					<div style='width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;'>
             <h1 style='position:absolute; top:50px; left:200px;'> Nombre: ". $fila['NOMBRE'] ."</h1>
             <a style='position:absolute; top:200px; left:200px;'>Apellidos: ". $fila['PRIMERAPELLIDO'] . " ". $fila['SEGUNDOAPELLIDO'] ."</a>
-            <a style='position:absolute; top:250px; left:200px;'>Edad: "./* $edad .*/"</a>
+            <a style='position:absolute; top:250px; left:200px;'>Edad: ". $edad ."</a>
             <a style='position:absolute; top:300px; left:200px;'>Fecha de nacimiento: ". $fila['FECHANACIMIENTO'] ."</a>
             <a style='position:absolute; top:350px; left:200px;'>Género: ". $genero ."</a>
             <a style='position:absolute; top:400px; left:200px;'>Usuario: " . $fila['USUARIO'] . "</a>
@@ -113,6 +113,7 @@
     $reviews = '<div style="margin-top:20px;">';
     foreach($array as $fila){
         $reviews = $reviews . '<div>
+            <form action="modificarReview.php" method="post" enctype="multipart/form-data">
 				<a style="position:absolute; font-size:20px;">Nota: </a><br>
                 <input name="nota" value="'. $fila['NOTA'] .'" left="50px"><br>
                 <a style="position:absolute; font-size:20px;">Descripción:</a><br>
@@ -120,7 +121,8 @@
                 <a style="position:absolute;">Hecho a: '. $fila['NOMBRE'] .'</a><br>
                 <button type="submit" name="editarReview" value="'. $fila['REVIEW_ID'] .'"style="position:absolute; left:450px; margin-top:-100px;">Modificar</button>
                 <button type="submit" name="eliminarReview" value="'. $fila['REVIEW_ID'] .'"style="position:absolute; left:450px; margin-top:-50px;">Eliminar</button>
-                <hr size=5></div>';
+                <hr size=5></div>
+            </form>';
     }
     //Saca todos los reviews que ha hecho el usuario a personas fisicas
     $query_procedimiento = ociparse($conn, "BEGIN :cursor := busquedas.reviewPersonaFPorUsuario(:cedula); END;");
@@ -137,15 +139,17 @@
 
     foreach($array as $fila){
         $reviews = $reviews . '<div>
+            <form action="modificarReview.php" method="post" enctype="multipart/form-data">
 				<a style="position:absolute; font-size:20px;">Nota: </a><br>
                 <input name="nota" value="'. $fila['NOTA'] .'" left="50px"><br>
                 <a style="position:absolute; font-size:20px;">Descripción:</a><br>
                 <textarea rows="4" cols="50" name="descripcion">'. $fila['DESCRIPCION'] .'</textarea><br>
                 <a href"" style="position:absolute;">Hecho a: '. $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'] .'</a><br>
-                <button type="submit" name="editarReview" value="'. $fila['REVIEW_ID'] .'"style="position:absolute; left:450px; margin-top:-100px;">Modificar</button>
+                <button type="submit" name="editarReview" value="'. $fila['REVIEW_ID'] .'" style="position:absolute; left:450px; margin-top:-100px;">Modificar</button>
                 <button type="submit" name="eliminarReview" value="'. $fila['REVIEW_ID'] .'" id="'. $fila['REVIEW_ID'] .'" style="position:absolute; left:450px; margin-top:-50px;">Eliminar</button>
 
-                <hr size=5></div>';
+                <hr size=5></div>
+            </form>';
     }
 
     $reviews = $reviews . '</div>';
@@ -163,10 +167,10 @@
 
             <div style="width:600px; height:400px;line-height:3em;overflow:auto;padding:5px;">
                 <a  style="left:0px; top:1px;" href="#close" title="Close" class="close">X</a>
-                <form action="eliminarReview.php" method="post" enctype="multipart/form-data">
+                
                     <h2>Reviews</h2><br>
                     '. $reviews .'
-                </form>
+                
 			</div>
 		</div>
 

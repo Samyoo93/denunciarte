@@ -92,7 +92,6 @@ function registrar(){
 <a style="position:absolute; left:510px; top:30px;"> Usuario </a>
 <input type="text" style="position:absolute; top:50px; left:510px;" placeholder="Usuario" id="usuarioLogin" />
 <a style="position:absolute; left:690px; top:30px;"> Contraseña </a>
-<a href="" style="position:absolute; left:690px; font-size:12px; top:80px;">¿Olvidaste tu contraseña?</a>
 <input type="password" style="position:absolute; top:50px; left:690px;" placeholder="Contraseña" id="contrasenaLogin" />
 <button type="submit" onclick='login()' style="position:absolute; top:50px; left:870px;">Entrar</button>
 </section>

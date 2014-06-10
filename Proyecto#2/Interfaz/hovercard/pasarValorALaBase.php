@@ -24,9 +24,9 @@
         //Persona Juridica
         if ($_SESSION['tipoPersona'] == 'personaJuridica'){
             //Funcion que cuenta cuantas calificaciones se le ha hecho a una persona juridica
-            $verSiPuedeOno = oci_parse ($conn,'BEGIN :result:=estrellas.has_ratedEntidad(:pcedulaUsuario,:pcedulaJuridica); END;');
+            $verSiPuedeOno = oci_parse ($conn,'BEGIN :result:=estrellas.has_ratedEntidad(:pcedulaUsuario,:entidadId); END;');
             oci_bind_by_name ($verSiPuedeOno,':pcedulaUsuario',$cedulaUsuario);
-            oci_bind_by_name ($verSiPuedeOno,':pcedulaJuridica',$cedula);
+            oci_bind_by_name ($verSiPuedeOno,':entidadId', $_SESSION['id']);
             oci_bind_by_name ($verSiPuedeOno, ':result',$cantidadReviews);
             oci_execute ($verSiPuedeOno);
             echo 'cantidadReviews:' . $cantidadReviews;
@@ -135,7 +135,7 @@
     oci_close($conn);
 
     //El id es usado para que cuandose recargue mostrarDato pueda volver a cargar los datos actualizados
-    header($linkRetorno);
+    //header($linkRetorno);
 
 
 ?>
