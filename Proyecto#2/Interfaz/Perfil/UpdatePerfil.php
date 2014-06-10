@@ -108,16 +108,16 @@
 <div id="mostrar" style="overflow-y:scroll;">
 <h1 style="position:absolute; left:150px; left:80px; width:500px;"> Actualizar Mi Perfil </h1>
 <a style="position:absolute; top:150px; left:70px;">Nombre</a>
-<input type="text" id="nombre" style="position:absolute; left:200px; top:150px; width:300px;">
+<input type="text" id="nombre" style="position:absolute; left:200px; top:150px; width:300px;" maxlength="25">
 <a style="position:absolute; top:180px; left:70px;">Apellidos</a>
-<input type="text" id="primerApellido" style="position:absolute; left:200px; top:180px; width:130px;">
-<input type="text" id="segundoApellido" style="position:absolute; left:360px; top:180px; width:140px;">
+<input type="text" id="primerApellido" style="position:absolute; left:200px; top:180px; width:130px;" maxlength="25">
+<input type="text" id="segundoApellido" style="position:absolute; left:360px; top:180px; width:140px;" maxlength="25">
 <a style="position:absolute; top:210px; left:70px;">Fecha de Nacimiento</a>
 <input type="date" id="fecNac" style="position:absolute; left:200px; top:230px; width:300px;">
 
 
 <a style="position:absolute; top:270px; left:70px;">Contraseña</a>
-<input type="password" id="contrasena" style="position:absolute; left:200px; top:270px; width:300px;">
+<input type="password" id="contrasena" style="position:absolute; left:200px; top:270px; width:300px;" maxlength="15">
 
 <a style="position:absolute; top:320px; left:140px;">¿Quién puede ver tu información personal?</a>
 
