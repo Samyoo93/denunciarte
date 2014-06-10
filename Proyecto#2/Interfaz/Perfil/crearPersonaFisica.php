@@ -167,7 +167,7 @@
         <textarea id='descripcion' style="position:absolute; left:80px; top:135px; height:65px;"></textarea>
         <input type="text" id='categoria2'  style="position:absolute; top:80px; left:80px;" />
         <a style="color:#FF33D7; position:absolute; left:10px; top:200px;">_____________________________________</a>
-         <button type="submit" onclick="document.getElementById('nuevaCategoria').style.display='none';return false;" style="position:absolute; top:15px; left:380px;">X</button>
+         <button type="submit" onclick="document.getElementById('nuevaCategoria').style.display='none';return false;" style="position:absolute; top:15px; left:480px;">X</button>
         </div>
         <button type="submit" onclick='crear()' style="position:absolute; top:580px; left:60px; width:150px;">Registrar</button>
     </div>
