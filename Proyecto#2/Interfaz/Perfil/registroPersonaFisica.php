@@ -21,6 +21,10 @@
     $existe_cat = 1;
     $categoria2 = $_POST['categoria2'];
     $descripcion = $_POST['descripcion'];
+    $year = preg_replace("/[^0-9]/","-", $fechaNacimiento);
+	$year = (string)$year;
+	$year = substr($year, 0);
+	$year = intval($year);
 
 
 
@@ -29,110 +33,115 @@
         //verifica que se llenen todos los campos
         if(strlen($nombre) < 26 and strlen($primerApellido) < 26 and strlen($segundoApellido) < 26) {
             //verifica que los campos tengan un largo permitido
-            if(is_numeric($cedula)) {
-                if(strlen($cedula) < 10) {
-                    //largo permitido
+            if(1899 < $year && $year < 2014) {
+                if(is_numeric($cedula)) {
+                    if(strlen($cedula) < 10) {
+                        //largo permitido
 
-                    $cedula = intval($cedula);
-                    //Revisa si la cedula existe*********************************************************************
-                    $check_ced =  "SELECT COUNT(1) AS NUM_ROWS FROM personafisica WHERE cedulafisica_id=:ced";
-                    $query_check_ced = ociparse($conn, $check_ced);
-                    ocibindbyname($query_check_ced, ":ced", $cedula);
-                    $rows = 0;
-                    oci_define_by_name($query_check_ced, "NUM_ROWS", $rows);
-                    ociexecute($query_check_ced);
-                    ocifetch($query_check_ced);
+                        $cedula = intval($cedula);
+                        //Revisa si la cedula existe*********************************************************************
+                        $check_ced =  "SELECT COUNT(1) AS NUM_ROWS FROM personafisica WHERE cedulafisica_id=:ced";
+                        $query_check_ced = ociparse($conn, $check_ced);
+                        ocibindbyname($query_check_ced, ":ced", $cedula);
+                        $rows = 0;
+                        oci_define_by_name($query_check_ced, "NUM_ROWS", $rows);
+                        ociexecute($query_check_ced);
+                        ocifetch($query_check_ced);
 
-                    //**********************************************************************************
-                    if ($rows > 0) {
-                        echo "<section id='error' style='position:absolute; top:7px; left:90px;'>
-                        <a style='font-size:20px; color:#F00; font-size:16px;'>**La cedula ".$cedula." ya se encuentra registrada.</a>
-                        </section>";
+                        //**********************************************************************************
+                        if ($rows > 0) {
+                            echo "<section id='error' style='position:absolute; top:7px; left:90px;'>
+                            <a style='font-size:20px; color:#F00; font-size:16px;'>**La cedula ".$cedula." ya se encuentra registrada.</a>
+                            </section>";
 
 
-                    } else {
+                        } else {
 
-                        if($categoria == 'otra') {
+                            if($categoria == 'otra') {
 
-                            $categoria = $categoria2;
+                                $categoria = $categoria2;
 
-                            $check_existe_cat = "SELECT COUNT(1) AS NUM_ROWS FROM categoria WHERE nombre=:categoria and tipo = 'F'";
-                            $query_check_existe_cat = ociparse($conn, $check_existe_cat);
-                            ocibindbyname($query_check_existe_cat, ":categoria", $categoria);
-                            $existe_cat = 0;
-                            oci_define_by_name($query_check_existe_cat, "NUM_ROWS", $existe_cat);
-                            ociexecute($query_check_existe_cat);
-                            ocifetch($query_check_existe_cat);
+                                $check_existe_cat = "SELECT COUNT(1) AS NUM_ROWS FROM categoria WHERE nombre=:categoria and tipo = 'F'";
+                                $query_check_existe_cat = ociparse($conn, $check_existe_cat);
+                                ocibindbyname($query_check_existe_cat, ":categoria", $categoria);
+                                $existe_cat = 0;
+                                oci_define_by_name($query_check_existe_cat, "NUM_ROWS", $existe_cat);
+                                ociexecute($query_check_existe_cat);
+                                ocifetch($query_check_existe_cat);
 
-                            if($existe_cat == 0) {
+                                if($existe_cat == 0) {
 
-                                //registra la nueva categoria
-                                $createcat = "begin pack_categoria.set_categoria(:nombre, :descripcion, 'F'); end;";
-                                $query_createcat = ociparse($conn, $createcat);
-                                ocibindbyname($query_createcat, ":nombre", $categoria);
-                                ocibindbyname($query_createcat, ":descripcion", $descripcion);
-                                ociexecute($query_createcat);
-                                $existe_cat = 1;
+                                    //registra la nueva categoria
+                                    $createcat = "begin pack_categoria.set_categoria(:nombre, :descripcion, 'F'); end;";
+                                    $query_createcat = ociparse($conn, $createcat);
+                                    ocibindbyname($query_createcat, ":nombre", $categoria);
+                                    ocibindbyname($query_createcat, ":descripcion", $descripcion);
+                                    ociexecute($query_createcat);
+                                    $existe_cat = 1;
 
+                                } else {
+                                    $existe_cat = -1;
+                                    echo "<section id='error' style='position:absolute; top:7px; left:90px;'>
+                                    <a style='font-size:20px; color:#F00; font-size:16px;'>**La categoria " . $categoria . " ya se encuentra registrada.</a>
+                                    </section>";
+
+                                }
+                            }
+                            if($categoria != 'otra' and $existe_cat > 0) {
+                                $puede = true;
+                            } elseif($categoria == 'otra' and $existe_cat == 0) {
+                                $puede = true;
                             } else {
-                                $existe_cat = -1;
+                                $puede = false;
+                            }
+
+                            if($puede) {
+
+
+                               //luego de validar todo agrega a la persona a la base de datos
+                                $getnombre = "begin pack_persona.set_persona_fisica(:nombre, :primerApellido, :segundoApellido, :genero,
+                                to_date(:fechaNacimiento, 'yyyy-mm-dd'), :cedula); end;";
+                                $query_getnombre = ociparse($conn, $getnombre);
+                                ocibindbyname($query_getnombre, ":nombre", $nombre);
+                                ocibindbyname($query_getnombre, ":primerApellido", $primerApellido);
+                                ocibindbyname($query_getnombre, ":segundoApellido", $segundoApellido);
+                                ocibindbyname($query_getnombre, ":genero", $genero);
+                                ocibindbyname($query_getnombre, ":fechaNacimiento", $fechaNacimiento);
+                                ocibindbyname($query_getnombre, ":cedula", $cedula);
+                                ociexecute($query_getnombre);
+
+
+                                 //registra la nueva categoria
+                                $setcat = "begin pack_categoria_personaFisica.set_CatPerFis(pack_categoria.get_id(:categoria), :cedula); end;";
+                                $query_setcat = ociparse($conn, $setcat);
+                                ocibindbyname($query_setcat, ":categoria", $categoria);
+                                ocibindbyname($query_setcat, ":cedula", $cedula);
+                                ociexecute($query_setcat);
                                 echo "<section id='error' style='position:absolute; top:7px; left:90px;'>
-                                <a style='font-size:20px; color:#F00; font-size:16px;'>**La categoria " . $categoria . " ya se encuentra registrada.</a>
+                                <a style='font-size:20px; color:#21A33A; font-size:16px;'>**Persona creada exitosamente!</a>
                                 </section>";
 
                             }
-                        }
-                        if($categoria != 'otra' and $existe_cat > 0) {
-                            $puede = true;
-                        } elseif($categoria == 'otra' and $existe_cat == 0) {
-                            $puede = true;
-                        } else {
-                            $puede = false;
-                        }
-
-                        if($puede) {
-
-
-                           //luego de validar todo agrega a la persona a la base de datos
-                            $getnombre = "begin pack_persona.set_persona_fisica(:nombre, :primerApellido, :segundoApellido, :genero,
-                            to_date(:fechaNacimiento, 'yyyy-mm-dd'), :cedula); end;";
-                            $query_getnombre = ociparse($conn, $getnombre);
-                            ocibindbyname($query_getnombre, ":nombre", $nombre);
-                            ocibindbyname($query_getnombre, ":primerApellido", $primerApellido);
-                            ocibindbyname($query_getnombre, ":segundoApellido", $segundoApellido);
-                            ocibindbyname($query_getnombre, ":genero", $genero);
-                            ocibindbyname($query_getnombre, ":fechaNacimiento", $fechaNacimiento);
-                            ocibindbyname($query_getnombre, ":cedula", $cedula);
-                            ociexecute($query_getnombre);
-
-
-                             //registra la nueva categoria
-                            $setcat = "begin pack_categoria_personaFisica.set_CatPerFis(pack_categoria.get_id(:categoria), :cedula); end;";
-                            $query_setcat = ociparse($conn, $setcat);
-                            ocibindbyname($query_setcat, ":categoria", $categoria);
-                            ocibindbyname($query_setcat, ":cedula", $cedula);
-                            ociexecute($query_setcat);
-                            echo "<section id='error' style='position:absolute; top:7px; left:90px;'>
-                            <a style='font-size:20px; color:#21A33A; font-size:16px;'>**Persona creada exitosamente!</a>
-                            </section>";
 
                         }
 
+                    } else {
+                        //mensaje de error
+                        echo "<section id='error' style='position:absolute; top:7px; left:90px;'>
+                        <a style='font-size:20px; color:#F00; font-size:16px;'>**El máximo de caracteres para cédula es de 9 y contraseña es de 15.</a>
+                        </section>";
                     }
-
                 } else {
                     //mensaje de error
                     echo "<section id='error' style='position:absolute; top:7px; left:90px;'>
-                    <a style='font-size:20px; color:#F00; font-size:16px;'>**El máximo de caracteres para cédula es de 9 y contraseña es de 15.</a>
+                    <a style='font-size:20px; color:#F00; font-size:16px;'>**La cédula debe de ser un número.</a>
                     </section>";
                 }
             } else {
                 //mensaje de error
                 echo "<section id='error' style='position:absolute; top:7px; left:90px;'>
-                <a style='font-size:20px; color:#F00; font-size:16px;'>**La cédula debe de ser un número.</a>
+                <a style='font-size:20px; color:#F00; font-size:16px;'>**Año inválido .</a>
                 </section>";
-
-
             }
         } else {
             //mensaje de error
