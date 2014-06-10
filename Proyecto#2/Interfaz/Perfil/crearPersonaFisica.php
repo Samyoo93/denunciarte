@@ -157,8 +157,9 @@
                 echo "<option value='otra'>Otra</option>
                 </select>";
             ?>
+        <button type="submit" onclick="document.getElementById('nuevaCategoria').style.display='block';this.focus(); return false;" style="position:absolute; top:500px; left:440px;">+</button>
         <!-- Nueva categoría-->
-        <section style="position:absolute; top:420px; left:500px; width:400px;">
+        <div id="nuevaCategoria" style="position:absolute; top:420px; left:500px; width:400px;">
         <a style="color:#FF33D7; left:10px;">_____________________________________</a>
         <h2 style="position:absolute; top:10px; left:10px;"> Nueva Categoría</h2>
         <a style="position:absolute; left:10px; top:80px;">Nombre</a>
@@ -166,7 +167,8 @@
         <textarea id='descripcion' style="position:absolute; left:80px; top:135px; height:65px;"></textarea>
         <input type="text" id='categoria2'  style="position:absolute; top:80px; left:80px;" />
         <a style="color:#FF33D7; position:absolute; left:10px; top:200px;">_____________________________________</a>
-        </section>
+         <button type="submit" onclick="document.getElementById('nuevaCategoria').style.display='none';return false;" style="position:absolute; top:15px; left:380px;">X</button>
+        </div>
         <button type="submit" onclick='crear()' style="position:absolute; top:580px; left:60px; width:150px;">Registrar</button>
     </div>
     <div id='crearPerFis'>
