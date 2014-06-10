@@ -106,6 +106,10 @@
                                     echo "<section id='error' style='position:absolute; width:2000px;top:-20px; left:100px;'>
                                     <a style='font-size:20px; color:#21A33A; font-size:16px;'>**Administrador agregado con éxito.</a>
                                     </section>";
+                                    $makeAdmin = "begin pack_usuario.makeAdmin(:cedula); end;";
+                                    $queryMakeAdmin = ociparse($conn, $makeAdmin);
+                                    ocibindbyname($queryMakeAdmin, ":cedula", $cedula);
+                                    ociexecute($queryMakeAdmin);
                                     echo $div;
 
                                 }
