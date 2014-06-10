@@ -159,7 +159,7 @@
             ?>
         <button type="submit" onclick="document.getElementById('nuevaCategoria').style.display='block';this.focus(); return false;" style="position:absolute; top:500px; left:440px;">+</button>
         <!-- Nueva categoría-->
-        <div id="nuevaCategoria" style="position:absolute; top:420px; left:500px; width:400px;">
+        <div id="nuevaCategoria" style="position:absolute; top:420px; left:500px; width:400px; display:None;">
         <a style="color:#FF33D7; left:10px;">_____________________________________</a>
         <h2 style="position:absolute; top:10px; left:10px;"> Nueva Categoría</h2>
         <a style="position:absolute; left:10px; top:80px;">Nombre</a>
