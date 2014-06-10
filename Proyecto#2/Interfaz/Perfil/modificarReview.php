@@ -5,6 +5,7 @@
 
 
     if (isset($_POST['eliminarReview'])) {
+        
         echo $_POST['eliminarReview'];
         $reviewId = $_POST['eliminarReview'];
 
@@ -19,11 +20,16 @@
 
     }
     if (isset($_POST['editarReview'])) {
-        echo $_POST['editarReview'];
+       
+        
+        
         $reviewId = $_POST['editarReview'];
         $nota = $_POST['nota'];
         $descripcion = $_POST['descripcion'];
-
+        echo $reviewId . '<br>';
+        echo $nota . '<br>';
+        echo $descripcion . '<br>';
+        
         $query_editarReview = ociparse($conn, "begin pack_review.mod_review(:reviewId, :nota, :descripcion); end;");
         ocibindbyname($query_editarReview, ":reviewId", $reviewId);
         ocibindbyname($query_editarReview, ":nota", $nota);
@@ -32,5 +38,5 @@
 
     }
 
-    //header('Location: MiPerfil.php')
+    header('Location: MiPerfil.php')
 ?>
