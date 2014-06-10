@@ -97,10 +97,9 @@ function crear(){
 <section id="CuadroGris" style=" top:20px; position:absolute; left:20px; width:960px; height:120px">
 <h1 style="position:absolute; left:30px; top:-20px;"> DenunciARTE </h1>
 <a style="position:absolute; left:510px; top:30px;"> Usuario </a>
-<input type="text" style="position:absolute; top:50px; left:510px;" placeholder="Usuario" id="usuarioLogin" />
+<input type="text" style="position:absolute; top:50px; left:510px;" placeholder="Usuario" id="usuarioLogin" maxlength="25"/>
 <a style="position:absolute; left:690px; top:30px;"> Contraseña </a>
-<a href="" style="position:absolute; left:690px; font-size:12px; top:80px;">¿Olvidaste tu contraseña?</a>
-<input type="text" style="position:absolute; top:50px; left:690px;" placeholder="Contraseña" id="contrasenaLogin" />
+<input type="text" style="position:absolute; top:50px; left:690px;" placeholder="Contraseña" id="contrasenaLogin" maxlength="15"/>
 <button type="submit" onClick='login()' style="position:absolute; top:50px; left:870px;">Entrar</button>
 </section>
 <!-- LOGO -->
@@ -115,9 +114,9 @@ function crear(){
 <h2 style="position:absolute; left:30px;">Registrar entidad</h2>
 <a style="position:absolute; left:30px; top:50px;">________________________________________</a>
 <a style="position:absolute; top:90px; left:60px;">Nombre</a>
-<input type="text" id="nombre" style="position:absolute; top:90px; left:130px; width:300px;" />
+<input type="text" id="nombre" style="position:absolute; top:90px; left:130px; width:300px;" maxlength="25"/>
 <a style="position:absolute; top:130px; left:60px;">Cédula Jurídica</a>
-<input type="text" id="cedJuridica" style="position:absolute; top:150px; left:130px; width:300px;"/>
+<input type="text" id="cedJuridica" style="position:absolute; top:150px; left:130px; width:300px;" maxlength="9"/>
 <div id='direccion'>
 
 <h2 style="position:absolute; top:170px; left:60px;">Dirección</h2>
@@ -170,7 +169,7 @@ left:130px; width:300px;">
 </select>
 </div>
 <a style="position:absolute; top:430px; left:60px;" id='direccionExacta'> Dirección exacta </a>
-<textarea style="position:absolute; top:450px; left:130px; width:290px; height:50px;" ></textarea>
+<textarea style="position:absolute; top:450px; left:130px; width:290px; height:50px;" maxlength="50"></textarea>
 <h2 style="position:absolute; top:490px; left:60px;">Categoría</h2>
 <a style="position:absolute; top:530px; left:60px;">_______________</a>
 <a style="position:absolute; top:560px; left:60px;">Nombre</a>
@@ -205,8 +204,8 @@ left:130px; width:300px;">
 <h2 style="position:absolute; top:10px; left:10px;">Nueva Categoría</h2>
 <a style="position:absolute; left:10px; top:80px;">Nombre</a>
 <a style="position:absolute; left:10px; top:115px;">Descripción</a>
-<textarea style="position:absolute; left:80px; top:135px; height:65px;" id='descripcion'></textarea>
-<input type="text" id="categoria2"  style="position:absolute; top:80px; left:80px;" />
+<textarea style="position:absolute; left:80px; top:135px; height:65px;" id='descripcion' maxlength="50"></textarea>
+<input type="text" id="categoria2"  style="position:absolute; top:80px; left:80px;" maxlength="25"/>
  <button type="submit" onclick="document.getElementById('nuevaCategoria').style.display='none';return false;" style="position:absolute; top:15px; left:380px;">X</button>
 <a style="color:#FF33D7; position:absolute; left:10px; top:200px;">_____________________________________</a>
 </div>
