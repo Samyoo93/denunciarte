@@ -200,6 +200,7 @@
                 <li><a title="Privacidad"> <img src="../Imagenes/candado.png" /></a>
                     <ul>
                         <li style="font-size:16px; width:150px;"><a href="UpdatePerfil.php">Configuración</a></li>
+                        <li style="font-size:16px; width:150px;"><a href="agregarAdmin.php">Administrador</a></li>
                     </ul>
                 </li>
                 <li style="width:60px; height:60px;"><img src="../Imagenes/flechafinal.png" style="position:absolute; top:40px;" />

@@ -2,10 +2,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <?php
+    include("../conection.php");
+    $conn = OCILogon($user, $pass, $db);
     session_start();
     if (!isset($_SESSION['usuario'])) {
         $Message = 'Sesión no iniciada.';
-        header('Location: ../index.php?Message=' . urlencode($Message));    }
+        header('Location: ../index.php?Message=' . urlencode($Message));
+    }
+    $query_procedimiento = ociparse($conn, "BEGIN :cursor := busquedas.usuarioPorCedula(:cedula); END;");
+    //Genera el cursor donde la informacion sera guardada
+	$cursor = oci_new_cursor($conn);
+
+	//Se le pasa el parametro de busqueda
+	oci_bind_by_name($query_procedimiento, ':cedula', $_SESSION['cedula']);
+	oci_bind_by_name($query_procedimiento, ':cursor', $cursor , -1, OCI_B_CURSOR);
+
+	ociexecute($query_procedimiento);
+	oci_execute($cursor, OCI_DEFAULT);
+	oci_fetch_all($cursor, $array, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
+    foreach($array as $fila){
+        $estado = $fila['ESTADO'];
+    }
+    if($estado != 2) {
+        $message = "Debe ser administrador para ingresar a esta página.";
+        header('Location: busquedaAvanzada.php?Message='. $message);
+    }
     ?>
 <script>
 
@@ -138,7 +159,7 @@
  	<li><a title="Privacidad"> <img src="../Imagenes/candado.png" /></a>
  	<ul>
      <li style="font-size:16px; width:150px;"><a href="UpdatePerfil.php">Configuración</a></li>
-    <li style="font-size:16px; width:150px;"><a href="privacidad.php">Privacidad</a></li>
+    <li style="font-size:16px; width:150px;"><a href="agregarAdmin.php">Administrador</a></li>
   </ul>
  </li>
     <li style="width:60px; height:60px;"><img src="../Imagenes/flechafinal.png" style="position:absolute; top:40px;" />

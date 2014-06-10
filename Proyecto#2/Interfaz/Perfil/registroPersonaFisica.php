@@ -1,4 +1,4 @@
-<?php
+    <?php
 	include("../conection.php");
 	$conn = OCILogon($user, $pass, $db);
 	if (!$conn) {
