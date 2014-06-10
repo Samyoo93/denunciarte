@@ -105,29 +105,31 @@
             $genero = 'Masculino';
         }
         //Calcula la edad de nacimiento
-
+        /*
 	    $fechaNacimiento = new DateTime($fila['FECHANACIMIENTO']);
         $fechaActual = new DateTime('today');
         $edad = $fechaNacimiento->diff($fechaActual)->y;
-
+*/
         //Variable guardada para mostrarla en la ventana de reportar
         $_SESSION['cedulaReportado'] = $fila['CEDULAUSUARIO_ID'];
         $nombre = $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'];
-        
+        $usuario = $fila['USUARIO'];
         //Los datos se separan porque dependiendo de la privacidad mostrará algunos y otros no
-        $datos =  "<section id='mostrar' style='position:absolute; left:200px; top:100px; width:630px; height:400px;'>
+        $datosPrivados =  "<section id='mostrar' style='position:absolute; left:200px; top:100px; width:630px; height:400px;'>
 					<div style='width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;'>
             <h1 style='position:absolute; top:50px; left:200px;'> Nombre: ". $fila['NOMBRE'] ."  </h1>
-            <a style='position:absolute; top:200px; left:200px;'>Apellidos: ". $fila['PRIMERAPELLIDO'] . " ". $fila['SEGUNDOAPELLIDO'] ."</a>";
-        
-        $datosPrivados = "<a style='position:absolute; top:250px; left:200px;'>Cédula: ". $fila['CEDULAUSUARIO_ID'] ."</a>
+            <a style='position:absolute; top:200px; left:200px;'>Apellidos: ". $fila['PRIMERAPELLIDO'] . " ". $fila['SEGUNDOAPELLIDO'] ."</a>
+            <a style='position:absolute; top:250px; left:200px;'>Cédula: ". $fila['CEDULAUSUARIO_ID'] ."</a>
             <a style='position:absolute; top:300px; left:200px;'>Género: " . $genero ."</a>
-            <a style='position:absolute; top:350px; left:200px;'>Edad: ". $edad ."</a>
+            <a style='position:absolute; top:350px; left:200px;'>Edad: "./* $edad .*/"</a>
             <a style='position:absolute; top:400px; left:200px;'>Usuario: " . $fila['USUARIO'] . "</a>
-            <a style='position:absolute; top:450px; left:200px;'></a>";
-        
-        $division = "</div>";
+            <a style='position:absolute; top:450px; left:200px;'></a>
+        </div>";
 
+    }
+    //Dependiendo de la privacidad cambiará el nombre para que en el menu vertical no salga el nombre
+    if($estado != 2 and $privacidad != 1){
+        $nombre = $usuario;
     }
     //Se encarga de reportar
      $menuVertical =
@@ -142,8 +144,8 @@
 		<div id="openReport" class="modalDialog">
 
             <div style="width:650px; height:400px;line-height:3em; overflow:auto; padding:5px;">
+                <a style="left:634px; top:1px;" href="#close" title="Close" class="close">X</a>
                 <form action="reportarUsuario.php" method="post" enctype="multipart/form-data">
-                    <a href="#close" title="Close" class="close">X</a>
                     <h2>Reportar a esta persona</h2>
                     <a style="position:absolute; width:600px; top:70px; ">Si desea reportar a '. $nombre .', rellene el siguiente campo:</a>
                     <a style="position:absolute; top:160px; left:70px;">Razón</a>
@@ -159,19 +161,19 @@
 	</section>
     </section>';
 
-    //El primer if es si el usuario es publico
+    //El primer if es si el usuario es publico y si el que lo quiere ver es administrador que pueda ver los datos
     if($estado == 2 or $privacidad == 1){
-        echo $datos;
         echo $datosPrivados;
-        echo $division;
         
         echo $menuVertical;
     //El else ocurre si el perfil es privado y el que lo quiere ver no es administrador
     } else {
-        echo $datos;
-        //Los datos privados son remplazados por un mensaje
-        echo "<a style='position:absolute; top:250px; left:200px;'> El resto de los datos son privados. </a>";       
-        echo $division;
+        $datosPrivados =  "<section id='mostrar' style='position:absolute; left:200px; top:100px; width:630px; height:400px;'>
+					<div style='width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;'>
+            <h1 style='position:absolute; top:50px; left:200px;'>Nombre: ". $usuario ."  </h1>
+            <a style='position:absolute; top:200px; left:200px;'>El resto de los datos son privados.</a>
+        </div>";
+        echo $datosPrivados;
         echo $menuVertical;
     }
 ?>
