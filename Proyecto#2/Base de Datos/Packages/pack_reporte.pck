@@ -1,13 +1,13 @@
-CREATE OR REPLACE PACKAGE pack_reporte IS
+ CREATE OR REPLACE PACKAGE pack_reporte IS
 
      FUNCTION get_id(descripcion VARCHAR2) RETURN NUMBER;
      --Procedimiento para llenar la tabla de preview
-     PROCEDURE set_reporte(descripcion_in VARCHAR2, cedulaUsuario NUMBER);
-     
-     PROCEDURE Banear (pcedulausuario_id NUMBER);
-     
+     PROCEDURE set_reporte(descripcion_in VARCHAR2, cedulaUsuario NUMBER, cedulaReportado NUMBER);
+
      FUNCTION has_reported(cedulaReportado NUMBER, cedulaReportando NUMBER) RETURN NUMBER;
      
+     PROCEDURE Banear (pcedulausuario_id NUMBER);
+
 END pack_reporte;
 /
 CREATE OR REPLACE PACKAGE BODY pack_reporte AS
@@ -25,27 +25,42 @@ CREATE OR REPLACE PACKAGE BODY pack_reporte AS
 
                EXCEPTION
                     WHEN NO_DATA_FOUND THEN
-                         DBMS_OUTPUT.put_line('El nombre es inv·lido');
+                         DBMS_OUTPUT.put_line('El nombre es inv√°lido');
 
                RETURN(reporteId);
 
      END;
 
      --Procedimiento para insertar categorias
-     PROCEDURE set_reporte(descripcion_in VARCHAR2, cedulaUsuario NUMBER)
+     PROCEDURE set_reporte(descripcion_in VARCHAR2, cedulaUsuario NUMBER, cedulaReportado NUMBER)
           IS
-          
+
           BEGIN
                INSERT INTO reporte
                     (reporte_id, descripcion, cedulaUsuario_id)
                VALUES
                     (s_reporte.nextval, descripcion_in, cedulaUsuario);
-               
+               INSERT INTO reporte_usuario
+                    (reporte_usuario_id, cedulaUsuario_id, reporte_id)
+               VALUES
+                    (s_reporte_usuario.nextval, cedulaReportado, s_reporte.currval);
+
                COMMIT;
-       
+
      END;
-     
-     PROCEDURE Banear (pcedulausuario_id NUMBER) 
+
+     FUNCTION has_reported(cedulaReportado NUMBER, cedulaReportando NUMBER)
+
+        return NUMBER
+        is countCed NUMBER;
+        BEGIN
+            SELECT count(1) into countCed
+            from reporte r, reporte_usuario ru
+            where ru.cedulausuario_id = cedulaReportado and r.cedulausuario_id = cedulaReportando;
+            return countCed;
+    END;
+    
+    PROCEDURE Banear (pcedulausuario_id NUMBER) 
             IS 
                numeroReportes number; numeroBans number;
             BEGIN
@@ -78,18 +93,6 @@ CREATE OR REPLACE PACKAGE BODY pack_reporte AS
                   where pcedulausuario_id = cedulaUsuario_id;
                 end if;
      END;
-
-     
-     FUNCTION has_reported(cedulaReportado NUMBER, cedulaReportando NUMBER) 
-         
-        return NUMBER
-        is countCed NUMBER;
-        BEGIN
-            SELECT count(1) into countCed
-            from reporte r, reporte_usuario ru
-            where ru.cedulausuario_id = cedulaReportado and r.cedulausuario_id = cedulaReportando;
-            return countCed;
-    END;
 
 
 END pack_reporte;
