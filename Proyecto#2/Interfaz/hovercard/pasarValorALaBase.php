@@ -1,5 +1,3 @@
-
-
 <?php
     include ("../conection.php");
     $conn =  OCILogon ($user,$pass,$db);
@@ -135,7 +133,7 @@
     oci_close($conn);
 
     //El id es usado para que cuandose recargue mostrarDato pueda volver a cargar los datos actualizados
-    //header($linkRetorno);
+    header($linkRetorno);
 
 
 ?>
