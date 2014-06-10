@@ -193,7 +193,7 @@
 </div>
 
 <!-- Nueva categoría-->
-<div id="nuevaCategoria"style="position:absolute; top:580px; left:560px; width:400px; display:None;">
+<div id="nuevaCategoria"style="position:absolute; top:580px; left:580px; width:400px; display:None;">
     <a style="color:#FF33D7; left:10px;">_____________________________________</a>
     <h2 style="position:absolute; top:10px; left:10px;"> Nueva Categoría</h2>
     <a style="position:absolute; left:10px; top:80px;">Nombre</a>
