@@ -61,7 +61,7 @@ CREATE OR REPLACE PACKAGE BODY busquedas IS
             from persona p, personafisica pf
             where p.segundoapellido LIKE '%' || psegundoApellido || '%' and p.persona_id = pf.persona_id;
             return l_cursor;
-    END;
+    END ;
     
     
     FUNCTION personaPorCedula(pcedula IN NUMBER)
