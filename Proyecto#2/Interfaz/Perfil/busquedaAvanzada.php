@@ -114,7 +114,7 @@
 	<!--Menu busqueda avanzada-->
 
 	<section>
-		<h1 style="position:absolute; left:240px; top:100px;"> Búsqueda avanzada </h1>
+		<h1 style="position:absolute; left:240px; top:70px;"> Búsqueda avanzada </h1>
 		<a style="position:absolute; top:220px; left:230px;">Buscar</a>
 		<select onchange='refresh()' id='persona' onChange='' style="position:absolute; top:220px;left:180px;">
             <option value='null'>Seleccione una</option>

@@ -25,11 +25,15 @@
         ocibindbyname($query_addBan, ":cedula", $_SESSION['cedulaReportado']);
         ociexecute($query_addBan);
 
-        header('Location: mostrarUsuarios.php?cedula='. $_SESSION['cedulaReportado'] .'&privacidad='.$_SESSION['privacidad']);
+        $message = 'Reporte hecho con exito.';
+
     } else {
         $message = 'Ya ha reportado anteriormente a este usuario';
-        header('Location: mostrarUsuarios.php?cedula='. $_SESSION['cedulaReportado'] .'&privacidad='.$_SESSION['privacidad'] .'&Message='. $message);
 
     }
+
+
+
+    header('Location: mostrarUsuarios.php?cedula='. $_SESSION['cedulaReportado'] .'&privacidad='.$_SESSION['privacidad'] .'&Message='. $message);
     ociLogOff($conn);
 ?>

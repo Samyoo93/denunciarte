@@ -111,15 +111,15 @@
         <h2 style="position:absolute; left:30px;">Registrar persona física</h2>
         <a style="position:absolute; left:30px; top:50px;">________________________________________</a>
         <a style="position:absolute; top:90px; left:60px;">Nombre</a>
-        <input type="text" id="nombre" placeholder="Nombre" style="position:absolute; top: 90px; left:130px; width:80px;" />
-        <input type="text" id="primerApellido" placeholder="PrimerApellido" style="position:absolute; top: 90px; left:220px; width:150px;" />
-        <input type="text" id="segundoApellido" placeholder="SegundoApellido" style="position:absolute; top: 90px; left:380px; width:150px;" />
+        <input type="text" id="nombre" placeholder="Nombre" style="position:absolute; top: 90px; left:130px; width:80px;" maxlength="25"/>
+        <input type="text" id="primerApellido" placeholder="PrimerApellido" style="position:absolute; top: 90px; left:220px; width:150px;" maxlength="25"/>
+        <input type="text" id="segundoApellido" placeholder="SegundoApellido" style="position:absolute; top: 90px; left:380px; width:150px;" maxlength="25"/>
         <a style="position:absolute; top:130px; left:60px;">Cédula</a>
-        <input type="text" id="cedula1" align="center" placeholder="1" style="position:absolute; top: 150px; left:130px; width:20px;" />
+        <input type="text" id="cedula1" align="center" placeholder="1" style="position:absolute; top: 150px; left:130px; width:20px;" maxlength="1"/>
         <label style="position:absolute; top:155px; left:165px;">-</label>
-        <input type="text" id="cedula2" align='center' placeholder="1111" style="position:absolute; top: 150px; left:190px; width:100px;" />
+        <input type="text" id="cedula2" align='center' placeholder="1111" style="position:absolute; top: 150px; left:190px; width:100px;" maxlength="4"/>
         <label style="position:absolute; top:155px; left:310px;">-</label>
-        <input type="text" id="cedula3" align="center" placeholder="1111" style="position:absolute; top: 150px; left:330px; width:100px;" />
+        <input type="text" id="cedula3" align="center" placeholder="1111" style="position:absolute; top: 150px; left:330px; width:100px;" maxlength="4"/>
         <a style="position:absolute; top:190px; left:60px;">Género</a>
             <input type = "radio" name = "genero" id = "genero" value = "F" checked = "checked" style="		     position:absolute; top:210px; left:140px;"/>
             <a for = "Femenino" style="position:absolute; top:210px; left:160px;">Femenino</a>
@@ -131,9 +131,9 @@
         <input type="date" id="fecNac"style="position:absolute; top: 270px; left:130px; width:300px;" />
 
         <a style="position:absolute; top:310px; left:60px;">Lugar de trabajo</a>
-        <input type="text" id="lugartrabajo"  placeholder="Lugar de trabajo."style="position:absolute; top: 330px; left:130px; width:300px;" />
+        <input type="text" id="lugartrabajo"  placeholder="Lugar de trabajo."style="position:absolute; top: 330px; left:130px; width:300px;" maxlength="25"/>
         <a style="position:absolute; top:370px; left:60px;">Cargo</a>
-        <input type="text" id="cargo" placeholder="Cargo que desempeña" style="position:absolute; top: 390px; left:130px; width:300px;" />
+        <input type="text" id="cargo" placeholder="Cargo que desempeña" style="position:absolute; top: 390px; left:130px; width:300px;" maxlength="25"/>
 
         <h2 style="position:absolute; top:430px; left:60px;">Categoría</h2>
         <a style="position:absolute; top:470px; left:60px;">_______________</a>
@@ -157,16 +157,18 @@
                 echo "<option value='otra'>Otra</option>
                 </select>";
             ?>
+        <button type="submit" onclick="document.getElementById('nuevaCategoria').style.display='block';this.focus(); return false;" style="position:absolute; top:500px; left:440px;">+</button>
         <!-- Nueva categoría-->
-        <section style="position:absolute; top:420px; left:500px; width:400px;">
+        <div id="nuevaCategoria" style="position:absolute; top:420px; left:500px; width:400px; display:None;">
         <a style="color:#FF33D7; left:10px;">_____________________________________</a>
         <h2 style="position:absolute; top:10px; left:10px;"> Nueva Categoría</h2>
         <a style="position:absolute; left:10px; top:80px;">Nombre</a>
         <a style="position:absolute; left:10px; top:115px;">Descripción</a>
-        <textarea id='descripcion' style="position:absolute; left:80px; top:135px; height:65px;"></textarea>
-        <input type="text" id='categoria2'  style="position:absolute; top:80px; left:80px;" />
+        <textarea id='descripcion' style="position:absolute; left:80px; top:135px; height:65px;" maxlength="25"></textarea>
+        <input type="text" id='categoria2'  style="position:absolute; top:80px; left:80px;" maxlength="25"  />
         <a style="color:#FF33D7; position:absolute; left:10px; top:200px;">_____________________________________</a>
-        </section>
+         <button type="submit" onclick="document.getElementById('nuevaCategoria').style.display='none';return false;" style="position:absolute; top:15px; left:480px;">X</button>
+        </div>
         <button type="submit" onclick='crear()' style="position:absolute; top:580px; left:60px; width:150px;">Registrar</button>
     </div>
     <div id='crearPerFis'>

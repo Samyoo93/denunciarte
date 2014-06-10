@@ -71,10 +71,9 @@ function registrar(){
 <section id="CuadroGris" style=" top:20px; position:absolute; left:20px; width:960px; height:120px">
 <h1 style="position:absolute; left:30px; top:-20px;"> DenunciARTE </h1>
 <a style="position:absolute; left:510px; top:30px;"> Usuario </a>
-<input type="text" style="position:absolute; top:50px; left:510px;" placeholder="Usuario" id="usuarioLogin" />
+<input type="text" style="position:absolute; top:50px; left:510px;" placeholder="Usuario" id="usuarioLogin" maxlength="25" />
 <a style="position:absolute; left:690px; top:30px;"> Contraseña </a>
-<a href="" style="position:absolute; left:690px; font-size:12px; top:80px;">¿Olvidaste tu contraseña?</a>
-<input type="password" style="position:absolute; top:50px; left:690px;" placeholder="Contraseña" id="contrasenaLogin" />
+<input type="password" style="position:absolute; top:50px; left:690px;" placeholder="Contraseña" id="contrasenaLogin" maxlength="15"/>
 <button type="submit" onClick='login()' style="position:absolute; top:50px; left:870px;">Entrar</button>
 </section>
 <!-- LOGO -->
@@ -89,15 +88,15 @@ function registrar(){
 <h2 style="position:absolute; left:30px;">Registrar persona física</h2>
 <a style="position:absolute; left:30px; top:50px;">________________________________________</a>
 <a style="position:absolute; top:90px; left:60px;">Nombre</a>
-<input type="text" id="nombre" placeholder="Nombre" style="position:absolute; top: 90px; left:130px; width:80px;" />
-<input type="text" id="primerApellido" placeholder="PrimerApellido" style="position:absolute; top: 90px; left:220px; width:150px;" />
-<input type="text" id="segundoApellido" placeholder="SegundoApellido" style="position:absolute; top: 90px; left:380px; width:150px;" />
+<input type="text" id="nombre" placeholder="Nombre" style="position:absolute; top: 90px; left:130px; width:80px;" maxlength="25"/>
+<input type="text" id="primerApellido" placeholder="PrimerApellido" style="position:absolute; top: 90px; left:220px; width:150px;" maxlength="25"/>
+<input type="text" id="segundoApellido" placeholder="SegundoApellido" style="position:absolute; top: 90px; left:380px; width:150px;" maxlength="25" />
 <a style="position:absolute; top:130px; left:60px;">Cédula</a>
-<input type="text" id="cedula1" align="center" placeholder="1" style="position:absolute; top: 150px; left:130px; width:20px;" />
+<input type="text" id="cedula1" align="center" placeholder="1" style="position:absolute; top: 150px; left:130px; width:20px;" maxlength="1" />
 <label style="position:absolute; top:155px; left:165px;">-</label>
-<input type="text" id="cedula2" align='center' placeholder="1111" style="position:absolute; top: 150px; left:190px; width:100px;" />
+<input type="text" id="cedula2" align='center' placeholder="1111" style="position:absolute; top: 150px; left:190px; width:100px;" maxlength="4"/>
 <label style="position:absolute; top:155px; left:310px;">-</label>
-<input type="text" id="cedula3" align="center" placeholder="1111" style="position:absolute; top: 150px; left:330px; width:100px;" />
+<input type="text" id="cedula3" align="center" placeholder="1111" style="position:absolute; top: 150px; left:330px; width:100px;" maxlength="4"/>
 <a style="position:absolute; top:190px; left:60px;">Género</a>
     <input type = "radio" name = "genero" id = "genero" value = "F" checked = "checked" style="		     position:absolute; top:210px; left:140px;"/>
     <a for = "Femenino" style="position:absolute; top:210px; left:160px;">Femenino</a>
@@ -109,9 +108,9 @@ function registrar(){
 <input type="date" id="fecNac"style="position:absolute; top: 270px; left:130px; width:300px;" />
 
 <a style="position:absolute; top:310px; left:60px;">Lugar de trabajo</a>
-<input type="text" id="lugartrabajo"  placeholder="Lugar de trabajo."style="position:absolute; top: 330px; left:130px; width:300px;" />
+<input type="text" id="lugartrabajo"  placeholder="Lugar de trabajo."style="position:absolute; top: 330px; left:130px; width:300px;" maxlength="25"/>
 <a style="position:absolute; top:370px; left:60px;">Cargo</a>
-<input type="text" id="cargo" placeholder="Cargo que desempeña" style="position:absolute; top: 390px; left:130px; width:300px;" />
+<input type="text" id="cargo" placeholder="Cargo que desempeña" style="position:absolute; top: 390px; left:130px; width:300px;" maxlength="25"/>
 <h2 style="position:absolute; top:400px; left:60px;">Categoría</h2>
 <a style="position:absolute; top:440px; left:60px;">_______________</a>
 <a style="position:absolute; top:470px; left:60px;">Nombre</a>
@@ -143,8 +142,8 @@ function registrar(){
 <h2 style="position:absolute; top:10px; left:10px;">Nueva Categoría</h2>
 <a style="position:absolute; left:10px; top:80px;">Nombre</a>
 <a style="position:absolute; left:10px; top:115px;">Descripción</a>
-<textarea style="position:absolute; left:80px; top:135px; height:65px;" id='descripcion'></textarea>
-<input type="text" id="categoria2"  style="position:absolute; top:80px; left:80px;" />
+<textarea style="position:absolute; left:80px; top:135px; height:65px;" id='descripcion' maxlength="50"></textarea>
+<input type="text" id="categoria2" maxlength="25" style="position:absolute; top:80px; left:80px;" />
 <a style="color:#FF33D7; position:absolute; left:10px; top:200px;">_____________________________________</a>
 </div>
 

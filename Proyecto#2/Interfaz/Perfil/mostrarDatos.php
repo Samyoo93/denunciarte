@@ -152,13 +152,19 @@
             <form target="_blank" action="../UploadedImgs/showImg.php" method="post" enctype="multipart/form-data">';
             foreach($array as $fila){
                 $url = substr($fila['URL_FILE'], 56);
+                if ($fila['PRIVACIDAD'] == 1){
+                    $nombreReviews = $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'];
+                }else {
+                    $nombreReviews = $fila['USUARIO'];
+                }
+
                 $reviews = $reviews . '
 				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a><br>
 
                 <a style="position:absolute; font-size:20px;">Descripción:</a><br>
                 <p1 rows="100" cols="0">"'. $fila['DESCRIPCION'] .'"</p1><br>
 
-                <a href="mostrarUsuarios.php?cedula='.$fila['CEDULAUSUARIO_ID'].'&privacidad='. $fila['PRIVACIDAD'] .'" style="position:absolute;">-'. $fila['NOMBRE'] . ' ' . $fila['PRIMERAPELLIDO'] . ' ' . $fila['SEGUNDOAPELLIDO'] .'</a><br>
+                <a href="mostrarUsuarios.php?cedula='.$fila['CEDULAUSUARIO_ID'].'&privacidad='. $fila['PRIVACIDAD'] .'" style="position:absolute;">-'. $nombreReviews .'</a><br>
                 
                 <button type="submit" name="evidencia"  value="'.$url.'" style="position:absolute; left:500px; margin-top:-50px;">Evidencia
                 </button>
@@ -222,13 +228,18 @@
             $reviews = '<div style="margin-top:0px;">
             <form target="_blank" action="../UploadedImgs/showImg.php" method="post" enctype="multipart/form-data">';
             foreach($array as $fila){
+                if ($fila['PRIVACIDAD'] == 1){
+                    $nombreReviews = $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'];
+                }else {
+                    $nombreReviews = $fila['USUARIO'];
+                }
                 $url = substr($fila['URL_FILE'], 56);
                 $_SESSION['url'] = $url;
                 $reviews = $reviews . '
 				<a style="position:absolute;">Nota: '. $fila['NOTA'] .'</a><br>
                 <a style="position:absolute; font-size:20px;">Descripción:</a><br>
                 <p1 rows="4" cols="50" disabled>"'. $fila['DESCRIPCION'] .'"</p1><br>
-                <a href="mostrarUsuarios.php?cedula='.$fila['CEDULAUSUARIO_ID'].'&privacidad='. $fila['PRIVACIDAD'] . '" style="position:absolute;">-'. $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'] .'</a><br>
+                <a href="mostrarUsuarios.php?cedula='.$fila['CEDULAUSUARIO_ID'].'&privacidad='. $fila['PRIVACIDAD'] . '" style="position:absolute;">-'. $nombreReviews .'</a><br>
                 <button type="submit" name="evidencia" id="evidencia" value="'.$url.'" style="position:absolute; left:500px; margin-top:-50px;">Evidencia
                 </button>
                 <hr size=5>';

@@ -19,6 +19,7 @@
 	$genero = $_POST['genero'];
 	$fechaNacimiento = $_POST['fecNac'];
 	$privacidad = 1;
+    $estado = 1;
     $year = preg_replace("/[^0-9]/","-", $fechaNacimiento);
 	$year = (string)$year;
 	$year = substr($year, 0);
@@ -27,7 +28,6 @@
 	$cedula2 = $_POST["cedula2"];
 	$cedula3 = $_POST["cedula3"];
     $cedula = $cedula1 . $cedula2 . $cedula3;
-    $cedula = intval($cedula);
     $checka = $_POST['checka'];
     $button = "<button type='submit' onClick='location.href=\"perfil/busquedaAvanzada.php\"'
                style='position:absolute; top:730px; left:770px;
@@ -41,123 +41,118 @@
         if($usuario != null and $password != null and $nombre != null and $primerApellido != null and $segundoApellido != null
           and $fechaNacimiento != null and $privacidad != null and $cedula != null) {
             //verifica que se llenen todos los campos
-            if(strlen($nombre) < 26 and strlen($primerApellido) < 26 and strlen($segundoApellido) < 26 and strlen($usuario) < 26) {
-                //verifica que los campos tengan un largo permitido
-                if(strlen($cedula) < 10 and strlen($password) < 16) {
-                    //largo permitido
-                    if($password == $password2) {
-                        //passwords coincidan
-                        if(1899 < $year && $year < 2014) {
-                            //Revisa si el usuario existe ********************************************************
-                            $check_user =  "SELECT COUNT(1) AS NUM_ROWS FROM usuario WHERE usuario=:usuario";
-                            $query_check_user = ociparse($conn, $check_user);
-                            oci_bind_by_name($query_check_user, ":usuario", $usuario);
+
+            if(is_numeric($cedula)) {
+                $cedula = intval($cedula);
+                //largo permitido
+                if($password == $password2) {
+                    //passwords coincidan
+                    if(1899 < $year && $year < 2014) {
+                        //Revisa si el usuario existe ********************************************************
+                        $check_user =  "SELECT COUNT(1) AS NUM_ROWS FROM usuario WHERE usuario=:usuario";
+                        $query_check_user = ociparse($conn, $check_user);
+                        oci_bind_by_name($query_check_user, ":usuario", $usuario);
+                        $rows = 0;
+                        oci_define_by_name($query_check_user, "NUM_ROWS", $rows);
+                        ociexecute($query_check_user);
+                        ocifetch($query_check_user);
+
+                        //**********************************************************************************
+                        if ($rows > 0) {
+                            echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
+                            <a style='font-size:20px; color:#F00; font-size:16px;'>**El usuario ".$usuario." ya se encuentra registrado.</a>
+                            </section>";
+
+                        } else {
+                            //Revisa si la cedula existe*********************************************************************
+                            $check_ced =  "SELECT COUNT(1) AS NUM_ROWS FROM usuario WHERE cedulausuario_id=:ced";
+                            $query_check_ced = ociparse($conn, $check_ced);
+                            oci_bind_by_name($query_check_ced, ":ced", $cedula);
                             $rows = 0;
-                            oci_define_by_name($query_check_user, "NUM_ROWS", $rows);
-                            ociexecute($query_check_user);
-                            ocifetch($query_check_user);
+                            oci_define_by_name($query_check_ced, "NUM_ROWS", $rows);
+                            ociexecute($query_check_ced);
+                            ocifetch($query_check_ced);
 
                             //**********************************************************************************
                             if ($rows > 0) {
                                 echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
-                                <a style='font-size:20px; color:#F00; font-size:16px;'>**El usuario ".$usuario." ya se encuentra registrado.</a>
+                                <a style='font-size:20px; color:#F00; font-size:16px;'>**La cedula ".$cedula." ya se encuentra registrada.</a>
                                 </section>";
 
                             } else {
-                                //Revisa si la cedula existe*********************************************************************
-                                $check_ced =  "SELECT COUNT(1) AS NUM_ROWS FROM usuario WHERE cedulausuario_id=:ced";
-                                $query_check_ced = ociparse($conn, $check_ced);
-                                oci_bind_by_name($query_check_ced, ":ced", $cedula);
-                                $rows = 0;
-                                oci_define_by_name($query_check_ced, "NUM_ROWS", $rows);
-                                ociexecute($query_check_ced);
-                                ocifetch($query_check_ced);
+                                $check_PF =  "SELECT COUNT(1) AS NUM_ROWS FROM personafisica WHERE cedulafisica_id = :cedula";
+                                $query_check_PF = ociparse($conn, $check_PF);
+                                oci_bind_by_name($query_check_PF, ":cedula", $cedula);
 
-                                //**********************************************************************************
-                                if ($rows > 0) {
-                                    echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
-                                    <a style='font-size:20px; color:#F00; font-size:16px;'>**La cedula ".$cedula." ya se encuentra registrada.</a>
-                                    </section>";
+                                oci_define_by_name($query_check_PF, "NUM_ROWS", $rows);
+                                ociexecute($query_check_PF);
+                                ocifetch($query_check_PF);
 
+                                if($rows == 0) {
+                                    //print 'window.location.href="RegistroUsuarios.php";</script>';
+                                    //location.reload();
+                                    //luego de validar todo agrega a la persona a la base de datos
+                                    $setpersona = "begin pack_persona.set_persona_usuario(:nombre, :primerApellido, :segundoApellido, :genero,
+                                    to_date(:fechaNacimiento, 'yyyy-mm-dd'),
+                                    :usuario, :password, :cedula, :estado); end;";
+                                    $query_setpersona = ociparse($conn, $setpersona);
+                                    oci_bind_by_name($query_setpersona, ":nombre", $nombre);
+                                    oci_bind_by_name($query_setpersona, ":primerApellido", $primerApellido);
+                                    oci_bind_by_name($query_setpersona, ":segundoApellido", $segundoApellido);
+                                    oci_bind_by_name($query_setpersona, ":genero", $genero);
+                                    oci_bind_by_name($query_setpersona, ":fechaNacimiento", $fechaNacimiento);
+                                    oci_bind_by_name($query_setpersona, ":usuario", $usuario);
+                                    oci_bind_by_name($query_setpersona, ":password", $password);
+                                    oci_bind_by_name($query_setpersona, ":cedula", $cedula);
+                                    oci_bind_by_name($query_setpersona, ":estado", $estado);
+                                    ociexecute($query_setpersona);
+                                    session_start(); //inicia la sesion
+                                    $_SESSION['usuario']= $usuario;
+                                    $_SESSION['password']= $password;
+                                    $getid = "begin :ced := pack_usuario.get_cedula(:usuario); end;";
+                                    $query_getid = ociparse($conn, $getid);
+                                    oci_bind_by_name($query_getid, ":usuario", $usuario);
+                                    oci_bind_by_name($query_getid, ":ced", $ced, 100);
+                                    ociexecute($query_getid);
+
+                                    $_SESSION['cedula'] = $ced;
+                                    echo $button;
+                                    echo $msgIng;
+                                    OCICommit($conn);
                                 } else {
-                                    $check_PF =  "SELECT COUNT(1) AS NUM_ROWS FROM personafisica WHERE cedulafisica_id = :cedula";
-                                    $query_check_PF = ociparse($conn, $check_PF);
-                                    oci_bind_by_name($query_check_PF, ":cedula", $cedula);
+                                    $insertarByPF = " begin pack_usuario.set_usuario_by_personafisica(:cedula, :usuario, :password, :privacidad); end;";
+                                    $query_insertarByPF = ociparse($conn, $insertarByPF);
+                                    oci_bind_by_name($query_insertarByPF, ":cedula", $cedula);
+                                    oci_bind_by_name($query_insertarByPF, ":usuario", $usuario);
+                                    oci_bind_by_name($query_insertarByPF, ":password", $password);
+                                    oci_bind_by_name($query_insertarByPF, ":privacidad", $privacidad);
+                                    ociexecute($query_insertarByPF);
 
-                                    oci_define_by_name($query_check_PF, "NUM_ROWS", $rows);
-                                    ociexecute($query_check_PF);
-                                    ocifetch($query_check_PF);
-
-                                    if($rows == 0) {
-                                        //print 'window.location.href="RegistroUsuarios.php";</script>';
-                                        //location.reload();
-                                        //luego de validar todo agrega a la persona a la base de datos
-                                        $getnombre = "begin pack_persona.set_persona_usuario(:nombre, :primerApellido, :segundoApellido, :genero,
-                                        to_date(:fechaNacimiento, 'yyyy-mm-dd'),
-                                        :usuario, :password, :cedula, :privacidad); end;";
-                                        $query_getnombre = ociparse($conn, $getnombre);
-                                        oci_bind_by_name($query_getnombre, ":nombre", $nombre);
-                                        oci_bind_by_name($query_getnombre, ":primerApellido", $primerApellido);
-                                        oci_bind_by_name($query_getnombre, ":segundoApellido", $segundoApellido);
-                                        oci_bind_by_name($query_getnombre, ":genero", $genero);
-                                        oci_bind_by_name($query_getnombre, ":fechaNacimiento", $fechaNacimiento);
-                                        oci_bind_by_name($query_getnombre, ":usuario", $usuario);
-                                        oci_bind_by_name($query_getnombre, ":password", $password);
-                                        oci_bind_by_name($query_getnombre, ":cedula", $cedula);
-                                        oci_bind_by_name($query_getnombre, ":privacidad", $privacidad);
-                                        ociexecute($query_getnombre);
-                                        session_start(); //inicia la sesion
-                                        $_SESSION['usuario']= $usuario;
-                                        $_SESSION['password']= $password;
-                                        $getid = "begin :ced := pack_usuario.get_cedula(:usuario); end;";
-                                        $query_getid = ociparse($conn, $getid);
-                                        oci_bind_by_name($query_getid, ":usuario", $usuario);
-                                        oci_bind_by_name($query_getid, ":ced", $ced, 100);
-                                        ociexecute($query_getid);
-
-                                        $_SESSION['cedula'] = $ced;
-                                        echo $button;
-                                        echo $msgIng;
-                                        OCICommit($conn);
-                                    } else {
-                                        $insertarByPF = " begin pack_usuario.set_usuario_by_personafisica(:cedula, :usuario, :password, :privacidad); end;";
-                                        $query_insertarByPF = ociparse($conn, $insertarByPF);
-                                        oci_bind_by_name($query_insertarByPF, ":cedula", $cedula);
-                                        oci_bind_by_name($query_insertarByPF, ":usuario", $usuario);
-                                        oci_bind_by_name($query_insertarByPF, ":password", $password);
-                                        oci_bind_by_name($query_insertarByPF, ":privacidad", $privacidad);
-                                        ociexecute($query_insertarByPF);
-
-                                    }
                                 }
                             }
-                        } else {
-
-                            echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
-                                <a style='font-size:20px; color:#F00; font-size:16px;'>**Año inválido .</a>
-                                </section>";
-
                         }
                     } else {
-                        //mensaje de error
 
                         echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
-                                <a style='font-size:20px; color:#F00; font-size:16px;'>**Ambas contraseñas deben de coincidir.</a>
-                                </section>";
+                            <a style='font-size:20px; color:#F00; font-size:16px;'>**Año inválido .</a>
+                            </section>";
 
                     }
                 } else {
                     //mensaje de error
+
                     echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
-                    <a style='font-size:20px; color:#F00; font-size:16px;'>**El máximo de caracteres para cédula es de 9 y contraseña es de 15.</a>
-                    </section>";
+                            <a style='font-size:20px; color:#F00; font-size:16px;'>**Ambas contraseñas deben de coincidir.</a>
+                            </section>";
+
                 }
             } else {
                 //mensaje de error
                 echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
-                <a style='font-size:20px; color:#F00; font-size:16px;'>**El máximo de caracteres para nombre, apellidos y usuario es de 25.</a>
+                <a style='font-size:20px; color:#F00; font-size:16px;'>**La cédula debe de ser un número.</a>
                 </section>";
             }
+
         } else {
             //mensaje de error
             echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
