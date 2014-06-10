@@ -102,7 +102,7 @@ PROCEDURE calificarEntidad (pnota VARCHAR2, pdescripcion VARCHAR2,pcedulaUsuario
     INSERT INTO review (review_id,nota,descripcion,calificacion,cedulausuario_id, url_file)
     VALUES (s_review.nextval,pnota,pdescripcion,pcalificacion,pcedulaUsuario_id, url);
     INSERT INTO review_entidad (review_entidad_id,review_id,entidad_id)
-    VALUES (s_review_entidad.nextval,s_review.currval,pack_entidad.get_id(pCedulaEntidad));
+    VALUES (s_review_entidad.nextval,s_review.currval, pack_entidad.get_idPorCedula(pCedulaEntidad));
     commit;
  END;
  
