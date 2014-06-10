@@ -112,9 +112,9 @@
     <div id="mostrar" style="overflow-y:scroll;">
     <h1 style="position:absolute; left:150px;"> Crear Entidad </h1>
     <a style="position:absolute; top:150px; left:70px;">Nombre</a>
-    <input type="text" id="nombre" style="position:absolute; top:150px; left:200px; width:300px;" />
+    <input type="text" id="nombre" style="position:absolute; top:150px; left:200px; width:300px;" maxlength="25"/>
     <a style="position:absolute; top:190px; left:70px;">Cédula Jurídica</a>
-    <input type="text" id="cedJuridica" style="position:absolute; top:190px; left:200px; width:300px;"/>
+    <input type="text" id="cedJuridica" style="position:absolute; top:190px; left:200px; width:300px;" maxlength="9"/>
     <div id='direccion'>
     <h2 style="position:absolute; top:210px; left:70px;">Dirección</h2>
     <a style="position:absolute; top:250px; left:70px;">_________</a>
@@ -162,7 +162,7 @@
     </select>
     </div>
     <a style="position:absolute; top:430px; left:70px;"> Dirección exacta </a>
-    <textarea id='direccionExacta' style="position:absolute; top:450px; left:200px; width:290px; height:50px;" ></textarea>
+    <textarea id='direccionExacta' style="position:absolute; top:450px; left:200px; width:290px; height:50px;" maxlength="50"></textarea>
     <h2 style="position:absolute; top:490px; left:70px;">Categoría</h2>
     <a style="position:absolute; top:530px; left:70px;">_______________</a>
     <a style="position:absolute; top:560px; left:70px;">Nombre</a>
@@ -198,8 +198,8 @@
     <h2 style="position:absolute; top:10px; left:10px;"> Nueva Categoría</h2>
     <a style="position:absolute; left:10px; top:80px;">Nombre</a>
     <a style="position:absolute; left:10px; top:115px;">Descripción</a>
-    <textarea id='descripcion' style="position:absolute; left:80px; top:135px; height:65px;"></textarea>
-    <input type="text" id='categoria2'  style="position:absolute; top:80px; left:80px;" />
+    <textarea id='descripcion' style="position:absolute; left:80px; top:135px; height:65px;" maxlength="50"></textarea>
+    <input type="text" id='categoria2'  style="position:absolute; top:80px; left:80px;" maxlength="25"/>
     <a style="color:#FF33D7; position:absolute; left:10px; top:200px;">_____________________________________</a>
      <button type="submit" onclick="document.getElementById('nuevaCategoria').style.display='none';return false;" style="position:absolute; top:15px; left:380px;">X</button>
 </div>
