@@ -35,7 +35,7 @@ CREATE OR REPLACE PACKAGE BODY pack_reporte_usuario AS
 
                EXCEPTION
                     WHEN NO_DATA_FOUND THEN
-                         DBMS_OUTPUT.put_line('El nombre es inv·lido');
+                         DBMS_OUTPUT.put_line('El nombre es inv√°lido');
 
                RETURN(numReportes);
 
@@ -43,3 +43,4 @@ CREATE OR REPLACE PACKAGE BODY pack_reporte_usuario AS
 
 END pack_reporte_usuario;
 /
+
