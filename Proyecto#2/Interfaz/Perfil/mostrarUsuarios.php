@@ -105,24 +105,28 @@
             $genero = 'Masculino';
         }
         //Calcula la edad de nacimiento
-        /*
+
 	    $fechaNacimiento = new DateTime($fila['FECHANACIMIENTO']);
         $fechaActual = new DateTime('today');
         $edad = $fechaNacimiento->diff($fechaActual)->y;
-*/
+
         //Variable guardada para mostrarla en la ventana de reportar
         $_SESSION['cedulaReportado'] = $fila['CEDULAUSUARIO_ID'];
         $nombre = $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'];
+        
+        //Los datos se separan porque dependiendo de la privacidad mostrará algunos y otros no
         $datos =  "<section id='mostrar' style='position:absolute; left:200px; top:100px; width:630px; height:400px;'>
 					<div style='width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;'>
             <h1 style='position:absolute; top:50px; left:200px;'> Nombre: ". $fila['NOMBRE'] ."  </h1>
-            <a style='position:absolute; top:200px; left:200px;'>Apellidos: ". $fila['PRIMERAPELLIDO'] . " ". $fila['SEGUNDOAPELLIDO'] ."</a>
-            <a style='position:absolute; top:250px; left:200px;'>Cédula: ". $fila['CEDULAUSUARIO_ID'] ."</a>
+            <a style='position:absolute; top:200px; left:200px;'>Apellidos: ". $fila['PRIMERAPELLIDO'] . " ". $fila['SEGUNDOAPELLIDO'] ."</a>";
+        
+        $datosPrivados = "<a style='position:absolute; top:250px; left:200px;'>Cédula: ". $fila['CEDULAUSUARIO_ID'] ."</a>
             <a style='position:absolute; top:300px; left:200px;'>Género: " . $genero ."</a>
-            <a style='position:absolute; top:350px; left:200px;'>Fecha de nacimiento: "./* $edad .*/"</a>
+            <a style='position:absolute; top:350px; left:200px;'>Edad: ". $edad ."</a>
             <a style='position:absolute; top:400px; left:200px;'>Usuario: " . $fila['USUARIO'] . "</a>
-            <a style='position:absolute; top:450px; left:200px;'></a>
-        </div>";
+            <a style='position:absolute; top:450px; left:200px;'></a>";
+        
+        $division = "</div>";
 
     }
     //Se encarga de reportar
@@ -154,13 +158,21 @@
 
 	</section>
     </section>';
+
+    //El primer if es si el usuario es publico
     if($estado == 2 or $privacidad == 1){
         echo $datos;
+        echo $datosPrivados;
+        echo $division;
+        
         echo $menuVertical;
+    //El else ocurre si el perfil es privado y el que lo quiere ver no es administrador
     } else {
-        $Message = 'La privacidad no le permite observar el perfil.';
-        $linkRetorno = "Location: ../perfil/mostrarDatos.php?persona=". $_SESSION['tipoPersona'] . "&id=" . $_SESSION['id'] . '&Message=' . $Message;
-        header($linkRetorno);
+        echo $datos;
+        //Los datos privados son remplazados por un mensaje
+        echo "<a style='position:absolute; top:250px; left:200px;'> El resto de los datos son privados. </a>";       
+        echo $division;
+        echo $menuVertical;
     }
 ?>
 
