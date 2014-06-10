@@ -149,7 +149,7 @@
                     <h2>Reportar a esta persona</h2>
                     <a style="position:absolute; width:600px; top:70px; ">Si desea reportar a '. $nombre .', rellene el siguiente campo:</a>
                     <a style="position:absolute; top:160px; left:70px;">Razón</a>
-                    <textarea type="text" name="descripcion" style="position:absolute; top:180px; left: 150px;width:300px; height:100px;"></textarea>
+                    <textarea type="text" name="descripcion" required style="position:absolute; top:180px; left: 150px;width:300px; height:100px;"></textarea>
 
                     <button type="submit" style="position:absolute; top: 300px; left:150px; width:100px;">Reportar</button>
 
