@@ -1,0 +1,4 @@
+create table parametrizable(
+       parametrizable_id number(3),
+       nombreParametro varchar2(30),
+       parametro number(3));
