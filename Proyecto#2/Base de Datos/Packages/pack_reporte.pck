@@ -1,4 +1,4 @@
- CREATE OR REPLACE PACKAGE pack_reporte IS
+CREATE OR REPLACE PACKAGE pack_reporte IS
 
      FUNCTION get_id(descripcion VARCHAR2) RETURN NUMBER;
      --Procedimiento para llenar la tabla de preview
@@ -25,7 +25,7 @@ CREATE OR REPLACE PACKAGE BODY pack_reporte AS
 
                EXCEPTION
                     WHEN NO_DATA_FOUND THEN
-                         DBMS_OUTPUT.put_line('El nombre es inv√°lido');
+                         DBMS_OUTPUT.put_line('El nombre es inv·lido');
 
                RETURN(reporteId);
 
@@ -60,39 +60,45 @@ CREATE OR REPLACE PACKAGE BODY pack_reporte AS
             return countCed;
     END;
     
-    PROCEDURE Banear (pcedulausuario_id NUMBER) 
-            IS 
-               numeroReportes number; numeroBans number;
-            BEGIN
-                select u.numreportes
-                into numeroReportes
-                from usuario u
-                where pcedulausuario_id = u.cedulausuario_id;
-                select u.numBans
-                into numeroBans
-                from usuario u
-                where pcedulausuario_id = u.cedulausuario_id;
-                
-                if (numeroBans = 2 and numeroReportes = 9) then
-                  update usuario
-                  set estado = -2,
-                      numbans = 3,
-                      numreportes = 0
-                      where pcedulausuario_id = cedulaUsuario_id;
+      PROCEDURE Banear (pcedulausuario_id NUMBER) 
+      IS numeroReportes number;
+         numeroBans number;
+         maximoReportes number;
+      BEGIN
+        select parametro
+        into maximoReportes
+        from parametrizable
+        where parametrizable.parametrizable_id = 1;
 
-                elsif ( numeroBans!=2 and numeroReportes = 9) then
-                  update usuario
-                  set  numBans = numbans + 1,
-                       estado = -1,
-                       numreportes = 0
-                       where pcedulausuario_id = cedulaUsuario_id;
-                
-                else
-                  update usuario
-                  set numreportes = numreportes + 1
-                  where pcedulausuario_id = cedulaUsuario_id;
-                end if;
-     END;
+        select u.numreportes
+        into numeroReportes
+        from usuario u
+        where pcedulausuario_id = u.cedulausuario_id;
+        select u.numBans
+        into numeroBans
+        from usuario u
+        where pcedulausuario_id = u.cedulausuario_id;
+
+        if (numeroBans = 2 and numeroReportes = maximoReportes-1) then
+          update usuario
+          set estado = -2,
+              numbans = 3,
+              numreportes = 0
+              where pcedulausuario_id = cedulaUsuario_id;
+
+        elsif ( numeroBans!=2 and numeroReportes = maximoreportes-1) then
+          update usuario
+          set  numBans = numbans + 1,
+               estado = -1,
+               numreportes = 0
+               where pcedulausuario_id = cedulaUsuario_id;
+
+        else
+          update usuario
+          set numreportes = numreportes + 1
+          where pcedulausuario_id = cedulaUsuario_id;
+        end if;
+      END;
 
 
 END pack_reporte;
