@@ -1,6 +1,7 @@
 <?php
 
-    /* Utilizado para modificar dinamicamente los boxes de pais, provincia, canton, distrito y barrio.
+    /*
+        Utilizado para modificar dinamicamente los boxes de país, provincia, cantón, distrito y barrio.
     */
     include('conection.php');
     $conn = oci_connect($user, $pass, $db);
@@ -9,7 +10,7 @@
 		die();
 	}
 
-
+    //variables de la página anterior
     $paisval = $_POST['pais'];
     $provval = $_POST['provincia'];
     $cantonval = $_POST['canton'];
@@ -17,6 +18,7 @@
     $barrioval = $_POST['barrio'];
     $which = $_POST['which'];
 
+    //elementos de html que se deberán imprimir
     $title = '<h2 style="position:absolute; top:170px; left:60px;">Dirección</h2>
             <a style="position:absolute; top:210px; left:60px;">__________</a>
             <a style="position:absolute; top:250px; left:60px;">País</a>
@@ -62,7 +64,7 @@
 	echo "</select>";
 
 
-	//Selecciona todas las provincias correspondientes al pais
+	//Selecciona todas las provincias correspondientes al país
 	$sql = "select nombre from provincia where pais_id = pack_pais.get_id(:pais)";
 	$stmt = oci_parse($conn, $sql);
 	OCIBindByName($stmt, ":pais", $paisval);
@@ -71,7 +73,7 @@
     //imprime el html de provincia
     echo $provincia;
 
-    //despliega las provincias del pais correspondiente
+    //despliega las provincias del país correspondiente
 	while ( $row = oci_fetch_assoc($stmt) ) {
 		if($row['NOMBRE']==$provval and $which >= 2) {
 			echo "<option selected value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
@@ -87,7 +89,7 @@
 	OCIBindByName($stmt, ":provincia", $provval);
 	ociexecute($stmt);
 
-    //imprime el html de canton
+    //imprime el html de cantón
 	echo $canton;
 
     //despliega los cantones de la provincia correspondiente
@@ -100,7 +102,7 @@
 	}
 	echo "</select>";
 
-	//Selecciona todos los distritos correspondientes al canton
+	//Selecciona todos los distritos correspondientes al cantón
 	$sql = "select nombre from distrito where canton_id = pack_canton.get_id(:canton)";
 	$stmt = oci_parse($conn, $sql);
 	OCIBindByName($stmt, ":canton", $cantonval);
@@ -109,7 +111,7 @@
     //imprime el html de distrito
 	echo $distrito;
 
-    //despliega los distritos del canton correspondiente
+    //despliega los distritos del cantón correspondiente
 	while ( $row = oci_fetch_assoc($stmt) ) {
 		if($row['NOMBRE']==$distritoval and $which >= 4) {
 			echo "<option selected value='$row[NOMBRE]'>$row[NOMBRE]</option>"."<BR>";
@@ -137,5 +139,7 @@
 		}
 	}
 	echo "</select>";
+    OCICommit($conn);
+    ociLogOff($conn);
 
 ?>

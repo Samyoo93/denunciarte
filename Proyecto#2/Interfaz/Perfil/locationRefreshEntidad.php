@@ -1,6 +1,6 @@
 <?php
-
-    /* Utilizado para modificar dinamicamente los boxes de pais, provincia, canton, distrito y barrio.
+    /*
+        Utilizado para modificar dinamicamente los boxes de país, provincia, cantón, distrito y barrio.
     */
     include('..\conection.php');
     $conn = oci_connect($user, $pass, $db);
@@ -137,5 +137,6 @@
 		}
 	}
 	echo "</select>";
-
+    OCICommit($conn);
+    ociLogOff($conn);
 ?>

@@ -156,14 +156,19 @@
     $reviews = $reviews . '</div>';
     //Ventanas que se muestran al lado izquierdo donde se pueden ver las calificaciones
     $menuVertical =
-            '<section id="CuadroGris" style="position:absolute; top:100px; left:-80px; width:240px; height:80px;">
+            '<section id="CuadroGris" style="position:absolute; top:100px; left:-80px; width:240px; height:120px;">
 
-		<button type="submit" style="position:absolute; top:20px;left:18px; font-size:18px; width:200px;" >
+		<button type="submit" style="position:absolute; top:15px;left:18px; font-size:18px; width:200px;" >
 		<a href="#openReport" style="color: #CFCFCF;
 			font: small-caps 100%/200% serif;
 			background-color:#914998;
 			font-size: 16px;">Ver Calificaciones</a>
 		</button>
+        <form method="post" action="procesarDeletePerfil.php" enctype="multipart/form-data">
+        <button type="submit" style="position:absolute; top:65px;left:18px; font-size:18px; width:200px;" >
+		  Deshabilitar cuenta
+		</button>
+        </form>
 		<div id="openReport" class="modalDialog">
 
             <div style="width:600px; height:400px;line-height:3em;overflow:auto;padding:5px;">

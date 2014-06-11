@@ -6,62 +6,62 @@
 <link rel="stylesheet" href="Estilo/Estilo.css" />
 <link href="Imagenes/favicon.ico" type="image/x-icon" rel="shortcut icon" />
 <script type="text/javascript">
-function registrar(){
-    // Create our XMLHttpRequest object
-    var hr = new XMLHttpRequest();
-    // Create some variables we need to send to our PHP file
-    var url = "perfil/registroPersonaFisica.php";
-    var nombre = document.getElementById('nombre').value;
-    var primerApellido = document.getElementById('primerApellido').value;
-    var segundoApellido = document.getElementById('segundoApellido').value;
-    var cedula1 = document.getElementById('cedula1').value;
-    var cedula2 = document.getElementById('cedula2').value;
-    var cedula3 = document.getElementById('cedula3').value;
-    var genero = document.getElementById('genero').value;
-    var fecNac = document.getElementById('fecNac').value;
-    var lugartrabajo = document.getElementById('lugartrabajo').value;
-    var cargo = document.getElementById('cargo').value;
-    var categoria = document.getElementById('categoria').value;
-    var categoria2 = document.getElementById('categoria2').value;
-    var descripcion = document.getElementById('descripcion').value;
+    function registrar(){
+        // Create our XMLHttpRequest object
+        var hr = new XMLHttpRequest();
+        // Create some variables we need to send to our PHP file
+        var url = "perfil/registroPersonaFisica.php";
+        var nombre = document.getElementById('nombre').value;
+        var primerApellido = document.getElementById('primerApellido').value;
+        var segundoApellido = document.getElementById('segundoApellido').value;
+        var cedula1 = document.getElementById('cedula1').value;
+        var cedula2 = document.getElementById('cedula2').value;
+        var cedula3 = document.getElementById('cedula3').value;
+        var genero = document.getElementById('genero').value;
+        var fecNac = document.getElementById('fecNac').value;
+        var lugartrabajo = document.getElementById('lugartrabajo').value;
+        var cargo = document.getElementById('cargo').value;
+        var categoria = document.getElementById('categoria').value;
+        var categoria2 = document.getElementById('categoria2').value;
+        var descripcion = document.getElementById('descripcion').value;
 
 
-    var vars =  'nombre='+nombre+'&primerApellido='+primerApellido+'&segundoApellido='+segundoApellido+'&cedula1='+cedula1+'&cedula2='+cedula2+'&cedula3='+cedula3+'&genero='+genero+'&fecNac='+fecNac+'&lugartrabajo='+lugartrabajo+'&cargo='+cargo+'&categoria='+categoria+'&categoria2='+categoria2+'&descripcion='+descripcion;
-    hr.open("POST", url, true);
-    // Set content type header information for sending url encoded variables in the request
-    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    // Access the onreadystatechange event for the XMLHttpRequest object
-    hr.onreadystatechange = function() {
-	    if(hr.readyState == 4 && hr.status == 200) {
-		    var return_data = hr.responseText;
-			document.getElementById("registro").innerHTML = return_data;
-	    }
-    }
-    // Send the data to PHP now... and wait for response to update the status div
-    hr.send(vars); // Actually execute the request
-    document.getElementById("registro").innerHTML = "procesando...";
+        var vars =  'nombre='+nombre+'&primerApellido='+primerApellido+'&segundoApellido='+segundoApellido+'&cedula1='+cedula1+'&cedula2='+cedula2+'&cedula3='+cedula3+'&genero='+genero+'&fecNac='+fecNac+'&lugartrabajo='+lugartrabajo+'&cargo='+cargo+'&categoria='+categoria+'&categoria2='+categoria2+'&descripcion='+descripcion;
+        hr.open("POST", url, true);
+        // Set content type header information for sending url encoded variables in the request
+        hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        // Access the onreadystatechange event for the XMLHttpRequest object
+        hr.onreadystatechange = function() {
+            if(hr.readyState == 4 && hr.status == 200) {
+                var return_data = hr.responseText;
+                document.getElementById("registro").innerHTML = return_data;
+            }
+        }
+        // Send the data to PHP now... and wait for response to update the status div
+        hr.send(vars); // Actually execute the request
+        document.getElementById("registro").innerHTML = "procesando...";
 	}
     function login(){
-    // Create our XMLHttpRequest object
-    var hr = new XMLHttpRequest();
-    // Create some variables we need to send to our PHP file
-    var url = "loginUsuario.php";
-    var usuarioLogin = document.getElementById("usuarioLogin").value;
-    var contrasenaLogin = document.getElementById("contrasenaLogin").value;
-    var vars = 'usuarioLogin='+usuarioLogin+'&contrasenaLogin='+contrasenaLogin;
-    hr.open("POST", url, true);
-    // Set content type header information for sending url encoded variables in the request
-    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    // Access the onreadystatechange event for the XMLHttpRequest object
-    hr.onreadystatechange = function() {
-	    if(hr.readyState == 4 && hr.status == 200) {
-		    var return_data = hr.responseText;
-			document.getElementById("logins").innerHTML = return_data;
-	    }
-    }
-    // Send the data to PHP now... and wait for response to update the status div
-    hr.send(vars); // Actually execute the request
-    document.getElementById("logins").innerHTML = "procesando...";
+        // Create our XMLHttpRequest object
+        var hr = new XMLHttpRequest();
+        // Create some variables we need to send to our PHP file
+        var url = "loginUsuario.php";
+        var usuarioLogin = document.getElementById("usuarioLogin").value;
+        var contrasenaLogin = document.getElementById("contrasenaLogin").value;
+        var vars = 'usuarioLogin='+usuarioLogin+'&contrasenaLogin='+contrasenaLogin;
+        hr.open("POST", url, true);
+        // Set content type header information for sending url encoded variables in the request
+        hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        // Access the onreadystatechange event for the XMLHttpRequest object
+        hr.onreadystatechange = function() {
+            if(hr.readyState == 4 && hr.status == 200) {
+                var return_data = hr.responseText;
+                document.getElementById("logins").innerHTML = return_data;
+            }
+        }
+        // Send the data to PHP now... and wait for response to update the status div
+        hr.send(vars); // Actually execute the request
+        document.getElementById("logins").innerHTML = "procesando...";
 	}
 	</script>
 </head>

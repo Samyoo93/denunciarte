@@ -1,5 +1,7 @@
 <?php
-
+    /*
+        Archivo encargado de procesar la modificación del perfil del usuario.
+    */
 	include("../conection.php");
 	$conn = OCILogon($user, $pass, $db);
 	if (!$conn) {
@@ -7,11 +9,10 @@
 		die();
 	}
 
-
     session_start();
     $cedula = $_SESSION['cedula'];
 
-    //crear variables ligadas a la pg con html
+    //crear variables ligadas a la página con html
 
 	$password = $_POST['contrasena'];
 	$nombre =$_POST['nombre'];
@@ -37,7 +38,7 @@
 
 
         if(1899 < $year && $year < 2014) {
-
+            //año válido
 
             //luego de validar todo modifica los datos en la base de datos
             $modpersona = "begin pack_persona.mod_persona(:cedula, :nombre, :primerApellido,
@@ -62,19 +63,20 @@
             ocibindbyname($query_modprivacidad, ":privacidad", $priv);
             ociexecute($query_modprivacidad);
             OCICommit($conn);
+            ociLogOff($conn);
 
             echo "<section id='error' style='position:absolute; top:130px; left:420px;'>
             <a style='font-size:20px; color:#21A33A; font-size:16px;'>**Usuario creado con éxito .</a>
             </section>";
         } else {
-
+            //mensaje de advertencia
             echo "<section id='error' style='position:absolute; top:130px; left:420px;'>
                 <a style='font-size:20px; color:#F00; font-size:16px;'>**Año inválido .</a>
                 </section>";
         }
 
     } else {
-        //mensaje de error
+        //mensaje de advertencia
 		echo "<section id='error' style='position:absolute; top:130px; left:420px;'>
             <a style='font-size:20px; color:#F00; font-size:16px;'>**Llene todos los espacios.</a>
             </section>";

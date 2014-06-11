@@ -104,13 +104,13 @@
                     $genero = 'Masculino';
                 }
                 //Calcula la edad de nacimiento
-                //try{
+                try{
                     $fechaNacimiento = new DateTime($fila['FECHANACIMIENTO']);
                     $fechaActual = new DateTime('today');
                     $edad = $fechaNacimiento->diff($fechaActual)->y;
-                /*} catch($FECHANACIMIENTO = new DateTime($fila['FECHANACIMIENTO'])){
+                } catch(Exception $e) {//$FECHANACIMIENTO = new DateTime($fila['FECHANACIMIENTO'])){
                     $edad = '';
-                }*/
+                }
                 $_SESSION['id'] = $fila['PERSONA_ID'];
 
                 $nombre = $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'];

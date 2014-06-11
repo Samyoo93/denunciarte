@@ -1,11 +1,13 @@
 <?php
-
+    /*
+        Archivo usado tanto para borrar como para modificar los reviews.
+    */
     include("../conection.php");
     $conn = OCILogon($user, $pass, $db);
 
 
     if (isset($_POST['eliminarReview'])) {
-        
+        //para eliminar
         echo $_POST['eliminarReview'];
         $reviewId = $_POST['eliminarReview'];
 
@@ -20,7 +22,7 @@
 
     }
     if (isset($_POST['editarReview'])) {
-       
+       //para modificar
         
         
         $reviewId = $_POST['editarReview'];
@@ -37,6 +39,7 @@
         ociexecute($query_editarReview);
 
     }
-
+    OCICommit($conn);
+    ociLogOff($conn);
     header('Location: MiPerfil.php')
 ?>

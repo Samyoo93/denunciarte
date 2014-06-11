@@ -170,7 +170,7 @@
 
 <div id ='maxReportes' style="position:absolute; top:300px; left:700px; width:200px; display:none;">
     <a> Número máximo de reportes</a>
-    <input type = 'text' id = 'resultadoReporte'>
+    <input type = 'text' id = 'resultadoReporte' maxlength="3">
     <button type ='submit' style = 'position:absolute; left:180px; top:25px;' onclick='agregarNumReportes()' > Agregar </button>
 </div>
 

@@ -1,4 +1,8 @@
 <?php
+    /*
+        Archivo encargado de registrar una nueva entidad, con su respectiva categoría, realizando las
+        validaciones necesarias anteriormente.
+    */
     include("../conection.php");
 
 	$conn = OCILogon($user, $pass, $db);
@@ -8,7 +12,7 @@
 	}
 
 
-	//crea variables ligadas a la pg con html
+	//crea variables ligadas a la página con html
     $nombre = $_POST['nombre'];
     $pais = $_POST['pais'];
     $provincia = $_POST['provincia'];
@@ -31,8 +35,9 @@
         //revisa que los campos se llenen
 
         if(is_numeric($cedJuridica)) {
+            //cédula jurídica numérica
 
-            //Revisa si la cedula juridica existe ********************************************************
+            //Revisa si la cédula jurídica existe ********************************************************
             $check_ced =  "SELECT COUNT(1) AS NUM_ROWS FROM entidad WHERE cedulajuridica=:cedJuridica";
             $query_check_ced = ociparse($conn, $check_ced);
             ocibindbyname($query_check_ced, ":cedJuridica", $cedJuridica);
@@ -51,6 +56,7 @@
 
 
                 if($categoria == 'otra') {
+                    //si elige agregar una categoría nueva, verifica que llene los campos correspondientes
                     $categoria = $categoria2;
 
                     $check_existe_cat = "SELECT COUNT(1) AS NUM_ROWS FROM categoria WHERE nombre=:categoria and tipo = 'E'";
@@ -63,7 +69,7 @@
 
                     if($existe_cat == 0) {
 
-                        //registra la nueva categoria
+                        //registra la nueva categoría
                         $createcat = "begin pack_categoria.set_categoria(:nombre, :descripcion, 'E'); end;";
                         $query_createcat = ociparse($conn, $createcat);
                         ocibindbyname($query_createcat, ":nombre", $categoria);
@@ -72,6 +78,7 @@
                         $existe_cat = 1;
 
                     } else {
+                        //mensaje de advertencia
                         $existe_cat = -1;
                         echo "<section id='error' style='position:absolute; top:140px; left:200px;'>
                         <a style='font-size:20px; color:#F00; font-size:16px;'>**La categoria " . $categoria . " ya se encuentra registrada.</a>
@@ -98,14 +105,14 @@
                     ocibindbyname($query_setentidad, ":cedJuridica", $cedJuridica);
                     ociexecute($query_setentidad);
 
-                     //registra la nueva categoria
+                     //registra la nueva categoría
                     $setcat = "begin pack_categoria_entidad.set_categoria_entidad(pack_categoria.get_id(:categoria), :cedJuridica); end;";
                     $query_setcat = ociparse($conn, $setcat);
                     ocibindbyname($query_setcat, ":categoria", $categoria);
                     ocibindbyname($query_setcat, ":cedJuridica", $cedJuridica);
                     ociexecute($query_setcat);
 
-                    //registra la direccion de la entidad nueva
+                    //registra la dirección de la entidad nueva
                     $setdireccion = "begin pack_direccion_entidad.set_direccion_entidad(:direccionExacta, :barrio); end;";
                     $query_setdireccion = ociparse($conn, $setdireccion);
                     ocibindbyname($query_setdireccion, ":barrio", $barrio);
@@ -115,11 +122,13 @@
                     echo "<section id='error' style='position:absolute; top:140px; left:200px;'>
                     <a style='font-size:20px; color:#21A33A; font-size:16px;'>**Entidad creada exitosamente!</a>
                     </section>";
+                    OCICommit($conn);
+                    ociLogOff($conn);
 
                 }
             }
         } else {
-            //mensaje de error
+            //mensaje de advertencia
             echo "<section id='error' style='position:absolute; top:140px; left:200px;'>
             <a style='font-size:20px; color:#F00; font-size:16px;'>**La cédula debe de ser un número.</a>
             </section>";
@@ -127,7 +136,7 @@
 
 
     } else {
-        //mensaje de error
+        //mensaje de advertencia
         echo "<section id='error' style='position:absolute; top:140px; left:200px;'>
         <a style='font-size:20px; color:#F00; font-size:16px;'>**Debe de llenar los espacios.</a>
         </section>";

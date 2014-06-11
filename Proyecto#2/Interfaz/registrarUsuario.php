@@ -1,15 +1,17 @@
 <?php
-	include("conection.php");
+    /*
+        Archivo encargado de registrar un nuevo usuario dentro de la base de datos. Se realizan una serie
+        de verificaciones previas, y se notifica al usuario si se logró o no (si no, su respectiva razón).
+        Finalmente se muestra al usuario un botón que le permite ingresar a la página web.
+    */
+
+    include("conection.php");
 	$conn = OCILogon($user, $pass, $db);
 	if (!$conn) {
 		echo "Invalid conection" . var_dump (OCIError());
 		die();
 	}
-
-    //crear variables ligadas a la pg con html
-
-
-
+    //Variables traidas desde la página anterior
 	$usuario = $_POST['usuario'];
 	$password = $_POST['contrasena'];
     $password2 = $_POST['contrasena2'];
@@ -29,6 +31,7 @@
 	$cedula3 = $_POST["cedula3"];
     $cedula = $cedula1 . $cedula2 . $cedula3;
     $checka = $_POST['checka'];
+    //html del botón y mensaje de creación
     $button = "<button type='submit' onClick='location.href=\"perfil/busquedaAvanzada.php\"'
                style='position:absolute; top:730px; left:770px;
                width:200px;'>Ingresar</button>";
@@ -38,16 +41,19 @@
 
 
     if($checka == 1) {
+        //se aceptaron los términos y condiciones
         if($usuario != null and $password != null and $nombre != null and $primerApellido != null and $segundoApellido != null
           and $fechaNacimiento != null and $privacidad != null and $cedula != null) {
             //verifica que se llenen todos los campos
 
             if(is_numeric($cedula)) {
-                $cedula = intval($cedula);
-                //largo permitido
+                //la cédula es un número
+                $cedula = intval($cedula); //convierte la cédula a número
+
                 if($password == $password2) {
                     //passwords coincidan
                     if(1899 < $year && $year < 2014) {
+                        //año válido
                         //Revisa si el usuario existe ********************************************************
                         $check_user =  "SELECT COUNT(1) AS NUM_ROWS FROM usuario WHERE usuario=:usuario";
                         $query_check_user = ociparse($conn, $check_user);
@@ -80,6 +86,7 @@
                                 </section>";
 
                             } else {
+                                //verifica si existe una persona física asociada a esa cédula
                                 $check_PF =  "SELECT COUNT(1) AS NUM_ROWS FROM personafisica WHERE cedulafisica_id = :cedula";
                                 $query_check_PF = ociparse($conn, $check_PF);
                                 oci_bind_by_name($query_check_PF, ":cedula", $cedula);
@@ -89,8 +96,6 @@
                                 ocifetch($query_check_PF);
 
                                 if($rows == 0) {
-                                    //print 'window.location.href="RegistroUsuarios.php";</script>';
-                                    //location.reload();
                                     //luego de validar todo agrega a la persona a la base de datos
                                     $setpersona = "begin pack_persona.set_persona_usuario(:nombre, :primerApellido, :segundoApellido, :genero,
                                     to_date(:fechaNacimiento, 'yyyy-mm-dd'),
@@ -119,7 +124,9 @@
                                     echo $button;
                                     echo $msgIng;
                                     OCICommit($conn);
+                                    ociLogOff($conn);
                                 } else {
+                                    //si existe una persona física, los conecta
                                     $insertarByPF = " begin pack_usuario.set_usuario_by_personafisica(:cedula, :usuario, :password, :privacidad); end;";
                                     $query_insertarByPF = ociparse($conn, $insertarByPF);
                                     oci_bind_by_name($query_insertarByPF, ":cedula", $cedula);
@@ -132,14 +139,13 @@
                             }
                         }
                     } else {
-
+                        //mensaje de advertencia
                         echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
                             <a style='font-size:20px; color:#F00; font-size:16px;'>**Año inválido .</a>
                             </section>";
-
                     }
                 } else {
-                    //mensaje de error
+                    //mensaje de advertencia
 
                     echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
                             <a style='font-size:20px; color:#F00; font-size:16px;'>**Ambas contraseñas deben de coincidir.</a>
@@ -147,7 +153,7 @@
 
                 }
             } else {
-                //mensaje de error
+                //mensaje de advertencia
                 echo "<section id='error' style='position:absolute; top:170px; left:545px;'>
                 <a style='font-size:20px; color:#F00; font-size:16px;'>**La cédula debe de ser un número.</a>
                 </section>";
@@ -160,6 +166,7 @@
                 </section>";
         }
     } else {
+        //mensaje de advertencia
         echo "<section id='error' style='position:absolute; top:660px; left:545px;'>
                 <a style='font-size:20px; color:#F00; font-size:16px;'>**Debe de aceptar los terminos y condiciones de uso.</a>
                 </section>";

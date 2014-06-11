@@ -1,5 +1,7 @@
 <?php
-
+    /*
+        Refresca el segundo combobox de búsquedas dependiendo del contenido del primero.
+    */
     $persona = $_POST['persona'];
     $tipoBusqueda = $_POST['tipoBusqueda'];
 

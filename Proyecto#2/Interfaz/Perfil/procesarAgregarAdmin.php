@@ -1,4 +1,8 @@
 <?php
+    /*
+        Archivo encargado de ya sea, volver un usuario un nuevo administrador, o crear el usuario desde cero.
+        Cuenta con una serie de validaciones.
+    */
     include("../conection.php");
         $conn = OCILogon($user, $pass, $db);
         if (!$conn) {
@@ -31,17 +35,18 @@
                         <a for = 'Masculino' style='position:absolute; top:280px; left:270px;'>Masculino</a>
         <button type='submit' onClick='agregarAdmin(2)' id='add2' style='position:absolute; top:180px; left:450px; width:100px; '>Agregar</button>";
         if($cedula != 0) {
+            //espacio diferente de vacío.
             if(is_numeric($cedula)) {
+                //cédula numérica
                 $existeCedula = "begin :user := pack_usuario.get_usuario(:cedula); end;";
                 $queryExisteCedula = ociparse($conn, $existeCedula);
                 ocibindbyname($queryExisteCedula, ":cedula", $cedula);
                 ocibindbyname($queryExisteCedula, ":user", $user, 100);
                 ociexecute($queryExisteCedula);
                 if($cedula != 0) {
-
-
+                    //cédula existente
                     if ($user != "") {
-
+                        //existe un usuario con esa cédula
                         $makeAdmin = "begin pack_usuario.makeAdmin(:cedula); end;";
                         $queryMakeAdmin = ociparse($conn, $makeAdmin);
                         ocibindbyname($queryMakeAdmin, ":cedula", $cedula);
@@ -54,7 +59,7 @@
 
 
                     } else if($user == "" and $n == 2) {
-
+                        //no existe usuario
 
                         $usuario = $_POST['usuario'];
                         $password = $_POST['contrasena'];
@@ -70,8 +75,11 @@
                         $estado = 2;
                         if($usuario != null and $password != null and $nombre != null and $primerApellido != null and $segundoApellido != null
                         and $fechaNacimiento != null) {
+                            //llenar los espacios
                             if(1899 < $year and $year < 2014) {
+                                //año valido
 
+                                //**********************existe usuario************************************
                                 $check_user =  "SELECT COUNT(1) AS NUM_ROWS FROM usuario WHERE usuario=:usuario";
                                 $query_check_user = ociparse($conn, $check_user);
                                 oci_bind_by_name($query_check_user, ":usuario", $usuario);
@@ -111,22 +119,27 @@
                                     ocibindbyname($queryMakeAdmin, ":cedula", $cedula);
                                     ociexecute($queryMakeAdmin);
                                     echo $div;
+                                    OCICommit($conn);
+                                    ociLogOff($conn);
 
                                 }
 
                            } else {
+                                //mensaje de advertencia
                                 echo "<section id='error' style='position:absolute; width:2000px;top:-20px; left:100px;'>
                                     <a style='font-size:20px; color:#F00; font-size:16px;'>**Año invalido.</a>
                                     </section>";
                                 echo $div;
                            }
                         } else {
+                            //mensaje de advertencia
                             echo "<section id='error' style='position:absolute; width:2000px;top:-20px; left:100px;'>
                             <a style='font-size:20px; color:#F00; font-size:16px;'>**Llene todos los espacios.</a>
                             </section>";
                             echo $div;
                         }
                     } else {
+                        //mensaje de advertencia
                         echo "<section id='error' style='position:absolute; width:2000px;top:-20px; left:100px;'>
                             <a style='font-size:20px; color:#F00; font-size:16px;'>**No existe usuario con cédula " .$cedula. ", si desea puede registrarlo.</a>
                             </section>";
@@ -135,18 +148,21 @@
 
 
                 } else {
+                    //mensaje de advertencia
                     echo "<section id='error' style='position:absolute; width:2000px;top:-20px; left:100px;'>
                             <a style='font-size:20px; color:#F00; font-size:16px;'>**Llene todos los espacios.</a>
                     </section>";
                     echo $div;
                 }
             } else {
+                //mensaje de advertencia
                 echo "<section id='error' style='position:absolute; width:2000px;top:-20px; left:100px;'>
                     <a style='font-size:20px; color:#F00; font-size:16px;'>**La cédula debe ser un número.</a>
                     </section>";
                 echo $div;
             }
         } else {
+            //mensaje de advertencia
             echo "<section id='error' style='position:absolute; width:2000px;top:-20px; left:100px;'>
             <a style='font-size:20px; color:#F00; font-size:16px;'>**Llenar el espacio de cédula.</a>
             </section>";

@@ -1,4 +1,8 @@
-    <?php
+<?php
+    /*
+        Archivo encargado de registrar una nueva persona física, con su respectiva categoría, realizando las
+        validaciones necesarias anteriormente.
+    */
 	include("../conection.php");
 	$conn = OCILogon($user, $pass, $db);
 	if (!$conn) {
@@ -6,7 +10,7 @@
 		die();
 	}
 
-    //crear variables ligadas a la pg con html
+    //crear variables ligadas a la página con html
 
 	$nombre = $_POST['nombre'];
 	$primerApellido = $_POST['primerApellido'];
@@ -33,8 +37,9 @@
         //verifica que se llenen todos los campos
 
             if(1899 < $year && $year < 2014) {
+                //año válido
                 if(is_numeric($cedula)) {
-
+                    //cédula numérica
 
                 $cedula = intval($cedula);
                 //Revisa si la cedula existe*********************************************************************
@@ -56,6 +61,7 @@
                 } else {
 
                     if($categoria == 'otra') {
+                        //si elige agregar una categoría nueva, verifica que llene los campos correspondientes
 
                         $categoria = $categoria2;
 
@@ -69,7 +75,7 @@
 
                         if($existe_cat == 0) {
 
-                            //registra la nueva categoria
+                            //registra la nueva categoría
                             $createcat = "begin pack_categoria.set_categoria(:nombre, :descripcion, 'F'); end;";
                             $query_createcat = ociparse($conn, $createcat);
                             ocibindbyname($query_createcat, ":nombre", $categoria);
@@ -78,6 +84,7 @@
                             $existe_cat = 1;
 
                         } else {
+                            //mensaje de advertencia
                             $existe_cat = -1;
                             echo "<section id='error' style='position:absolute; top:7px; left:90px;'>
                             <a style='font-size:20px; color:#F00; font-size:16px;'>**La categoria " . $categoria . " ya se encuentra registrada.</a>
@@ -118,6 +125,8 @@
                         echo "<section id='error' style='position:absolute; top:7px; left:90px;'>
                         <a style='font-size:20px; color:#21A33A; font-size:16px;'>**Persona creada exitosamente!</a>
                         </section>";
+                        OCICommit($conn);
+                        ociLogOff($conn);
 
                     }
 
