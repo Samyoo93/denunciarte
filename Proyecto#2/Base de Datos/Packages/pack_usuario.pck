@@ -27,6 +27,7 @@ CREATE OR REPLACE PACKAGE pack_usuario IS
        RETURN NUMBER;
      FUNCTION getEstado(cedula_in NUMBER)
        RETURN NUMBER;
+     PROCEDURE makeAdmin(cedula_in NUMBER);
 END pack_usuario;
 /
 CREATE OR REPLACE PACKAGE BODY pack_usuario AS
@@ -35,23 +36,23 @@ CREATE OR REPLACE PACKAGE BODY pack_usuario AS
      FUNCTION get_usuario(cedulaUsuario NUMBER)
           RETURN VARCHAR2
      IS
-          nickName VARCHAR2(25);
+          nickName VARCHAR2(250);
      BEGIN
           SELECT usuario
           INTO nickName
           FROM usuario
           WHERE usuario.cedulaUsuario_id = cedulaUsuario;
-
+          RETURN nickName;
           EXCEPTION
 
           WHEN NO_DATA_FOUND THEN
                DBMS_OUTPUT.put_line('La cedula es inválido');
-          RETURN(nickName);
+          RETURN nickName;
      END;
 
      -- funcion get cedula
      FUNCTION get_cedula(usuario_in VARCHAR2)
-          RETURN NUMBER
+          RETURN NUMBER             
           IS
                usuarioId NUMBER(9);
 
@@ -167,5 +168,18 @@ CREATE OR REPLACE PACKAGE BODY pack_usuario AS
           WHERE CEDULAUSUARIO_ID = cedula_in;
           RETURN state;
       END;
+      
+    PROCEDURE makeAdmin(cedula_in NUMBER)
+      IS
+      BEGIN
+        update usuario
+        set estado = 2
+        where cedulausuario_id = cedula_in;
+        COMMIT;
+    END;
+                
+      
+      
+      
 END pack_usuario;
 /
