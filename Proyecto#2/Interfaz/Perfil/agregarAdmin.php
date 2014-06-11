@@ -30,6 +30,33 @@
     ?>
 <script>
 
+    function agregarNumReportes(){
+        var hr = new XMLHttpRequest();
+
+        var url = "procesarNumerosReportes.php";
+
+        var resultadoReporte = document.getElementById('resultadoReporte').value;
+
+        var vars = 'resultadoReporte='+resultadoReporte;
+
+
+        hr.open("POST", url, true);
+        // Set content type header information for sending url encoded variables in the request
+        hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        // Access the onreadystatechange event for the XMLHttpRequest object
+        hr.onreadystatechange = function() {
+            if(hr.readyState == 4 && hr.status == 200) {
+                var return_data = hr.responseText;
+                document.getElementById("resultado").innerHTML = return_data;
+            }
+        }
+        // Send the data to PHP now... and wait for response to update the status div
+        hr.send(vars); // Actually execute the request
+        document.getElementById("resultado").innerHTML = "procesando...";
+
+
+    }
+
 
     function agregarAdmin(num){
         // Create our XMLHttpRequest object
@@ -78,6 +105,11 @@
 	}
     function show() {
         document.getElementById('datos').style.display='block';this.focus();return false;
+
+    }
+
+    function showReportes() {
+        document.getElementById('maxReportes').style.display='block';this.focus();return false;
 
     }
 </script>
@@ -132,6 +164,17 @@
 </div>
 
 </section>
+
+<button type='submit' onclick='showReportes()' style="position:absolute; top:650px; left:300px;" >Cambiar número máximo de reportes</button>
+<div id = 'resultado'>
+</div>
+<div id ='maxReportes' style="position:absolute; top:700px; left:300px; width:200px; display:none;">
+    <a> Número máximo de reportes</a>
+    <input type = 'text' id = 'resultadoReporte'>
+    <button type ='submit' style = 'position:absolute' onclick='agregarNumReportes()' > Agregar </button>
+</div>
+
+
 
 <!-- Pie de página -->
 <section id="CuadroGris" style=" top:810px; position:absolute; left:20px; width:960px; height:90px">
