@@ -170,7 +170,7 @@
                     <li style="font-size:16px; width:150px;"><a href="crearEntidad.php">Crear una entidad</a></li>
                     <li style="font-size:16px; width:150px;"><a href="crearPersonaFisica.php">Crear una persona</a></li>
                     <li style="font-size:16px; width:150px;"><a href="logout.php">Cerrar sesión</a></li>
-                    <li style="font-size:16px; width:150px;"><a href="">Ayuda</a></li>
+                    <li style="font-size:16px; width:150px;"><a     href="https://sites.google.com/site/denunciarte2014/" target='_blank'>Ayuda</a></li>
                 </ul>
             </li>
             <li>
