@@ -125,7 +125,7 @@
 <!--Sección que se actualiza-->
 <div id='privac'>
 </div>
-<section style="position:absolute; left:200px; top:100px; width:630px; height:400px;">
+<section style="position:absolute; left:10px; top:100px; width:630px; height:400px;">
 <div id="mostrar" style="overflow-y:scroll;">
 <h1 style="position:absolute; left:70px; font-size:45px; width:2000px;"> Agregar un nuevo administrador </h1>
 <a style="position:absolute; top:150px; left:140px;">Digite la cédula de la persona que desea hacer administrador.</a>
@@ -164,14 +164,14 @@
 </div>
 
 </section>
-
-<button type='submit' onclick='showReportes()' style="position:absolute; top:650px; left:300px;" >Cambiar número máximo de reportes</button>
-<div id = 'resultado'>
+<div id = 'resultado' style='position:absolute; top:250px; left:700px;'>
 </div>
-<div id ='maxReportes' style="position:absolute; top:700px; left:300px; width:200px; display:none;">
+<button type='submit' onclick='showReportes()' style="position:absolute; top:250px; left:700px;" >Cambiar número máximo de reportes</button>
+
+<div id ='maxReportes' style="position:absolute; top:300px; left:700px; width:200px; display:none;">
     <a> Número máximo de reportes</a>
     <input type = 'text' id = 'resultadoReporte'>
-    <button type ='submit' style = 'position:absolute' onclick='agregarNumReportes()' > Agregar </button>
+    <button type ='submit' style = 'position:absolute; left:180px; top:25px;' onclick='agregarNumReportes()' > Agregar </button>
 </div>
 
 

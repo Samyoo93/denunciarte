@@ -5,7 +5,6 @@
     session_start();
 
     $descripcion = $_POST['descripcion'];
-
     $verSiPuedeOno = oci_parse ($conn,'BEGIN :result:= pack_reporte_usuario.count_reportes_usuario(:cedulaReportado,:cedulaUsuario); END;');
     oci_bind_by_name ($verSiPuedeOno,':cedulaReportado', $_SESSION['cedulaReportado']);
     oci_bind_by_name ($verSiPuedeOno,':cedulaUsuario', $_SESSION['cedula']);
@@ -27,11 +26,11 @@
 
         $message = 'Reporte hecho con exito.';
 
+    } else if($_SESSION['cedulaReportado'] == $_SESSION['cedula']) {
+        $message = 'No puede reportar a su propio usuario.';
     } else {
         $message = 'Ya ha reportado anteriormente a este usuario';
-
     }
-
 
 
     header('Location: mostrarUsuarios.php?cedula='. $_SESSION['cedulaReportado'] .'&privacidad='.$_SESSION['privacidad'] .'&Message='. $message);
