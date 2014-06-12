@@ -79,7 +79,7 @@
 <!-- LOGO -->
 <img src="Imagenes/logoDenunciARTE2.png" style="position:absolute; top:140px; left:20px;"/>
 
-<div id="registro" style="position:absolute; left:250px;top:170px; width:500px;">
+<div id="registro" style="position:absolute; left:250px;top:170px; width:800px;">
 </div>
 <div id='logins'>
     </div>
