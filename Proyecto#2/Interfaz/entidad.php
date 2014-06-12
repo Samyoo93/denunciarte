@@ -100,7 +100,7 @@ function crear(){
 <a style="position:absolute; left:510px; top:30px;"> Usuario </a>
 <input type="text" style="position:absolute; top:50px; left:510px;" placeholder="Usuario" id="usuarioLogin" maxlength="25"/>
 <a style="position:absolute; left:690px; top:30px;"> Contraseña </a>
-<input type="text" style="position:absolute; top:50px; left:690px;" placeholder="Contraseña" id="contrasenaLogin" maxlength="15"/>
+<input type="password" style="position:absolute; top:50px; left:690px;" placeholder="Contraseña" id="contrasenaLogin" maxlength="15"/>
 <button type="submit" onClick='login()' style="position:absolute; top:50px; left:870px;">Entrar</button>
 </section>
 <!-- LOGO -->

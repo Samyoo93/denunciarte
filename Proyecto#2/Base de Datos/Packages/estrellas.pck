@@ -105,33 +105,33 @@ PROCEDURE calificarEntidad (pnota VARCHAR2, pdescripcion VARCHAR2,pcedulaUsuario
     VALUES (s_review_entidad.nextval,s_review.currval, pack_entidad.get_idPorCedula(pCedulaEntidad));
     commit;
  END;
- 
+
  --------------------------
- 
-FUNCTION has_ratedPersonaFisica(pcedulaUsuario NUMBER, pcedulaFisica NUMBER) 
-         
+
+FUNCTION has_ratedPersonaFisica(pcedulaUsuario NUMBER, pcedulaFisica NUMBER)
+
         return NUMBER
         is countCed NUMBER;
         BEGIN
-            SELECT count(1) 
-            into countCed     
+            SELECT count(1)
+            into countCed
             from review r, review_personafisica r_pf
             where r.cedulausuario_id = pcedulaUsuario and r_pf.cedulafisica_id = pcedulaFisica and r.review_id = r_pf.review_id;
             return countCed;
     END;
-    
-FUNCTION has_ratedEntidad(pcedulaUsuario NUMBER, entidadId NUMBER) 
-         
+
+FUNCTION has_ratedEntidad(pcedulaUsuario NUMBER, entidadId NUMBER)
+
         return NUMBER
         is countCed NUMBER;
         BEGIN
-            SELECT count(1) 
-            into countCed     
+            SELECT count(1)
+            into countCed
             from review r, review_entidad r_e
-            where r.cedulausuario_id = pcedulaUsuario and r_e.entidad_id = entidadId and 
+            where r.cedulausuario_id = pcedulaUsuario and r_e.entidad_id = entidadId and
                   r.review_id = r_e.review_id;
             return countCed;
-    END;    
+    END;
 
-END estrellas; 
+END estrellas;
 /
