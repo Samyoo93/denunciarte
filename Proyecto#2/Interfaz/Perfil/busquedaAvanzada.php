@@ -1,23 +1,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <!--
-INSTITUTO TECNOLÓGICO DE COSTA RICA
-BASES DE DATOS I
-I SEMESTRE 2014
-II PROYECTO
+    INSTITUTO TECNOLÓGICO DE COSTA RICA
+    BASES DE DATOS I
+    I SEMESTRE 2014
+    II PROYECTO
 
-DENUNCIARTE
+    DENUNCIARTE
 
-ESTUDIANTES
-KATHY BRENES GUERRERO.
-BARNUM CASTILLO BARQUERO.
-FRANCO SOLÍS ALVARADO.
-SAM YOO.
+    ESTUDIANTES
+    KATHY BRENES GUERRERO.
+    BARNUM CASTILLO BARQUERO.
+    FRANCO SOLÍS ALVARADO.
+    SAM YOO.
 
-Nombre del archivo: busquedaAvanzada.php
-Descripción: Corresponde a la página principal cuando un usuario inicia sesión
-permite que el usuario busque una entidad o persona física apartir de una serie
-de filtros.
+    Nombre del archivo: busquedaAvanzada.php
+    Descripción: Corresponde a la página principal cuando un usuario inicia sesión
+    permite que el usuario busque una entidad o persona física apartir de una serie
+    de filtros.
 -->
 
 <head>
