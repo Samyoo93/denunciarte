@@ -1,3 +1,24 @@
+<!--
+    INSTITUTO TECNOLÓGICO DE COSTA RICA
+    BASES DE DATOS I
+    I SEMESTRE 2014
+    II PROYECTO
+
+    DENUNCIARTE
+
+    ESTUDIANTES
+    KATHY BRENES GUERRERO.
+    BARNUM CASTILLO BARQUERO.
+    FRANCO SOLÍS ALVARADO.
+    SAM YOO.
+
+    Nombre del archivo: modificarReview.php
+    Descripción: Permite conectar la interfaz, con la base de datos,
+    modifica y elimina reviews.
+
+-->
+
+
 <?php
     /*
         Archivo usado tanto para borrar como para modificar los reviews.
