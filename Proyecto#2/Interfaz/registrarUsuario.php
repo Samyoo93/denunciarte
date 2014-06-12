@@ -121,10 +121,7 @@
                                     ociexecute($query_getid);
 
                                     $_SESSION['cedula'] = $ced;
-                                    echo $button;
-                                    echo $msgIng;
-                                    OCICommit($conn);
-                                    ociLogOff($conn);
+
                                 } else {
                                     //si existe una persona física, los conecta
                                     $insertarByPF = " begin pack_usuario.set_usuario_by_personafisica(:cedula, :usuario, :password, :privacidad); end;";
@@ -136,6 +133,10 @@
                                     ociexecute($query_insertarByPF);
 
                                 }
+                                echo $button;
+                                echo $msgIng;
+                                OCICommit($conn);
+                                ociLogOff($conn);
                             }
                         }
                     } else {
@@ -173,7 +174,4 @@
     }
 
 
-
-
-    OCILogOff($conn);
 ?>
