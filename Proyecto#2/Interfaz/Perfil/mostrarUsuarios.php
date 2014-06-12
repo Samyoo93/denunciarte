@@ -1,5 +1,25 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+<!--
+    INSTITUTO TECNOLÓGICO DE COSTA RICA
+    BASES DE DATOS I
+    I SEMESTRE 2014
+    II PROYECTO
+
+    DENUNCIARTE
+
+    ESTUDIANTES
+    KATHY BRENES GUERRERO.
+    BARNUM CASTILLO BARQUERO.
+    FRANCO SOLÍS ALVARADO.
+    SAM YOO.
+
+    Nombre del archivo: mostrarUsuarios.php
+    Descripción: Permite mostrar la información del usuario que
+    realiza un comentario, desde esta página se puede reportar
+    a este usuario.
+
+-->
 <head>
     <?php
     session_start();
