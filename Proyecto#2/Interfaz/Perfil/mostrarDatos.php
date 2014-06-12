@@ -279,9 +279,9 @@
                     <h2>Calificar a esta persona</h2>
                     <a style="position:absolute; top:60px;">Si desea calificar a '. $nombre .', rellene los siguientes campos:</a>
                     <a style="position:absolute; top:150px;">Título</a>
-                    <input type="text" name ="titulo" style="position:absolute; top:150px; left: 150px; width:200px;">
+                    <input type="text" required name ="titulo" style="position:absolute; top:150px; left: 150px; width:200px;">
                     <a style="position:absolute; top:180px;">Descripción</a>
-                    <textarea type="text" name="descripcion" style="position:absolute; top:180px; left: 150px;width:300px; height:100px;"></textarea>
+                    <textarea required type="text" name="descripcion" style="position:absolute; top:180px; left: 150px;width:300px; height:100px;"></textarea>
                     <a style="position:absolute; top:300px;">Calificación</a>
                     <a style="position:absolute; top:115px;">Archivo:</a> <input type="file" required id="imgfile" style="position:absolute; top:115px; left:145px;" name="imgfile"><br>
 
