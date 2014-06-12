@@ -22,6 +22,8 @@
 	$cedula3 = $_POST["cedula3"];
     $cedula = $cedula1 . $cedula2 . $cedula3;
     $categoria = $_POST['categoria'];
+    $lugar = $_POST['lugartrabajo'];
+    $cargo = $_POST['cargo'];
     $existe_cat = 1;
     $categoria2 = $_POST['categoria2'];
     $descripcion = $_POST['descripcion'];
@@ -30,10 +32,9 @@
 	$year = substr($year, 0);
 	$year = intval($year);
 
-
-
+                        
 	if($nombre != null and $primerApellido != null and $segundoApellido != null and $fechaNacimiento != null
-       and $cedula != null and (($categoria2 != null and $descripcion != null and $categoria == 'otra') or $categoria != '' and $categoria != 'otra')) {
+       and $cedula != null and (($categoria2 != null and $descripcion != null and $categoria == 'otra') or $categoria != '' and $categoria != 'otra') and $lugar != null and $cargo != null) {
         //verifica que se llenen todos los campos
 
             if(1899 < $year && $year < 2014) {
@@ -102,20 +103,42 @@
 
                     if($puede) {
 
+                        //verifica si existe una persona física asociada a esa cédula
+                        $check_PF =  "SELECT COUNT(1) AS NUM_ROWS FROM usuario WHERE cedulausuario_id = :cedula";
+                        $query_check_PF = ociparse($conn, $check_PF);
+                        oci_bind_by_name($query_check_PF, ":cedula", $cedula);
+                        oci_define_by_name($query_check_PF, "NUM_ROWS", $rows);
+                        ociexecute($query_check_PF);
+                        ocifetch($query_check_PF);
 
-                       //luego de validar todo agrega a la persona a la base de datos
-                        $getnombre = "begin pack_persona.set_persona_fisica(:nombre, :primerApellido, :segundoApellido, :genero,
-                        to_date(:fechaNacimiento, 'yyyy-mm-dd'), :cedula); end;";
-                        $query_getnombre = ociparse($conn, $getnombre);
-                        ocibindbyname($query_getnombre, ":nombre", $nombre);
-                        ocibindbyname($query_getnombre, ":primerApellido", $primerApellido);
-                        ocibindbyname($query_getnombre, ":segundoApellido", $segundoApellido);
-                        ocibindbyname($query_getnombre, ":genero", $genero);
-                        ocibindbyname($query_getnombre, ":fechaNacimiento", $fechaNacimiento);
-                        ocibindbyname($query_getnombre, ":cedula", $cedula);
-                        ociexecute($query_getnombre);
+                        if($rows == 0) {
+                            
+                           //luego de validar todo agrega a la persona a la base de datos
+                            $setPerFis = "begin pack_persona.set_persona_fisica(:nombre, :primerApellido, :segundoApellido, :genero,
+                            to_date(:fechaNacimiento, 'yyyy-mm-dd'), :cedula, :lugar, :cargo); end;";
+                            $query_setPerFis = ociparse($conn, $setPerFis);
+                            ocibindbyname($query_setPerFis, ":nombre", $nombre);
+                            ocibindbyname($query_setPerFis, ":primerApellido", $primerApellido);
+                            ocibindbyname($query_setPerFis, ":segundoApellido", $segundoApellido);
+                            ocibindbyname($query_setPerFis, ":genero", $genero);
+                            ocibindbyname($query_setPerFis, ":fechaNacimiento", $fechaNacimiento);
+                            ocibindbyname($query_setPerFis, ":cedula", $cedula);
+                            ocibindbyname($query_setPerFis, ":lugar", $cedula);
+                            ocibindbyname($query_setPerFis, ":cargo", $cedula);
+                            ociexecute($query_setPerFis);
+                        } else {
+                            $setPerFisByUser = "begin pack_personafisica.set_personaFisica_by_usuario(:cedula, :lugar, :cargo); end;";
+                            $query_setPerFisByUser = ociparse($conn, $setPerFisByUser);
+                            ocibindbyname($query_setPerFisByUser, ":cedula", $cedula);
+                            ocibindbyname($query_setPerFisByUser, ":lugar", $lugar);
+                            ocibindbyname($query_setPerFisByUser, ":cargo", $cargo);
+                            ociexecute($query_setPerFisByUser);
+                            echo "<section id='error' style='position:absolute; top:300px; left:460px;'>
+                            <a style='font-size:20px; color:#21A33A; font-size:16px;'>**Ya existe un usuario con                                esa cédula, se mantuvieron los datos anteriores y solo se agregó el lugar de trabajo                              y el cargo.</a>
+                            </section>";
+   
 
-
+                        }
                          //registra la nueva categoria
                         $setcat = "begin pack_categoria_personaFisica.set_CatPerFis(pack_categoria.get_id(:categoria), :cedula); end;";
                         $query_setcat = ociparse($conn, $setcat);
@@ -153,5 +176,5 @@
         </section>";
 
 	}
-
+*
 ?>
