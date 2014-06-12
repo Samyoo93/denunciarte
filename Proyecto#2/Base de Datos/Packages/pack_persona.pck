@@ -5,25 +5,25 @@ CREATE OR REPLACE PACKAGE pack_persona IS
 
      --Funcion que retorna el id por medio del nombre.
      FUNCTION get_id(nombre VARCHAR2) RETURN NUMBER;
-     
+
      FUNCTION get_id_by_ced_user(ced number) RETURN NUMBER;
-     
+
      FUNCTION get_id_by_ced_perfis(ced number) RETURN NUMBER;
-     
+
      --Procedimiento para llenar datos del usuario
      PROCEDURE set_persona_usuario(nombre VARCHAR2, primerApellido VARCHAR2, segundoApellido VARCHAR2, genero VARCHAR2, fechaNacimiento date,
        usuario VARCHAR2, password VARCHAR2, cedula VARCHAR2, PRIVACIDAD number);
-     
+
      --Procedmiento para llenar datos de persona_fisica
-     PROCEDURE set_persona_fisica(nombre VARCHAR2, primerApellido VARCHAR2, segundoApellido VARCHAR2, genero VARCHAR2, 
-       fechaNacimiento DATE, cedula VARCHAR2);
-       
+     PROCEDURE set_persona_fisica(nombre VARCHAR2, primerApellido VARCHAR2, segundoApellido VARCHAR2, genero VARCHAR2,
+       fechaNacimiento DATE, cedula VARCHAR2, lugar_in VARCHAR2, cargo_in VARCHAR2);
+
      --Procedimiento para eliminar el contenido de la tabla persona
      PROCEDURE del_persona (persona_id NUMBER);
 
      --Procedimiento para modificar el contenido de la tabla persona
-     PROCEDURE mod_persona(ced_id NUMBER, nombre_in VARCHAR2, primerApellido_in VARCHAR2, segundoApellido_in VARCHAR2, genero_in VARCHAR2, fechaNacimiento_in DATE, which NUMBER);
-     
+     PROCEDURE mod_persona(ced_id NUMBER, nombre_in VARCHAR2, primerApellido_in VARCHAR2, segundoApellido_in VARCHAR2, fechaNacimiento_in DATE, which NUMBER);
+
 END pack_persona;
 /
 CREATE OR REPLACE PACKAGE BODY pack_persona AS
@@ -84,7 +84,7 @@ CREATE OR REPLACE PACKAGE BODY pack_persona AS
                RETURN(personaId);
 
      END;
-     
+
       FUNCTION get_id_by_ced_perfis(ced number)
           RETURN NUMBER
           IS
@@ -103,7 +103,7 @@ CREATE OR REPLACE PACKAGE BODY pack_persona AS
                RETURN(personaId);
 
      END;
-     
+
      --Procedimiento para insertar usuarios
      PROCEDURE set_persona_usuario(nombre VARCHAR2, primerApellido VARCHAR2, segundoApellido VARCHAR2, genero VARCHAR2, fechaNacimiento DATE,
        usuario VARCHAR2, password VARCHAR2, cedula VARCHAR2, privacidad number)
@@ -119,23 +119,23 @@ CREATE OR REPLACE PACKAGE BODY pack_persona AS
                     (s_persona.currval, usuario, password, cedula, privacidad, 1, 0, 0);
              COMMIT;
      END;
-     
+
      --Procedimiento para insertar usuarios
-     PROCEDURE set_persona_fisica(nombre VARCHAR2, primerApellido VARCHAR2, segundoApellido VARCHAR2, genero VARCHAR2, 
-       fechaNacimiento DATE, cedula VARCHAR2)
+     PROCEDURE set_persona_fisica(nombre VARCHAR2, primerApellido VARCHAR2, segundoApellido VARCHAR2, genero VARCHAR2,
+       fechaNacimiento DATE, cedula VARCHAR2, lugar_in VARCHAR2, cargo_in VARCHAR2)
           IS
           BEGIN
                INSERT INTO persona
                     (persona_id, nombre, primerApellido, segundoApellido, genero, fechaNacimiento)
                VALUES
                     (s_persona.nextval, nombre, primerApellido, segundoApellido, genero, fechaNacimiento);
-     	         INSERT INTO personafisica
-                     (persona_id, cedulafisica_id)
+     	     INSERT INTO personafisica
+                     (persona_id, cedulafisica_id, lugartrabajo, cargo)
                VALUES
-                    (s_persona.currval, cedula);
+                    (s_persona.currval, cedula, lugar_in, cargo_in);
              COMMIT;
      END;
-     
+
      --Procedimiento para eliminar personas
      PROCEDURE del_persona (persona_id NUMBER)
           IS
@@ -146,16 +146,15 @@ CREATE OR REPLACE PACKAGE BODY pack_persona AS
      END;
 
      --Procedimiento para modificar personas
-     PROCEDURE mod_persona(ced_id NUMBER, nombre_in VARCHAR2, primerApellido_in VARCHAR2, segundoApellido_in VARCHAR2, genero_in VARCHAR2, fechaNacimiento_in DATE, which NUMBER)
+     PROCEDURE mod_persona(ced_id NUMBER, nombre_in VARCHAR2, primerApellido_in VARCHAR2, segundoApellido_in VARCHAR2, fechaNacimiento_in DATE, which NUMBER)
           IS
-               
+
           BEGIN
             IF which = 1 THEN
                UPDATE persona
                SET nombre = nombre_in,
                    primerApellido = primerApellido_in,
                    segundoApellido = segundoApellido_in,
-                   genero = genero_in,
                    fechaNacimiento = fechaNacimiento_in
                WHERE PERSONA_ID = pack_persona.get_id_by_ced_user(ced_id);
             ELSE
@@ -163,7 +162,6 @@ CREATE OR REPLACE PACKAGE BODY pack_persona AS
               SET nombre = nombre_in,
                    primerApellido = primerApellido_in,
                    segundoApellido = segundoApellido_in,
-                   genero = genero_in,
                    fechaNacimiento = fechaNacimiento_in
               WHERE PERSONA_ID = pack_persona.get_id_by_ced_perfis(ced_id);
             END IF;

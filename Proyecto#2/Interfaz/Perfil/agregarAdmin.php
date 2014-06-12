@@ -1,4 +1,28 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-
+transitional.dtd">
+<!--
+INSTITUTO TECNOLÓGICO DE COSTA RICA
+BASES DE DATOS I
+I SEMESTRE 2014
+II PROYECTO
+
+DENUNCIARTE
+
+ESTUDIANTES
+KATHY BRENES GUERRERO.
+BARNUM CASTILLO BARQUERO.
+FRANCO SOLÍS ALVARADO.
+SAM YOO.
+
+Nombre del archivo: agregarAdmin.php
+Descripción: Este archivo contiene los elementos de la interfaz para agregar un nuevo
+administrador, además de poder cambiar la cantidad de reportes necesarios
+para bloquear a un usuario.
+-->
+
+
+
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <?php
