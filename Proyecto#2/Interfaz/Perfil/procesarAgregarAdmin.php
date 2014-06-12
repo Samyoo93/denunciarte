@@ -46,17 +46,28 @@
                 if($cedula != 0) {
                     //cédula existente
                     if ($user != "") {
-                        //existe un usuario con esa cédula
-                        $makeAdmin = "begin pack_usuario.makeAdmin(:cedula); end;";
-                        $queryMakeAdmin = ociparse($conn, $makeAdmin);
-                        ocibindbyname($queryMakeAdmin, ":cedula", $cedula);
-                        ociexecute($queryMakeAdmin);
+                        $isAdmin = "begin :isIt := pack_usuario.getEstado(:cedula); end;";
+                        $query_isAdmin = ociparse($conn, $isAdmin);
+                        ocibindbyname($query_isAdmin, ":cedula", $cedula);
+                        ocibindbyname($query_isAdmin, ":isIt", $isIt);
+                        ociexecute($query_isAdmin);
+                        if($isIt == 2) {
+                            echo "<section id='error' style='position:absolute; width:2000px;top:-20px; left:100px;'>
+                            <a style='font-size:20px; color:#21A33A; font-size:16px;'>**El administrador con la cédula " . $cedula . " ya es administrador.</a>
+                            </section>";
 
-                        echo "<section id='error' style='position:absolute; width:2000px;top:-20px; left:100px;'>
-                        <a style='font-size:20px; color:#21A33A; font-size:16px;'>**Administrador agregado con éxito.</a>
-                        </section>";
-                        echo $div;
+                        } else {
+                            //existe un usuario con esa cédula
+                            $makeAdmin = "begin pack_usuario.makeAdmin(:cedula); end;";
+                            $queryMakeAdmin = ociparse($conn, $makeAdmin);
+                            ocibindbyname($queryMakeAdmin, ":cedula", $cedula);
+                            ociexecute($queryMakeAdmin);
 
+                            echo "<section id='error' style='position:absolute; width:2000px;top:-20px; left:100px;'>
+                            <a style='font-size:20px; color:#21A33A; font-size:16px;'>**Administrador agregado con éxito.</a>
+                            </section>";
+                            echo $div;
+                        }
 
                     } else if($user == "" and $n == 2) {
                         //no existe usuario
