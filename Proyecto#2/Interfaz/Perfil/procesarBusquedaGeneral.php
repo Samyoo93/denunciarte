@@ -57,6 +57,7 @@
 								<a href="mostrarDatos.php?persona=personaFisica&id='.$fila['PERSONA_ID'].'"><b>' . $fila['NOMBRE'] . ' ' . $fila['PRIMERAPELLIDO'] . ' ' . $fila['SEGUNDOAPELLIDO']. '</b></a><br>
 								<a>	Cédula física:' . $fila['CEDULAFISICA_ID'] . '</a><br>
 								<a> Lugar de trabajo:' . $fila['LUGARTRABAJO'] . '</a><br>
+                                <a> Persona Física</a><br>
 								<hr size=5 width=580>
 							</div>';
 	}
@@ -66,7 +67,7 @@
 								<a href="mostrarDatos.php?persona=personaJuridica&id='.$fila[0].'"><b>' . $fila[1] . '</b></a><br>
 								<a> Cedula Jurídica:' . $fila[2] . '</a><br>
 								<a>	Dirección:' .$fila[3] . ', ' . $fila[4] . ', ' . $fila[5] . ', ' . $fila[6] . ', ' . $fila[7] . '</a><br>
-								<a> Entidad</b><br>
+								<a> Persona Jurídica</b><br>
 								<hr size=5 width=600>
 							</div>';
 	}

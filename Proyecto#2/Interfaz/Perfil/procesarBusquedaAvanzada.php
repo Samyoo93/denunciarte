@@ -140,7 +140,7 @@
                 oci_execute($cursor1, OCI_DEFAULT);
 
                 //Busca a las personas juridicas por la categoria
-                $query_procedimiento = ociparse($conn, "BEGIN :cursor := busquedas.entidadPorNombre(:categoria); END;");
+                $query_procedimiento = ociparse($conn, "BEGIN :cursor := busquedas.entidadPorCategoria(:categoria); END;");
                 $cursor2 = oci_new_cursor($conn);
 
                 oci_bind_by_name($query_procedimiento, ':categoria', $busqueda);
@@ -149,34 +149,29 @@
                 ociexecute($query_procedimiento);
                 oci_execute($cursor2, OCI_DEFAULT);
 
-                oci_fetch_all($cursor1, $array1, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
+                oci_fetch_all($cursor1, $array1, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_NUM);
                 oci_fetch_all($cursor2, $array2, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_NUM);
 
                 //Agrega los datos de las persona físicas
                 foreach($array1 as $fila){
 
                     $division = $division . '<div>
-                                    <a href="mostrarDatos.php?persona=personaFisica&id='.$fila['PERSONA_ID'].'"><b>' . $fila['NOMBRE'] . ' ' . $fila['PRIMERAPELLIDO'] . ' ' . $fila['SEGUNDOAPELLIDO']. '</b></a><br>
-                                    <a> Cedula Física:' . $fila['CEDULAFISICA_ID'] . '</a><br>
-                                    <a>	Lugar de Trabajo:' . $fila['LUGARTRABAJO'] . '</a><br>
+                                    <a href="mostrarDatos.php?persona=personaFisica&id='.$fila[0].'"><b>' . $fila[1] . ' ' . $fila[2] . ' ' . $fila[3]. '</b></a><br>
+                                    <a> Cedula Física: ' . $fila[6] . '</a><br>
+                                    <a>	Lugar de Trabajo: ' . $fila[7] . '</a><br>
+                                    <a>	Categoría: ' . $fila[8] . '</a><br>
                                     <a> Persona Física </a><br>
                                     <hr size=5 width=580>
                                 </div>';
                 }
 
                 foreach($array2 as $fila){
-                    /*$query_procedimiento = ociparse($conn, "BEGIN :edad := get_edadPersona(:fechaNacimiento); END;");
-                    $edad = 0;
 
-                    oci_bind_by_name($query_procedimiento, ':fechaNacimiento', $fila['PERSONA_ID']);
-                    oci_bind_by_name($query_procedimiento, ':edad', $edad);
-                    ociexecute($query_procedimiento);
-
-                    oci_execute($cursor, OCI_DEFAULT);*/
                     $division = $division . '<div>
                                     <a href="mostrarDatos.php?persona=personaJuridica&id='.$fila[0].'"><b>' . $fila[1] . '</b></a><br>
-                                    <a> Cedula Jurídica:' . $fila[2] . '</a><br>
-                                    <a>	Dirección:' .$fila[4] . ', ' . $fila[5] . ', ' . $fila[6] . ', ' . $fila[7] . ', ' . $fila[8] . '</a><br>
+                                    <a> Cedula Jurídica: ' . $fila[2] . '</a><br>
+                                    <a>	Dirección: ' .$fila[4] . ', ' . $fila[5] . ', ' . $fila[6] . ', ' . $fila[7] . ', ' . $fila[8] . '</a><br>
+                                    <a>	Categoría: ' .$fila[9] .'</a><br>
                                     <a> Persona Jurídica</a><br>
                                     <hr size=5 width=600>
                                 </div>';
