@@ -71,15 +71,7 @@
 
             oci_fetch_all($cursor, $array, null, null, OCI_FETCHSTATEMENT_BY_ROW + OCI_ASSOC);
             foreach($array as $fila){
-                /*$query_procedimiento = ociparse($conn, "BEGIN :edad := get_edadPersona(:fechaNacimiento); END;");
-                $edad = 0;
 
-                oci_bind_by_name($query_procedimiento, ':fechaNacimiento', $fila['PERSONA_ID']);
-                oci_bind_by_name($query_procedimiento, ':edad', $edad);
-                ociexecute($query_procedimiento);
-
-
-                oci_execute($cursor, OCI_DEFAULT);*/
                 $division = $division . '<div>
                                         <a href="mostrarDatos.php?persona=personaFisica&id='.$fila['PERSONA_ID'].'"><b>' . $fila['NOMBRE'] . ' ' . $fila['PRIMERAPELLIDO'] . ' ' . $fila['SEGUNDOAPELLIDO']. '</b></a><br>
                                         <a>	Cédula física:' . $fila['CEDULAFISICA_ID'] . '</a><br>
@@ -231,7 +223,7 @@
 
         echo $division;
     } else {
-        echo '<a style="color:#F00">Tienen que seleccionar una categoría<a>';
+        echo '<a style="color:#F00">Tiene que seleccionar una categoría.<a>';
     }
 	OCICommit($conn);
 	ociLogOff($conn);
