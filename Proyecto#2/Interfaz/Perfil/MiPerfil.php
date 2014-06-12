@@ -75,17 +75,16 @@
         } else {
             $genero = 'Masculino';
         }
-        //Calcula la edad de nacimiento
-        /*
-        $fechaNacimiento = new DateTime($fila['FECHANACIMIENTO']);
-        $fechaActual = new DateTime('today');
-        $edad = $fechaNacimiento->diff($fechaActual)->y;
-*/
+        $getEdad = "begin :edad := get_edadPersona(:id); end;";
+        $queryGetEdad = ociparse($conn, $getEdad);
+        ocibindbyname($queryGetEdad, ":edad", $edad, 100);
+        ocibindbyname($queryGetEdad, ":id", $fila['PERSONA_ID']);
+        ociexecute($queryGetEdad);
         $datos =  "<section id='mostrar' style='position:absolute; left:100px; top:100px; width:630px; height:400px;'>
 					<div style='width:600px; height:510px;line-height:3em;overflow:auto;padding:5px;'>
             <h1 style='position:absolute; top:50px; left:200px;'> Nombre: ". $fila['NOMBRE'] ."</h1>
             <a style='position:absolute; top:200px; left:200px;'>Apellidos: ". $fila['PRIMERAPELLIDO'] . " ". $fila['SEGUNDOAPELLIDO'] ."</a>
-            <a style='position:absolute; top:250px; left:200px;'>Edad: ". /*$edad .*/"</a>
+            <a style='position:absolute; top:250px; left:200px;'>Edad: ". $edad ."</a>
             <a style='position:absolute; top:300px; left:200px;'>Fecha de nacimiento: ". $fila['FECHANACIMIENTO'] ."</a>
             <a style='position:absolute; top:350px; left:200px;'>Género: ". $genero ."</a>
             <a style='position:absolute; top:400px; left:200px;'>Usuario: " . $fila['USUARIO'] . "</a>

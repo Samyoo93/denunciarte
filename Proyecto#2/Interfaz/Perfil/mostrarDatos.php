@@ -104,13 +104,11 @@
                     $genero = 'Masculino';
                 }
                 //Calcula la edad de nacimiento
-                try{
-                    $fechaNacimiento = new DateTime($fila['FECHANACIMIENTO']);
-                    $fechaActual = new DateTime('today');
-                    $edad = $fechaNacimiento->diff($fechaActual)->y;
-                } catch(Exception $e) {//$FECHANACIMIENTO = new DateTime($fila['FECHANACIMIENTO'])){
-                    $edad = '';
-                }
+                $getEdad = "begin :edad := get_edadPersona(:id); end;";
+                $queryGetEdad = ociparse($conn, $getEdad);
+                ocibindbyname($queryGetEdad, ":edad", $edad, 100);
+                ocibindbyname($queryGetEdad, ":id", $fila['PERSONA_ID']);
+                ociexecute($queryGetEdad);
                 $_SESSION['id'] = $fila['PERSONA_ID'];
 
                 $nombre = $fila['NOMBRE'] .' '. $fila['PRIMERAPELLIDO'] .' '. $fila['SEGUNDOAPELLIDO'];

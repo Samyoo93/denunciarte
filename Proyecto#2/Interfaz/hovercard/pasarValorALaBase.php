@@ -93,7 +93,7 @@
                         || ($_FILES["imgfile"]["type"] == "text/plain")
                         || ($_FILES["imgfile"]["type"] == "application/msword")
                         || ($_FILES["imgfile"]["type"] == "application/vnd.oasis.opendocument.text")
-                        && ($_FILES["imgfile"]["size"] < 200000)) {
+                        && ($_FILES["imgfile"]["size"] < 200000000)) {
                     $random = rand(0,100);
                     move_uploaded_file($_FILES["imgfile"]["tmp_name"],
                                                "C:/xampp/htdocs/Github/Proyecto#2/Interfaz/UploadedImgs/".$random."$filename");
